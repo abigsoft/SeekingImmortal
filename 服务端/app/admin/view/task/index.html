@@ -1,0 +1,217 @@
+{extend name='public/_container'} {block name="content"}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="btn-group-sm pull-left" id="CodeGoodsTableToolbar" role="group" style="margin-top: 10px;">
+                            {if $admin_info.is_admin == 1 || in_array('task/update',$admin_rule)}
+                            <button type="button" id="add" class="btn btn-success button-margin"
+                                    onclick="TableList.update(0)">
+                                <i class="fa fa-plus"></i>&nbsp;添加
+                            </button>
+                            {/if}
+                            {if $admin_info.is_admin == 1 || in_array('task/delete',$admin_rule)}
+                            <button type="button" id="delete" class="btn btn-danger button-margin"
+                                    onclick="TableList.delete()">
+                                <i class="fa fa-trash"></i>&nbsp;删除
+                            </button>
+                            {/if}
+                        </div>
+                        <table id="TableList" data-mobile-responsive="true" data-click-to-select="true">
+                            <thead>
+                            <tr>
+                                <th data-field="selectItem" data-checkbox="true"></th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__ADMIN__/js/common/listCom.js" charset="utf-8"></script>
+<script>
+    var TableList = {id: "TableList", seItem: null, table: null, layerIndex: -1};
+
+    TableList.initColumn = function () {
+        return [
+            {field: 'selectItem', checkbox: true},
+            {title: '编号', field: 'id', visible: true, align: 'center', valign: 'middle'},
+            {title: '标题', field: 'title', visible: true, align: 'center', valign: 'middle'},
+            {
+                title: '任务类型',
+                field: 'type',
+                visible: true,
+                align: 'center',
+                valign: 'middle',
+                formatter: TableList.typeFormatter
+            },
+            {
+                title: '表达式',
+                field: 'rule',
+                visible: true,
+                align: 'center',
+                valign: 'middle'
+            },
+            {title: '字符串', field: 'target', visible: true, align: 'center', valign: 'middle'},
+            {title: '任务参数', field: 'parameter', visible: true, align: 'center', valign: 'middle'},
+            {title: '备注', field: 'remark', visible: true, align: 'center', valign: 'middle'},
+            {title: '排序', field: 'sort', visible: true, align: 'center', valign: 'middle'},
+            {
+                title: '状态',
+                field: 'status',
+                visible: true,
+                align: 'center',
+                valign: 'middle',
+                formatter: TableList.statusFormatter
+            },
+            {title: '单次执行', field: 'singleton', visible: true, align: 'center', valign: 'middle',formatter: TableList.singletonFormatter},
+            {title: '运行次数', field: 'running_times', visible: true, align: 'center', valign: 'middle', sortable: true},
+            {title: '上次执行耗时', field: 'last_running_time', visible: true, align: 'center', valign: 'middle', sortable: true},
+            {
+                title: '操作',
+                field: '',
+                visible: true,
+                align: 'center',
+                valign: 'middle',
+                formatter: TableList.buttonFormatter
+            },
+        ];
+    };
+
+    TableList.buttonFormatter = function (value, row, index) {
+        if (row.id) {
+            var str = '';
+            str += "{if $admin_info.is_admin == 1 || in_array('task/restart',$admin_rule)}";
+            str += '<button type="button" class="btn btn-warning btn-xs" title="重启"  onclick="TableList.restart(' + row.id + ')"><i class="fa fa-power-off"></i>&nbsp;重启</button>&nbsp;';
+            str += "{/if}";
+            str += "{if $admin_info.is_admin == 1 || in_array('task/update',$admin_rule)}";
+            str += '<button type="button" class="btn btn-success btn-xs" title="修改"  onclick="TableList.update(' + row.id + ')"><i class="fa fa-pencil"></i>&nbsp;修改</button>&nbsp;';
+            str += "{/if}";
+            str += "{if $admin_info.is_admin == 1 || in_array('task/delete',$admin_rule)}";
+            str += '<button type="button" class="btn btn-danger btn-xs" title="删除"  onclick="TableList.delete(' + row.id + ')"><i class="fa fa-trash"></i>&nbsp;删除</button>&nbsp;';
+            str += "{/if}";
+            return str;
+        }
+    }
+
+    TableList.statusFormatter = function (value, row, index) {
+        return listCom.formatStr(value, [
+            {'key': 0, 'val': '禁用'},
+            {'key': 1, 'val': '启用'},
+        ]);
+    }
+
+    TableList.singletonFormatter = function (value, row, index) {
+        return listCom.formatStr(value, [
+            {'key': 0, 'val': '是'},
+            {'key': 1, 'val': '否'},
+        ]);
+    }
+
+    TableList.typeFormatter = function (value, row, index) {
+        return listCom.formatStr(value, [
+            {'key': 1, 'val': '<span class="label label-success">command</span>'},
+            {'key': 2, 'val': '<span class="label label-success">class</span>'},
+            {'key': 3, 'val': '<span class="label label-success">url</span>'},
+            {'key': 4, 'val': '<span class="label label-success">eval</span>'},
+            {'key': 5, 'val': '<span class="label label-success">shell</span>'},
+        ]);
+    }
+
+    TableList.formParams = function () {
+        var queryData = {};
+        return queryData;
+    }
+
+    TableList.update = function (value) {
+        layer.open({
+            type: 2,
+            title: '修改',
+            area: ['90%', '90%'],
+            fix: false,
+            maxmin: true,
+            content: "{:url('update')}?id=" + value
+        });
+    }
+
+    TableList.check = function () {
+        var selected = $('#' + this.id).bootstrapTable('getSelections');
+        if (selected.length === 0) {
+            com.info("请先选中表格中的某一记录！");
+            return false;
+        } else {
+            TableList.seItem = selected;
+            return true;
+        }
+    };
+
+
+    TableList.delete = function (value) {
+        if (value) {
+            com.confirm("是否删除选中项？", function () {
+                var ajax = new $ax("{:url('delete')}", function (res) {
+                    if (res.status === 200) {
+                        com.success(res.msg);
+                        TableList.table.refresh();
+                    } else {
+                        com.error(res.msg);
+                    }
+                });
+                ajax.set('id', value);
+                ajax.start();
+            });
+        } else {
+            if (this.check()) {
+                var idx = '';
+                $.each(TableList.seItem, function () {
+                    idx += ',' + this.id;
+                });
+                idx = idx.substr(1);
+                com.confirm("是否删除选中项？", function () {
+                    var ajax = new $ax("{:url('delete')}", function (res) {
+                        if (res.status === 200) {
+                            com.success(res.msg, 1000);
+                            TableList.table.refresh();
+                        } else {
+                            com.error(res.msg, 1000);
+                        }
+                    });
+                    ajax.set('id', idx);
+                    ajax.start();
+                });
+            }
+        }
+    }
+
+    TableList.restart = function (value) {
+        if (value) {
+            com.confirm("是否重启该任务？", function () {
+                var ajax = new $ax("{:url('restart')}", function (res) {
+                    if (res.status === 200) {
+                        com.success(res.msg);
+                        TableList.table.refresh();
+                    } else {
+                        com.error(res.msg);
+                    }
+                });
+                ajax.set('id', value);
+                ajax.start();
+            });
+        }
+    }
+
+    TableList.search = function () {
+        TableList.table.refresh({query: TableList.formParams()});
+    };
+
+    $(function () {
+        var table = new BSTable(TableList.id, "{:url('index')}" + location.search, TableList.initColumn());
+        table.setQueryParams(TableList.formParams());
+        TableList.table = table.init();
+    });
+</script>
+{/block}

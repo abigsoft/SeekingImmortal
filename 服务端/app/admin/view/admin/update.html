@@ -1,0 +1,118 @@
+{extend name='public/_container'}
+{block name="content"}
+<div class="row">
+    <form class="form-horizontal" id="doSubmit">
+        <div class="col-sm-12">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <!-- form start -->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户名：</label>
+                        <div class="col-sm-9">
+                            <input type="text" autocomplete="off" id="username" value="{$info.username}" name="username" class="form-control" placeholder="请输入用户名" {if $id!=0} readonly {/if}>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">真实姓名：</label>
+                        <div class="col-sm-9">
+                            <input type="text" autocomplete="off" id="fullname" value="{$info.fullname}" name="fullname" class="form-control" placeholder="请输入真实姓名">
+                        </div>
+                    </div>
+
+                    {if $id == 0 }
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">密码：</label>
+                        <div class="col-sm-9">
+                            <input type="password" autocomplete="off" id="password" value="" name="password" class="form-control" placeholder="请输入密码">
+                        </div>
+                    </div>
+                    {/if}
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">所属分组：</label>
+                        <div class="col-sm-9">
+                            <select name="role_id" class="form-control chosen" data-placeholder='请选择所属分组'  id="role_id">
+                                {foreach $role_list as $v}
+                                    <option value="{$v.id}" {if $v.id == $info['role_id']}selected{/if}>{$v.title}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group layui-form">
+                        <label class="col-sm-2 control-label">状态：</label>
+                        <div class="col-sm-9">
+                            <input name="status" value="1" type="radio" checked title="正常">
+                            <input name="status" value="0" type="radio" {if condition="$info.status eq '0'"}checked{/if} title="禁用">
+                        </div>
+                    </div>
+                    {if $admin_info.is_admin == 1 }
+                    <div class="form-group layui-form">
+                        <label class="col-sm-2 control-label">超级管理：</label>
+                        <div class="col-sm-9">
+                            <input name="is_admin" value="1" type="radio" checked title="是">
+                            <input name="is_admin" value="0" type="radio" {if $info.is_admin == 0} checked {/if} title="否">
+                        </div>
+                    </div>
+                    {/if}
+                    <!-- form end -->
+                    <div class="hr-line-dashed"></div>
+                    <div class="row btn-group-m-t">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-primary" onclick="InfoDlg.submit()" id="ensure">
+                                <i class="fa fa-check"></i>&nbsp;确认提交
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="InfoDlg.close()" id="cancel"
+                                    style="margin-left: 20px">
+                                <i class="fa fa-remove"></i>&nbsp;取消关闭
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<script type="text/javascript">
+    var InfoDlg = {
+        formData: {},
+    }
+
+    InfoDlg.collectData = function () {
+        this.set('username').set('password').set('fullname').set('role_id');
+    }
+
+    InfoDlg.Validate = function () {
+
+        return true;
+    }
+
+    InfoDlg.submit = function () {
+        this.collectData();
+        if (!this.Validate()) {
+            return;
+        }
+
+        const status = $("input[name = 'status']:checked").val();
+        const is_admin = $("input[name = 'is_admin']:checked").val();
+
+        const ajax = new $ax("{:url('update',['id'=>$id])}", function (res) {
+            if (res.status === 200) {
+                com.success(res.msg, 1000);
+                window.parent.TableList.table.refresh();
+                InfoDlg.close();
+            } else {
+                com.error(res.msg + "！", 1000);
+            }
+        });
+        ajax.set('status', status);
+        ajax.set('is_admin', is_admin);
+        ajax.set(this.formData);
+        ajax.start();
+    };
+</script>
+<script src="__ADMIN__/js/common/formCom.js" charset="utf-8"></script>
+{/block}

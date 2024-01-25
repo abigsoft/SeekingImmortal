@@ -1,0 +1,150 @@
+{extend name='public/_container'}
+{block name="content"}
+<div class="row">
+    <form class="form-horizontal" id="doSubmit">
+        <div class="col-sm-12">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">所属区域：</label>
+                        <div class="col-sm-9">
+                            <select name="area" class="form-control chosen" data-placeholder='请选择显示区域'  id="area">
+                                <option value="" selected>无</option>
+                                <option value="学员首页" {if '学员首页' == $info['area']}selected{/if}>学员首页</option>
+                                <option value="学员通知" {if '学员通知' == $info['area']}selected{/if}>学员通知</option>
+                                <option value="动态资讯" {if '动态资讯' == $info['area']}selected{/if}>动态资讯</option>
+                                <option value="宣传视频" {if '宣传视频' == $info['area']}selected{/if}>宣传视频</option>
+                                <option value="荣誉历程" {if '荣誉历程' == $info['area']}selected{/if}>荣誉历程</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">键：</label>
+                        <div class="col-sm-9">
+                            <input type="text" autocomplete="off" id="key" value="{$info.key}" name="key"
+                                   class="form-control" placeholder="请输入键名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">标题：</label>
+                        <div class="col-sm-9">
+                            <input type="text" autocomplete="off" id="title" value="{$info.title}" name="title"
+                                   class="form-control" placeholder="请输入标题">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">关键词：</label>
+                        <div class="col-sm-9">
+                            <input type="text" autocomplete="off" id="keywords" value="{$info.keywords}" name="keywords"
+                                   class="form-control" placeholder="请输入关键词">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">封面图：</label>
+                        <div class="col-sm-6">
+                            <input type="text" autocomplete="off" id="head_img" value="{$info.head_img}"
+                                   onmousemove="showBigPic(this.value)" onmouseout="closeimg()" name="head_img"
+                                   class="form-control" placeholder="请输入封面图">
+                            <span class="help-block m-b-none head_img_process"></span>
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-2" style="position:relative; right:30px;">
+                            <span id="head_img_upload"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">内容：</label>
+                        <div class="col-sm-9">
+                            <textarea id="content" type="text/plain" name="content" style="width:100%;height:300px;">{:htmlspecialchars_decode($info.content)}</textarea>
+                            <script type="text/javascript">
+                                var ue = UE.getEditor(
+                                    'content',
+                                    {
+                                        serverUrl: '{:url("Upload/uploadUeditor")}',
+                                        scaleEnabled: true
+                                    }
+                                );
+                            </script>
+                        </div>
+                    </div>
+
+                    <div class="form-group layui-form">
+                        <label class="col-sm-2 control-label">状态：</label>
+                        <div class="col-sm-9">
+                            <input name="status" value="0" type="radio" checked title="禁用">
+                            <input name="status" value="1" type="radio" {if $info.status==1} checked {/if} title="正常">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">排序值</label>
+                        <div class="col-sm-9">
+                            <input type="number" autocomplete="off" id="sort" value="{$info.sort ? : 0}"
+                                   name="sort" class="form-control" placeholder="请输入排序值，数字越小越靠后" min="0" step="1">
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="row btn-group-m-t">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-primary" onclick="InfoDlg.submit()" id="ensure">
+                                <i class="fa fa-check"></i>&nbsp;确认提交
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="InfoDlg.close()" id="cancel" style="margin-left: 20px">
+                                <i class="fa fa-remove"></i>&nbsp;取消关闭
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    uploader('head_img_upload', 'head_img', 'image', false, '', "{:url('upload/upload')}");
+    layui.use(['form'], function () {
+    });
+    var InfoDlg = {
+        formData: {},
+    }
+
+    InfoDlg.collectData = function () {
+        this.set('key').set('title').set('keywords').set('area').set('sort').set('head_img');
+    };
+
+    InfoDlg.Validate = function (){
+        return true;
+    }
+
+    InfoDlg.submit = function () {
+        this.clearData();
+        this.collectData();
+        if (!this.Validate()) {
+            return;
+        }
+        const status = $("input[name = 'status']:checked").val();
+        const content = UE.getEditor('content').getContent();
+        const ajax = new $ax("{:url('update',['id'=>$id])}", function (data) {
+            if (data.status === 200) {
+                com.success(data.msg, 1000);
+                window.parent.TableList.table.refresh();
+                InfoDlg.close();
+            } else {
+                com.error(data.msg + "！", 1000);
+            }
+        })
+        ajax.set('status', status);
+        ajax.set('content', content);
+        ajax.set(this.formData);
+        ajax.start();
+    };
+
+
+</script>
+<script src="__ADMIN__/js/common/formCom.js" charset="utf-8"></script>
+{/block}

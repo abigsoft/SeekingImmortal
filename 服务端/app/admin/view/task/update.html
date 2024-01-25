@@ -1,0 +1,166 @@
+{extend name='public/_container'}
+{block name="content"}
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal" id="CodeInfoForm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- form start -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">标题：</label>
+                        <div class="col-sm-8">
+                            <input type="text" autocomplete="off" id="title" value="{$info.title}" name="title"
+                                   class="form-control" placeholder="请输入标题">
+                        </div>
+                    </div>
+                    <div class="form-group layui-form">
+                        <label class="col-sm-3 control-label">任务类型：</label>
+                        <div class="col-sm-8">
+                            <select name="type" id="type">
+                                <option value="1" selected>command</option>
+                                <option value="2" {if $info.type== 2} selected {
+                                /if}>class</option>
+                                <option value="3" {if $info.type== 3} selected {
+                                /if}>url</option>
+                                <option value="4" {if $info.type== 4} selected {
+                                /if}>eval</option>
+                                <option value="5" {if $info.type== 5} selected {
+                                /if}>shell</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">时间规则：</label>
+                        <div class="col-sm-8">
+                            <div>
+                                <input type="text" autocomplete="off" id="rule" value="{$info.rule}" name="rule"
+                                       class="form-control" placeholder="请输入Cron执行表达式">
+                            </div>
+                            <div style="">
+                                <pre style="background-color: grey;border-radius: 5px;color: white;padding: 20px">
+<code>0   1   2   3   4   5
+|   |   |   |   |   |
+|   |   |   |   |   +------ day of week (0 - 6) (Sunday=0)
+|   |   |   |   +------ month (1 - 12)
+|   |   |   +-------- day of month (1 - 31)
+|   |   +---------- hour (0 - 23)
+|   +------------ min (0 - 59)
++-------------- sec (0-59)[可省略，如果没有0位,则最小时间粒度是分钟]</code></pre>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">调用目标：</label>
+                        <div class="col-sm-8">
+                            <input type="text" autocomplete="off" id="target" value="{$info.target}" name="target"
+                                   class="form-control" placeholder="请输入调用任务字符串">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">调用参数：</label>
+                        <div class="col-sm-8">
+                            <input type="text" autocomplete="off" id="parameter" value="{$info.parameter}"
+                                   name="parameter" class="form-control" placeholder="请输入调用任务参数">
+                        </div>
+                    </div>
+
+                    <div class="form-group layui-form">
+                        <label class="col-sm-3 control-label">状态：</label>
+                        <div class="col-sm-8">
+                            <input name="status" value="1" type="radio" checked title="正常">
+                            <input name="status" value="0" type="radio" {if condition="$info.status eq '0'" }checked{/if}
+                            title="禁用">
+                        </div>
+                    </div>
+
+                    <div class="form-group layui-form">
+                        <label class="col-sm-3 control-label">单次执行：</label>
+                        <div class="col-sm-8">
+                            <select name="singleton" id="singleton">
+                                <option value="1" selected>否</option>
+                                <option value="0" {if $info.singleton== 0} selected {
+                                /if}>是</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">排序：</label>
+                        <div class="col-sm-8">
+                            <input type="number" autocomplete="off" id="sort" value="{$info.sort}" name="sort"
+                                   class="form-control" placeholder="请输入排序">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">备注：</label>
+                        <div class="col-sm-8">
+                            <textarea id="remark" name="remark" class="form-control" placeholder="请输入备注">{$info.remark}</textarea>
+                        </div>
+                    </div>
+                    <!-- form end -->
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-9 col-sm-offset-1">
+                    <button type="button" class="btn btn-primary" onclick="InfoDlg.submit()" id="ensure">
+                        <i class="fa fa-check"></i> 确认提交
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="InfoDlg.close()" id="cancel">
+                        <i class="fa fa-eraser"></i> 取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var InfoDlg = {
+        formData: {},
+    }
+
+    InfoDlg.collectData = function () {
+        this.set('title')
+            .set('type')
+            .set('rule')
+            .set('target')
+            .set('parameter')
+            .set('remark')
+            .set('sort')
+            .set('singleton');
+    };
+
+    InfoDlg.Validate = function () {
+        return true;
+    }
+
+    InfoDlg.submit = function () {
+        this.collectData();
+        if (!this.Validate()) {
+            return;
+        }
+        const status = $("input[name = 'status']:checked").val();
+        const ajax = new $ax("{:url('update',['id'=>$id])}", function (res) {
+            if (res.status === 200) {
+                com.success(res.msg, 1000);
+                window.parent.TableList.table.refresh();
+                InfoDlg.close();
+            } else {
+                com.error(res.msg + "！", 1000);
+            }
+        });
+        ajax.set('status', status);
+        ajax.set(this.formData);
+        ajax.start();
+    };
+</script>
+<script src="__ADMIN__/js/common/formCom.js" charset="utf-8"></script>
+{/block}

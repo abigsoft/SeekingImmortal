@@ -1,0 +1,13 @@
+{
+  "name": "abigsoft/like-webman-tp",
+  "type": "library",
+  "license": "MIT",
+  "description": "Webman plugin abigsoft/like-webman-tp",
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Abigsoft\\LikeWebmanTp\\": "src"
+    }
+  }
+}

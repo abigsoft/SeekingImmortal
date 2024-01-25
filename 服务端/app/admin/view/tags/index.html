@@ -1,0 +1,203 @@
+{extend name='public/_container'} {block name="content"}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row" id="searchGroup">
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                                type="button">关键字
+                                        </button>
+                                    </div>
+                                    <input type="text" autocomplete="off" class="form-control" id="keywords"
+                                           placeholder="关键字"/>
+                                </div>
+                            </div>
+                            <!-- search end -->
+                            <div class="col-sm-2">
+                                <button type="button" class="btn btn-success " onclick="TableList.search()">
+                                    <i class="fa fa-search"></i>&nbsp;搜索
+                                </button>
+
+                            </div>
+                        </div>
+                        <div class="btn-group-sm pull-left" id="CodeGoodsTableToolbar" role="group" style="margin-top: 15px;">
+                            {if $admin_info.is_admin == 1 || in_array('tags/update',$admin_rule)}
+                            <button type="button" id="create" class="btn btn-primary button-margin"
+                                    onclick="TableList.update(0)">
+                                <i class="fa fa-plus"></i>&nbsp;添加
+                            </button>
+                            {/if}
+                            {if $admin_info.is_admin == 1 || in_array('tags/delete',$admin_rule)}
+                            <button type="button" id="delete" class="btn btn-danger button-margin"
+                                    onclick="TableList.delete()">
+                                <i class="fa fa-trash"></i>&nbsp;删除
+                            </button>
+                            {/if}
+                        </div>
+                        <table id="TableList" data-mobile-responsive="true" data-click-to-select="true">
+                            <thead>
+                            <tr>
+                                <th data-field="selectItem" data-checkbox="true"></th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__ADMIN__/js/common/listCom.js" charset="utf-8"></script>
+<script>
+    var TableList = {id: "TableList", seItem: null, table: null, layerIndex: -1};
+
+    TableList.initColumn = function () {
+        return [
+            {field: 'selectItem', checkbox: true},
+            {title: '编号', field: 'id', visible: true, align: 'center', valign: 'middle'},
+            {title: '键', field: 'key', visible: true, align: 'center', valign: 'middle'},
+            {title: '显示区域', field: 'area', visible: true, align: 'center', valign: 'middle'},
+            {title: '标题', field: 'title', visible: true, align: 'center', valign: 'middle'},
+            {
+                title: '封面图',
+                field: 'head_img',
+                visible: true,
+                align: 'center',
+                valign: 'middle',
+                formatter: TableList.picFormatter
+            },
+            {
+                title: '状态',
+                field: 'status',
+                visible: true,
+                align: 'center',
+                valign: 'middle',
+                formatter: TableList.statusFormatter,
+                width:60
+            },
+            {title: '关键词', field: 'keywords', visible: true, align: 'center', valign: 'middle'},
+            {title: '排序值', field: 'sort', visible: true, align: 'center', valign: 'middle'},
+            {title: '创建时间', field: 'create_time', visible: true, align: 'center', valign: 'middle'},
+            {
+                title: '操作',
+                field: '',
+                visible: true,
+                align: 'center',
+                valign: 'middle',
+                formatter: TableList.buttonFormatter
+            },
+        ];
+    };
+
+
+    TableList.buttonFormatter = function (value, row, index) {
+        if (row.id) {
+            var str = '';
+            str += "{if $admin_info.is_admin == 1 || in_array('tags/update',$admin_rule)}";
+            str += '<button type="button" class="btn btn-success btn-xs" title="修改"  onclick="TableList.update(' + row.id + ')"><i class="fa fa-pencil"></i>&nbsp;修改</button>&nbsp;';
+            str += "{/if}";
+            str += "{if $admin_info.is_admin == 1 || in_array('tags/delete',$admin_rule)}";
+            str += '<button type="button" class="btn btn-danger btn-xs" title="删除"  onclick="TableList.delete(' + row.id + ')"><i class="fa fa-trash"></i>&nbsp;删除</button>&nbsp;';
+            str += "{/if}";
+            return str;
+        }
+    }
+
+    TableList.formParams = function () {
+        var queryData = {};
+        queryData['keywords'] = $("#keywords").val();
+        return queryData;
+    }
+
+    TableList.picFormatter = function (value, row, index) {
+        return listCom.picFormatter(value);
+    }
+
+    TableList.arrowFormatter = function(value,row,index) {
+        return listCom.order(row.id,row.sort,"{:url('arrow')}");
+    }
+
+    TableList.statusFormatter = function (value, row, index) {
+        let res = "";
+        let str = "{if $admin_info.is_admin == 1 || in_array('tags/status',$admin_rule)}";
+        res = listCom.switchBtn(row.id, 'status', value === 1 ? 0 : 1, "{:url('status')}");
+        str = "{/if}";
+        return res;
+    }
+
+    TableList.update = function (value) {
+        var index = layer.open({
+            type: 2,
+            title: '修改',
+            area: ['70%', '80%'],
+            fix: false,
+            maxmin: true,
+            content: "{:url('update')}?id=" + value
+        });
+    }
+
+    TableList.check = function () {
+        var selected = $('#' + this.id).bootstrapTable('getSelections');
+        if (selected.length === 0) {
+            com.info("请先选中表格中的某一记录！");
+            return false;
+        } else {
+            TableList.seItem = selected;
+            return true;
+        }
+    };
+
+    TableList.delete = function (value) {
+        if (value) {
+            com.confirm("是否删除选中项？", function () {
+                var ajax = new $ax("{:url('delete')}", function (data) {
+                    if (200 === data.status) {
+                        com.success(data.msg);
+                        TableList.table.refresh();
+                    } else {
+                        com.error(data.msg);
+                    }
+                });
+                ajax.set('id', value);
+                ajax.start();
+            });
+        } else {
+            if (this.check()) {
+                var idx = '';
+                $.each(TableList.seItem, function () {
+                    idx += ',' + this.id;
+                });
+                idx = idx.substr(1);
+                com.confirm("是否删除选中项？", function () {
+                    var ajax = new $ax("{:url('delete')}", function (data) {
+                        if (200 === data.status) {
+                            com.success(data.msg, 1000);
+                            TableList.table.refresh();
+                        } else {
+                            com.error(data.msg, 1000);
+                        }
+                    });
+                    ajax.set('id', idx);
+                    ajax.start();
+                });
+            }
+        }
+    }
+
+
+    TableList.search = function () {
+        TableList.table.refresh({query: TableList.formParams()});
+    };
+
+    $(function () {
+        var table = new BSTable(TableList.id, "{:url('index')}" + location.search, TableList.initColumn());
+        table.setQueryParams(TableList.formParams());
+        TableList.table = table.init();
+    });
+</script>
+{/block}

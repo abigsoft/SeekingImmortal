@@ -1,0 +1,107 @@
+{
+  "name": "workerman/webman",
+  "type": "project",
+  "keywords": [
+    "high performance",
+    "http service"
+  ],
+  "homepage": "https://www.workerman.net",
+  "license": "MIT",
+  "description": "High performance HTTP Service Framework.",
+  "authors": [
+    {
+      "name": "walkor",
+      "email": "walkor@workerman.net",
+      "homepage": "https://www.workerman.net",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "walkor@workerman.net",
+    "issues": "https://github.com/walkor/webman/issues",
+    "forum": "https://wenda.workerman.net/",
+    "wiki": "https://workerman.net/doc/webman",
+    "source": "https://github.com/walkor/webman"
+  },
+  "require": {
+    "php": ">=7.2",
+    "workerman/webman-framework": "^1.5.0",
+    "monolog/monolog": "^2.0",
+    "webman/think-orm": "^1.1",
+    "illuminate/events": "^8.83",
+    "symfony/cache": "^5.2",
+    "twig/twig": "^3.8",
+    "topthink/think-template": "^2.0",
+    "illuminate/database": "^8.83",
+    "illuminate/pagination": "^8.83",
+    "symfony/var-dumper": "^5.4",
+    "topthink/think-validate": "^2.0",
+    "jasongrimes/paginator": "^1.0.3",
+    "symfony/translation": "^5.4",
+    "intervention/image": "^2.7",
+    "webman/captcha": "^1.0",
+    "vlucas/phpdotenv": "^5.6",
+    "workerman/crontab": "^1.0",
+    "webman/gateway-worker": "^1.0",
+    "ext-json": "*",
+    "webman/think-cache": "^1.0",
+    "webman/event": "^1.0",
+    "zjkal/time-helper": "^1.1",
+    "shopwwi/webman-socialite": "^1.0",
+    "yzh52521/easyhttp": "^1.1",
+    "workbunny/webman-ip-attribution": "^1.0",
+    "next/var-dumper": "^0.1.0",
+    "xy_jx/utils": "^0.7.1",
+    "webman/log": "^1.1",
+    "tinywan/weather": "^0.0.1",
+    "yzh52521/webman-jwt-auth": "^3.0",
+    "yzh52521/webman-task": "^1.48",
+    "taoser/webman-validate": "^1.7",
+    "shopwwi/webman-auth": "^1.1",
+    "tinywan/storage": "^1.0",
+    "shopwwi/webman-filesystem": "^1.0",
+    "webman/redis-queue": "^1.2",
+    "illuminate/redis": "^8.83",
+    "webman/action-hook": "^1.0",
+    "isszz/webman-sensitive": "^0.0.5",
+    "webman/console": "^1.3",
+    "liliuwei/thinkphp-auth": "^1.0",
+    "psr/container": "^1.1.1",
+    "php-di/php-di": "^6",
+    "doctrine/annotations": "^1.14",
+    "guzzlehttp/guzzle": "^7.8",
+    "tinywan/jwt": "^1.8",
+    "ramsey/uuid": "^4.7"
+  },
+  "suggest": {
+    "ext-event": "For better performance. "
+  },
+  "autoload": {
+    "psr-4": {
+      "Abigsoft\\LikeWebmanTp\\" : "vendor/abigsoft/like-webman-tp/src",
+      "": "./",
+      "app\\": "./app",
+      "App\\": "./app",
+      "app\\View\\Components\\": "./app/view/components"
+    },
+    "files": [
+      "./support/helpers.php"
+    ]
+  },
+  "scripts": {
+    "post-package-install": [
+      "support\\Plugin::install"
+    ],
+    "post-package-update": [
+      "support\\Plugin::install"
+    ],
+    "pre-package-uninstall": [
+      "support\\Plugin::uninstall"
+    ]
+  },
+  "config": {
+    "allow-plugins": {
+      "topthink/think-installer": false
+    }
+  }
+}

@@ -22,34 +22,55 @@ class Register extends BaseController
         if (!$validate->scene('register')->check($param)) {
             throw new ParamException($validate->getError());
         }
-
-        $nature = $this->request->param('nature',0);
-        if(!in_array($nature,[0,1,2,3])){
-            throw new ParamException('性格错误');
-        }
-
         $uuid = get_uuid();
         MemberModel::create([
             'uid' => $uuid,
             'account' => $param['account'],
             'password' => buildPass($param['password']),
             'nickname' => $param['nickname'],
-            'callname' => '主人',
             'sex' => $param['sex'],
             'steam_id' => '',
-            'is_clever' => $nature == 1 ? 1 : 0,//是否聪明
-            'is_kindness' => $nature == 2 ? 1 : 0,//是否善良
-            'is_brave' => $nature == 3 ? 1 : 0,//是否勇敢
+            'account_status' => 1,
+            'character_status' => 0,
+            'level_id' => 0,
+            'data_exp' => 0,
+            'data_insight' => 0,
+            'data_fortune' => 0,
+            'data_physical' => 0,
+            'data_physical_max' => 0,
+            'data_gold_coin' => 0,
+            'data_spirit_stone' => 0,
+            'equip_super_id' => 0,
+            'equip_head_id' => 0,
+            'equip_weapon_id' => 0,
+            'equip_tops_id' => 0,
+            'equip_pants_id' => 0,
+            'equip_shoes_id' => 0,
+            'equip_jewelry_id' => 0,
+            'mask_title_id' => 0,
+            'mask_title_name' => 0,
+            'world_blood' => 0,
+            'world_blood_max' => 0,
+            'world_attack_physics' => 0,
+            'world_attack_magic' => 0,
+            'world_defense_physics' => 0,
+            'world_defense_magic' => 0,
+            'world_speed' => 1,
+            'world_critical_rate' => 0,
+            'world_critical_data' => 0,
+            'world_sure' => 0,
+            'world_evade' => 0,
+            'world_online_time' => 0,
         ]);
-        $token = $this->makeToken($uuid,$param['nickname']);
-        return $this->success('注册成功',$token);
+        $token = $this->makeToken($uuid, $param['nickname']);
+        return $this->success('注册成功', $token);
     }
 
-    protected function makeToken($uid,$name = ''): string
+    protected function makeToken($uid, $name = ''): string
     {
         $user = [
-            'id'  => $uid,
-            'name'  => $name,
+            'id' => $uid,
+            'name' => $name,
             'client' => JwtToken::TOKEN_CLIENT_MOBILE
         ];
         /**

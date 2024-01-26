@@ -22,15 +22,16 @@ class ExceptionHandler extends \Webman\Exception\ExceptionHandler
 
     public function render(Request $request, Throwable $exception): Response
     {
-        LogExceptionModel::create([
-            'uid' => $request->uid ?? '',
-            'type' => substr($exception->getTraceAsString(),0,50),
-            'file' => $exception->getFile(),
-            'line' => $exception->getLine(),
-            'message' => $exception->getMessage(),
-            'code' => $exception->getCode(),
-        ]);
-
+        if(!env('DEBUG')){
+            LogExceptionModel::create([
+                'uid' => $request->uid ?? '',
+                'type' => substr($exception->getTraceAsString(),0,50),
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+                'message' => $exception->getMessage(),
+                'code' => $exception->getCode(),
+            ]);
+        }
         if (($exception instanceof BaseException) && ($response = $exception->render($request))) {
             return $response;
         }

@@ -17,6 +17,7 @@ global $argv;
 return [
     // File update detection and automatic reload
     'monitor' => [
+        'name' => '文件变动监听',
         'handler' => process\Monitor::class,
         'reloadable' => false,
         'constructor' => [
@@ -38,5 +39,9 @@ return [
                 'enable_memory_monitor' => DIRECTORY_SEPARATOR === '/',
             ]
         ]
-    ]
+    ],
+    'MemberOnline' => [
+        'name' => '玩家在线监听',
+        'handler'  => app\common\task\MemberOnline::class
+    ],
 ];

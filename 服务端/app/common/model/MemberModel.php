@@ -12,5 +12,6 @@ class MemberModel extends BaseModel
     public static function onAfterWrite(\think\Model $model)
     {
         \support\Redis::set('user_info_' . $model->uid, $model->toJson());
+        \support\Redis::hSet('task:member_list',$model->uid,$model->toJson());
     }
 }

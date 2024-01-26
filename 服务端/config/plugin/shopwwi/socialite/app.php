@@ -16,7 +16,7 @@
  */
 
  return [
-     'enable' => true,
+     'enable' => false,
      'driver' => [
          'qq' => [
              'provider' => \Shopwwi\WebmanSocialite\Providers\QQProvider::class,

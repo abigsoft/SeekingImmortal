@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'enable'  => true,
+    'enable'  => false,
     'manager' => [
         //是否开启黑名单，单点登录和多点登录的注销、刷新使原token失效，必须要开启黑名单
         'blacklist_enabled'      => true,

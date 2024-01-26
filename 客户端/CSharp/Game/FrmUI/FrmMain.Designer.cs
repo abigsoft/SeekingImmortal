@@ -91,9 +91,9 @@
             label1.AutoSize = true;
             label1.Location = new Point(19, 20);
             label1.Name = "label1";
-            label1.Size = new Size(32, 17);
+            label1.Size = new Size(164, 17);
             label1.TabIndex = 0;
-            label1.Text = "寻仙";
+            label1.Text = "寻仙：敢问上天，可否有仙？";
             // 
             // FrmMain
             // 
@@ -108,7 +108,7 @@
             MaximizeBox = false;
             Name = "FrmMain";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FrmMain";
+            Text = "寻仙：敢问上天，可否有仙？";
             FormClosing += FrmMain_FormClosing;
             Load += FrmMain_Load;
             panel_main.ResumeLayout(false);

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "xlTvfV2vDgijl+/yyQX1JFPJDTzBsDyqgswcSNon0UthILwXuH6FGi+7XonhrkZ/jVbVLnKsMshatFYr7uKs6w==",
+  "success": true,
+  "projectFilePath": "F:\\www\\project\\寻仙：敢问上天，可否有仙？\\客户端\\CSharp\\AppLauncher\\AppLauncher.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\fishlee.net.simpleupdater\\5.1.2\\fishlee.net.simpleupdater.5.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}

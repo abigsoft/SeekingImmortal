@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34009.444
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppLauncher", "AppLauncher\AppLauncher.csproj", "{47710C1F-1BAF-47BB-8C06-31CF7188BDD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{988CA1BB-280C-4FD0-95CA-68D25FCE83AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47710C1F-1BAF-47BB-8C06-31CF7188BDD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47710C1F-1BAF-47BB-8C06-31CF7188BDD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47710C1F-1BAF-47BB-8C06-31CF7188BDD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47710C1F-1BAF-47BB-8C06-31CF7188BDD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{988CA1BB-280C-4FD0-95CA-68D25FCE83AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{988CA1BB-280C-4FD0-95CA-68D25FCE83AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{988CA1BB-280C-4FD0-95CA-68D25FCE83AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{988CA1BB-280C-4FD0-95CA-68D25FCE83AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {136F97AB-AC6B-4C01-8441-44974387BFD0}
+	EndGlobalSection
+EndGlobal

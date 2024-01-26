@@ -1,0 +1,16 @@
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\AppLauncher.csproj.AssemblyReference.cache
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\AppLauncher.GeneratedMSBuildEditorConfig.editorconfig
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\AppLauncher.AssemblyInfoInputs.cache
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\AppLauncher.AssemblyInfo.cs
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\AppLauncher.csproj.CoreCompileInputs.cache
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Debug\net6.0-windows\AppLauncher.exe
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Debug\net6.0-windows\AppLauncher.deps.json
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Debug\net6.0-windows\AppLauncher.runtimeconfig.json
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Debug\net6.0-windows\AppLauncher.dll
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Debug\net6.0-windows\AppLauncher.pdb
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\AppLauncher.csproj.CopyComplete
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\AppLauncher.dll
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\refint\AppLauncher.dll
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\AppLauncher.pdb
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\AppLauncher.genruntimeconfig.cache
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\ref\AppLauncher.dll

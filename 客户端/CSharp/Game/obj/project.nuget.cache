@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "nxpvkqt8VFxaDm7HWUL5zB50BcDhUF5vWAPHyFDfbYzDVUDRxVygcmYxF8sGT6s/Mkm+90oihjZBqtOh29prMg==",
+  "success": true,
+  "projectFilePath": "F:\\www\\project\\寻仙：敢问上天，可否有仙？\\客户端\\CSharp\\Game\\Game.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

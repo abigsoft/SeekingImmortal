@@ -14,7 +14,7 @@ return [
         'constructor' => ['config' => [
             'lanIp'           => '127.0.0.1',
             'startPort'       => 2300,
-            'pingInterval'    => 25,
+            'pingInterval'    => 30,
             'pingData'        => '{"type":"ping"}',
             'registerAddress' => '127.0.0.1:1236',
             'onConnect'       => function(){},

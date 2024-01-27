@@ -30,13 +30,26 @@ namespace Game.FrmUI
             InitializeComponent();
             this.default_width = this.Width;
             http.token = this.token = token;
-            this.InitSocket();
-            WebSocketManager.Instance.OnMessageReceived += Instance_OnMessageReceived;
+
+        }
+
+        private void SetupWebSocketEvents()
+        {
+            WebSocketManager.Instance.MessageReceived += Instance_OnMessageReceived;
+            WebSocketManager.Instance.ErrorOccurred += Instance_OnErrorOccurred;
         }
 
         private async void InitSocket()
         {
             await WebSocketManager.Instance.ConnectAsync(ConfigModel.socket_url + "/?token=" + this.token);
+        }
+
+        private void Instance_OnErrorOccurred(Exception ex)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                this.InitSocket();
+            });
         }
 
         private void Instance_OnMessageReceived(string message)
@@ -53,16 +66,23 @@ namespace Game.FrmUI
                 switch (JTokenHelper.ToStr(json["type"]))
                 {
                     case "system":
-
                         break;
                 }
-                //MessageBox.Show("Received message: " + message);
             }
         }
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
+            new FrmLoading(() =>
+            {
+                this.initAll();
+            }, this);
+        }
 
+        private void initAll()
+        {
+            this.InitSocket();
+            this.SetupWebSocketEvents();
         }
 
         bool is_mouse_move = false;
@@ -129,11 +149,13 @@ namespace Game.FrmUI
                     this.collapsedType = "right";
                 }
             }
+            this.TopMost = true;
+            panel_collapsed.BackColor = SystemColors.ActiveCaption;
         }
 
-        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        private async void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            WebSocketManager.Instance.OnMessageReceived -= Instance_OnMessageReceived;
+            await WebSocketManager.Instance.DisconnectAsync();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -170,6 +192,51 @@ namespace Game.FrmUI
                     break;
             }
             this.isCollapsed = false;
+            this.TopMost = false;
+
+        }
+
+        private async void heart_jump_Tick(object sender, EventArgs e)
+        {
+            await WebSocketManager.Instance.SendMessageAsync("{\"type\":\"ping\"}");
+            StrHelper.ClearMemory();
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                sendMessage();
+                e.Handled = true;
+            }
+        }
+
+        private void sendMessage()
+        {
+            this.textBox1.Text = "";
+            this.Focus();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            sendMessage();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void 显示ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.Activate();
+            this.WindowState = FormWindowState.Normal;
         }
     }
 }

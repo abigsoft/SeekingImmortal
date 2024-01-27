@@ -154,7 +154,7 @@ namespace Game.FrmUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)

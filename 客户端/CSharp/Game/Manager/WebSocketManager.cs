@@ -87,12 +87,15 @@ namespace Game.Manager
 
         public async Task DisconnectAsync()
         {
-            _cancellationTokenSource.Cancel();
-            if (_webSocket.State == WebSocketState.Open)
-            {
-                await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Client disconnected", CancellationToken.None);
+            if (_webSocket != null)
+            { 
+                if (_webSocket.State != WebSocketState.Closed && _webSocket.State != WebSocketState.Aborted)
+                {
+                    _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None).Wait();
+                }
+                _webSocket.Dispose();
+                _webSocket = null;
             }
-            _webSocket.Dispose();
         }
     }
 }

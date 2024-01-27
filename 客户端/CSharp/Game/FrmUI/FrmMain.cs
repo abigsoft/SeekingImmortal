@@ -117,40 +117,40 @@ namespace Game.FrmUI
 
         }
 
-        private void AllMouseLeave(object sender, EventArgs e)
+        private void AllMouseLeave(object? sender = null, EventArgs? e = null)
         {
             // 检查鼠标是否真的离开了窗体，而不是进入了某个子控件
             if (isCollapsed || this.ClientRectangle.Contains(this.PointToClient(Control.MousePosition)))
             {
                 return;
             }
-            // 窗体在屏幕左边或右边的边界内
+            // 窗体在屏幕左边或右边的边界
             WinformHelper.CalculateScreenWidth(out int minX, out int maxX);
 
             //向左折叠
             if (this.Location.X <= minX + this.collapsedWidth)
             {
                 this.Left = 0;
-                this.Width = 10;
-                this.panel_collapsed.Visible = true;
-                this.panel_main.Visible = false;
                 this.isCollapsed = true;
                 this.collapsedType = "left";
             }
-            else
+            else if (this.Location.X >= maxX - this.collapsedWidth - this.Width)
             {
-                if (this.Location.X >= maxX - this.collapsedWidth - this.Width)
-                {
-                    this.Location = new Point(maxX - 10, this.Location.Y);
-                    this.Width = 10;
-                    this.panel_collapsed.Visible = true;
-                    this.panel_main.Visible = false;
-                    this.isCollapsed = true;
-                    this.collapsedType = "right";
-                }
+                this.Location = new Point(maxX - 10, this.Location.Y);
+
+                this.isCollapsed = true;
+                this.collapsedType = "right";
             }
-            this.TopMost = true;
-            panel_collapsed.BackColor = SystemColors.ActiveCaption;
+
+            if (this.isCollapsed)
+            {
+                this.TopMost = true;
+                panel_collapsed.BackColor = SystemColors.ActiveCaption;
+                this.Width = 10;
+                this.panel_collapsed.Visible = true;
+                this.panel_main.Visible = false;
+            }
+
         }
 
         private async void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -160,7 +160,7 @@ namespace Game.FrmUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -229,7 +229,7 @@ namespace Game.FrmUI
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         private void 显示ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -237,6 +237,14 @@ namespace Game.FrmUI
             this.Show();
             this.Activate();
             this.WindowState = FormWindowState.Normal;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (!isCollapsed && !this.ClientRectangle.Contains(this.PointToClient(Control.MousePosition)))
+            {
+                AllMouseLeave();
+            }
         }
     }
 }

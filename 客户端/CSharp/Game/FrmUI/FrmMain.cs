@@ -12,6 +12,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Game.Entity;
+using Newtonsoft.Json;
 
 namespace Game.FrmUI
 {
@@ -67,8 +71,26 @@ namespace Game.FrmUI
                 {
                     case "system":
                         break;
+                    case "statistics":
+                        break;
+                    case "world":
+                        break;
                 }
             }
+        }
+
+        private void addSystemLog(string message, bool jump = true)
+        {
+            this.BeginInvoke(new Action(() =>
+            {
+                ListViewItem item = new ListViewItem(new string[] {
+                    message,
+                    DateTime.Now.ToString("HH:mm:ss"),
+                });
+                dataGridView2.Rows.Add(item);
+                //this.dataGridView2.Items[this.listView3.Items.Count - 1].EnsureVisible();
+            }));
+
         }
 
         private void FrmMain_Load(object sender, EventArgs e)
@@ -78,11 +100,46 @@ namespace Game.FrmUI
                 this.initAll();
             }, this);
         }
+        MemberEntity member_info = new MemberEntity();
+        private void initUser()
+        {
+            ResultEntity result = http.apiPost("member/info/info");
+            if (result.getStatus() != 200)
+            {
+                MessageBox.Show(result.getMsg());
+                return;
+            }
+            this.member_info = JsonConvert.DeserializeObject<MemberEntity>(result.toString());
+            if (this.member_info == null)
+            {
+                MessageBox.Show(result.getMsg());
+                return;
+            }
+            this.notifyIcon1.Text = label1.Text = "寻仙：" + member_info.Nickname;
+            this.label8.Text = member_info.LevelTitle;
+            this.label9.Text = member_info.DataExp.ToString();
+            this.label10.Text = member_info.DataGoldCoin.ToString();
+            this.label11.Text = member_info.DataSpiritStone.ToString();
+            this.label36.Text = member_info.DataFortune.ToString();
+            this.label14.Text = member_info.DataPhysical.ToString() + " / " + member_info.DataPhysicalMax.ToString();
+            this.label34.Text = member_info.WorldBlood.ToString();
+            this.label27.Text = member_info.DataInsight.ToString();
+            this.label16.Text = member_info.WorldAttackPhysics.ToString();
+            this.label18.Text = member_info.WorldAttackMagic.ToString();
+            this.label20.Text = member_info.WorldDefensePhysics.ToString();
+            this.label22.Text = member_info.WorldDefenseMagic.ToString();
+            this.label24.Text = member_info.WorldSpeed.ToString();
+            this.label26.Text = (member_info.WorldCriticalRate * 100).ToString() + "%";
+            this.label7.Text = (member_info.WorldCriticalData * 100).ToString() + "%";
+            this.label30.Text = (member_info.WorldSure * 100).ToString() + "%";
+            this.label32.Text = (member_info.WorldEvade * 100).ToString() + "%";
+        }
 
         private void initAll()
         {
             this.InitSocket();
             this.SetupWebSocketEvents();
+            this.initUser();
         }
 
         bool is_mouse_move = false;
@@ -245,6 +302,16 @@ namespace Game.FrmUI
             {
                 AllMouseLeave();
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            WinformHelper.Open<FrmSetting>();
+        }
+
+        private void 设置ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WinformHelper.Open<FrmSetting>();
         }
     }
 }

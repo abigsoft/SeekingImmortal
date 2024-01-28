@@ -5,7 +5,7 @@ return [
 
     // 支持file，array，也可以指向自己敏感词库文件路径
     // file模式时，敏感词库位于webman根目录的config/plugin/isszz/webman-sensitive/SensitiveWord.txt，也可以指向自定义的词库文件路径
-    'mode' => 'file', 
+    'mode' => 'array',
     'config' => [
         'repeat' => true, // 重复替换为敏感词相同长度的字符
         'replace_char' => '*', // 替换字符

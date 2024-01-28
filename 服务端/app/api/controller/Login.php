@@ -32,7 +32,7 @@ class Login extends BaseController
             throw new ParamException('账号或密码不能为空');
         }
 
-        $user_info = MemberModel::where('account',$account)->field('uid,account,password,nickname,account_status')->find()->toArray();
+        $user_info = MemberModel::where('account',$account)->field('uid,account,password,nickname,account_status')->find();
         if(!$user_info){
             throw new ParamException('账号或密码错误');
         }

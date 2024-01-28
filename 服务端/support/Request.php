@@ -30,6 +30,11 @@ class Request extends \Webman\Http\Request
         return $this->method() == 'GET';
     }
 
+    public function ip(): string
+    {
+        return $this->getRealIp();
+    }
+
     public function getController(): array|string|null
     {
         return strtolower(str_replace("app\\" . ($this->app) . "\controller\\", "", $this->controller));

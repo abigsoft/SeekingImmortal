@@ -29,5 +29,22 @@ namespace Game.Helper
             // 最终的总宽度即为集合中像素点的个数
             return horizontalPixels.Count;
         }
+
+        public static void Open<T>(params object[]? args) where T : Form
+        {
+            Form openedForm = Application.OpenForms.OfType<T>().FirstOrDefault();
+
+            if (openedForm != null)
+            {
+                openedForm.Show();
+                openedForm.Activate();
+            }
+            else
+            {
+                // 使用反射创建带参数的窗体实例
+                var form = (T)Activator.CreateInstance(typeof(T), args);
+                form.Show();
+            }
+        }
     }
 }

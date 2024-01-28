@@ -2,7 +2,7 @@
 return [
     'enable' => true,
 
-    'default'  => '--',
+    'default'  => '地狱',
     'language' => ['zh-CN'],
 
     'db-country' => null,

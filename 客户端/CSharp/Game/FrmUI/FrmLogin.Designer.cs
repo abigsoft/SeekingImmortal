@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             label1 = new Label();
             panel1 = new Panel();
+            button1 = new Button();
+            button2 = new Button();
             panel2 = new Panel();
             linkLabel1 = new LinkLabel();
             pictureBox1 = new PictureBox();
@@ -51,8 +53,6 @@
             textBox3 = new TextBox();
             label4 = new Label();
             label5 = new Label();
-            button2 = new Button();
-            button1 = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -83,6 +83,30 @@
             panel1.MouseDown += AllMouseDown;
             panel1.MouseMove += AllMouseMove;
             panel1.MouseUp += AllMouseUp;
+            // 
+            // button1
+            // 
+            button1.Font = new Font("微软雅黑", 5.25F, FontStyle.Bold, GraphicsUnit.Point);
+            button1.Location = new Point(377, 17);
+            button1.Name = "button1";
+            button1.Size = new Size(20, 20);
+            button1.TabIndex = 1;
+            button1.TabStop = false;
+            button1.Text = "—";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // button2
+            // 
+            button2.Font = new Font("微软雅黑", 5.25F, FontStyle.Bold, GraphicsUnit.Point);
+            button2.Location = new Point(403, 17);
+            button2.Name = "button2";
+            button2.Size = new Size(20, 20);
+            button2.TabIndex = 2;
+            button2.TabStop = false;
+            button2.Text = "X";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // panel2
             // 
@@ -122,6 +146,7 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // button4
             // 
@@ -299,30 +324,6 @@
             label5.Size = new Size(68, 17);
             label5.TabIndex = 8;
             label5.Text = "登录账号：";
-            // 
-            // button2
-            // 
-            button2.Font = new Font("微软雅黑", 5.25F, FontStyle.Bold, GraphicsUnit.Point);
-            button2.Location = new Point(403, 17);
-            button2.Name = "button2";
-            button2.Size = new Size(20, 20);
-            button2.TabIndex = 2;
-            button2.TabStop = false;
-            button2.Text = "X";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
-            // button1
-            // 
-            button1.Font = new Font("微软雅黑", 5.25F, FontStyle.Bold, GraphicsUnit.Point);
-            button1.Location = new Point(377, 17);
-            button1.Name = "button1";
-            button1.Size = new Size(20, 20);
-            button1.TabIndex = 1;
-            button1.TabStop = false;
-            button1.Text = "—";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // FrmLogin
             // 

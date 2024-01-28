@@ -1,16 +1,5 @@
 ﻿using Game.Entity;
 using Game.Helper;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Game.Service;
 
 namespace Game.FrmUI
@@ -174,7 +163,7 @@ namespace Game.FrmUI
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            steamLogin();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -195,6 +184,31 @@ namespace Game.FrmUI
                 textBox2.Focus();
                 //e.Handled = true;
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            steamLogin();
+        }
+
+        private void steamLogin()
+        {
+            /**
+            byte[] ticket = new byte[1024]; // 票据的缓冲区大小
+            uint ticketSize = 0;
+            HAuthTicket hAuthTicket = SteamUser.GetAuthSessionTicket(ticket, ticket.Length, out ticketSize);
+            if (hAuthTicket != HAuthTicket.Invalid)
+            {
+                // 票据已经成功生成，ticket数组中的前ticketSize个字节是有效的票据数据
+                byte[] actualTicket = new byte[ticketSize];
+                Array.Copy(ticket, actualTicket, ticketSize);
+
+                // 将actualTicket发送到服务器进行验证
+            }
+            else
+            {
+                // 票据生成失败
+            }**/
         }
     }
 }

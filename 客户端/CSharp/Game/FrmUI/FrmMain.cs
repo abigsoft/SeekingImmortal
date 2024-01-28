@@ -74,21 +74,40 @@ namespace Game.FrmUI
                     case "statistics":
                         break;
                     case "world":
+                        dealWorldMessage(JsonConvert.DeserializeObject<WorldMessageEntity>(json["data"].ToString()));
                         break;
                 }
             }
+        }
+
+        private void dealWorldMessage(WorldMessageEntity? message)
+        {
+            if(message.Channel == "world")
+            {
+                dataGridView1.Rows.Add(
+                    message.Data.Message.Id,
+                    message.Data.Message.From.Title,
+                    message.Data.Message.From.Name,
+                    message.Data.Message.Content.Data,
+                    message.Data.Message.Time
+                );
+                if (dataGridView1.Rows.Count > 0)
+                {
+                    dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows.Count - 1;
+                }
+            }
+            
         }
 
         private void addSystemLog(string message, bool jump = true)
         {
             this.BeginInvoke(new Action(() =>
             {
-                ListViewItem item = new ListViewItem(new string[] {
-                    message,
-                    DateTime.Now.ToString("HH:mm:ss"),
-                });
-                dataGridView2.Rows.Add(item);
-                //this.dataGridView2.Items[this.listView3.Items.Count - 1].EnsureVisible();
+                dataGridView2.Rows.Add(message,DateTime.Now.ToString("HH:mm:ss"));
+                if (dataGridView2.Rows.Count > 0)
+                {
+                    dataGridView2.FirstDisplayedScrollingRowIndex = dataGridView2.Rows.Count - 1;
+                }
             }));
 
         }
@@ -270,8 +289,25 @@ namespace Game.FrmUI
 
         private void sendMessage()
         {
-            this.textBox1.Text = "";
-            this.Focus();
+            if (textBox1.Text == "")
+            {
+                return;
+            }
+            this.BeginInvoke(new Action(() =>
+            {
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                dic.Add("message", textBox1.Text);
+                ResultEntity result = new ResultEntity();
+                result = http.apiPost("message/world", dic);
+                if (result.getStatus() != 200)
+                {
+                    MessageBox.Show(result.getMsg());
+                    return;
+                }
+                this.textBox1.Text = "";
+                this.Focus();
+            }));
+
         }
 
         private void button1_Click_1(object sender, EventArgs e)

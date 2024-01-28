@@ -31,7 +31,7 @@ class Register extends BaseController
             'sex' => $param['sex'],
             'steam_id' => '',
             'account_status' => 1,
-            'character_status' => 0,
+            'character_status' => 1,
             'level_id' => 0,
             'data_exp' => 0,
             'data_insight' => 0,

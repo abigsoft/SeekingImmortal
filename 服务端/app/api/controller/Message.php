@@ -33,7 +33,6 @@ class Message extends Base
             throw new ParamException('消息类型错误');
         }
         $message = sensitive_replace($message, ' ~和谐发言~ ');
-        $location_area = (new Location())->city($this->request->ip());
         $message_id = MessageService::Create(['uid' => $this->uid, 'name' => $this->user['nickname'], 'type' => $type, 'data' => $message]);
         $mask_title_info = null;
         if($this->user['mask_title_id']){
@@ -94,18 +93,16 @@ class Message extends Base
                         "from" => [
                             "uid" => $this->uid,//用户ID
                             "title" => $mask_title['name'],//称号
-                            "area" => mb_substr($location_area,0,2),//位置
                             "name" => $this->user['nickname']//昵称
                         ],
                         "color" => [//颜色
                             "title" => $mask_title['color']['title'],
                             "name" => $mask_title['color']['name'],
                             "message" => $mask_title['color']['message'],
-                            "area" => $mask_title['color']['area'],
                             "time" => $mask_title['color']['time'],
                         ],
                         "event" => $event,//事件标签
-                        "message" => [
+                        "content" => [
                             "type" => $type,
                             "data" => $message
                         ],

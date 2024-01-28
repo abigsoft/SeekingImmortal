@@ -50,7 +50,27 @@ namespace Game.Helper
 
         }
 
-        public static JToken ToJToken(JToken obj, string path, JToken def = null)
+        public static string ToStrN(JToken? obj, string path,string def = "")
+        {
+            try
+            {
+                if (obj == null)
+                {
+                    return ToStr(ToJToken(obj, path, def)) ;
+                }
+                else
+                {
+                    return obj.ToString();
+                }
+            }
+            catch (Exception e)
+            {
+                return "";
+            }
+
+        }
+
+        public static JToken ToJToken(JToken? obj, string path, JToken def = null)
         {
             try
             {

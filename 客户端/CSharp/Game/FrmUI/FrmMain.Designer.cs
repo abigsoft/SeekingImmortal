@@ -53,13 +53,6 @@
             tabPage7 = new TabPage();
             button5 = new Button();
             dataGridView1 = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
-            Column4 = new DataGridViewTextBoxColumn();
-            Column5 = new DataGridViewTextBoxColumn();
-            Column6 = new DataGridViewTextBoxColumn();
-            Column7 = new DataGridViewTextBoxColumn();
             tabPage8 = new TabPage();
             button6 = new Button();
             dataGridView2 = new DataGridView();
@@ -124,6 +117,12 @@
             toolStripSeparator1 = new ToolStripSeparator();
             退出ToolStripMenuItem = new ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
+            Column1 = new DataGridViewTextBoxColumn();
+            Column2 = new DataGridViewTextBoxColumn();
+            Column3 = new DataGridViewTextBoxColumn();
+            Column4 = new DataGridViewTextBoxColumn();
+            Column6 = new DataGridViewTextBoxColumn();
+            Column7 = new DataGridViewTextBoxColumn();
             panel_main.SuspendLayout();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
@@ -349,7 +348,7 @@
             dataGridView1.BackgroundColor = SystemColors.ButtonFace;
             dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5, Column6, Column7 });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column6, Column7 });
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.Location = new Point(3, 4);
             dataGridView1.MultiSelect = false;
@@ -365,55 +364,6 @@
             dataGridView1.Size = new Size(763, 183);
             dataGridView1.TabIndex = 0;
             dataGridView1.TabStop = false;
-            // 
-            // Column1
-            // 
-            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            Column1.HeaderText = "ID";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
-            Column1.Visible = false;
-            // 
-            // Column2
-            // 
-            Column2.HeaderText = "称号";
-            Column2.Name = "Column2";
-            Column2.ReadOnly = true;
-            Column2.Width = 70;
-            // 
-            // Column3
-            // 
-            Column3.HeaderText = "道号";
-            Column3.Name = "Column3";
-            Column3.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            Column4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column4.HeaderText = "消息";
-            Column4.Name = "Column4";
-            Column4.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            Column5.HeaderText = "来自";
-            Column5.Name = "Column5";
-            Column5.ReadOnly = true;
-            Column5.Width = 60;
-            // 
-            // Column6
-            // 
-            Column6.HeaderText = "时间";
-            Column6.Name = "Column6";
-            Column6.ReadOnly = true;
-            Column6.Width = 60;
-            // 
-            // Column7
-            // 
-            Column7.HeaderText = "事件";
-            Column7.Name = "Column7";
-            Column7.ReadOnly = true;
-            Column7.Visible = false;
             // 
             // tabPage8
             // 
@@ -1037,6 +987,48 @@
             timer1.Interval = 300;
             timer1.Tick += timer1_Tick;
             // 
+            // Column1
+            // 
+            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Column1.HeaderText = "ID";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            Column1.Visible = false;
+            // 
+            // Column2
+            // 
+            Column2.HeaderText = "称号";
+            Column2.Name = "Column2";
+            Column2.ReadOnly = true;
+            Column2.Width = 70;
+            // 
+            // Column3
+            // 
+            Column3.HeaderText = "道号";
+            Column3.Name = "Column3";
+            Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            Column4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column4.HeaderText = "消息";
+            Column4.Name = "Column4";
+            Column4.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            Column6.HeaderText = "时间";
+            Column6.Name = "Column6";
+            Column6.ReadOnly = true;
+            Column6.Width = 70;
+            // 
+            // Column7
+            // 
+            Column7.HeaderText = "事件";
+            Column7.Name = "Column7";
+            Column7.ReadOnly = true;
+            Column7.Visible = false;
+            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -1109,13 +1101,6 @@
         private TabPage tabPage11;
         private Button button4;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
-        private DataGridViewTextBoxColumn Column3;
-        private DataGridViewTextBoxColumn Column4;
-        private DataGridViewTextBoxColumn Column5;
-        private DataGridViewTextBoxColumn Column6;
-        private DataGridViewTextBoxColumn Column7;
         private DataGridView dataGridView2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
@@ -1170,5 +1155,11 @@
         private Label label7;
         private Label label27;
         private Label label28;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Column2;
+        private DataGridViewTextBoxColumn Column3;
+        private DataGridViewTextBoxColumn Column4;
+        private DataGridViewTextBoxColumn Column6;
+        private DataGridViewTextBoxColumn Column7;
     }
 }

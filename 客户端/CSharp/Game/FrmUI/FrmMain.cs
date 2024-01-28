@@ -67,9 +67,16 @@ namespace Game.FrmUI
             {
                 // 更新UI或者其他逻辑
                 JToken json = JsonHelper.ExtractAll(message);
-                switch (JTokenHelper.ToStr(json["type"]))
+                switch (JTokenHelper.ToStrN(json, "type"))
                 {
                     case "system":
+                        if (JTokenHelper.ToStrN(json, "data.type") == "init")
+                        {
+                            if (JTokenHelper.ToStrN(json, "data.data") == "user")
+                            {
+                                this.initUser();
+                            }
+                        }
                         break;
                     case "statistics":
                         break;
@@ -82,7 +89,7 @@ namespace Game.FrmUI
 
         private void dealWorldMessage(WorldMessageEntity? message)
         {
-            if(message.Channel == "world")
+            if (message.Channel == "world")
             {
                 dataGridView1.Rows.Add(
                     message.Data.Message.Id,
@@ -96,14 +103,14 @@ namespace Game.FrmUI
                     dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows.Count - 1;
                 }
             }
-            
+
         }
 
         private void addSystemLog(string message, bool jump = true)
         {
             this.BeginInvoke(new Action(() =>
             {
-                dataGridView2.Rows.Add(message,DateTime.Now.ToString("HH:mm:ss"));
+                dataGridView2.Rows.Add(message, DateTime.Now.ToString("HH:mm:ss"));
                 if (dataGridView2.Rows.Count > 0)
                 {
                     dataGridView2.FirstDisplayedScrollingRowIndex = dataGridView2.Rows.Count - 1;
@@ -122,36 +129,39 @@ namespace Game.FrmUI
         MemberEntity member_info = new MemberEntity();
         private void initUser()
         {
-            ResultEntity result = http.apiPost("member/info/info");
-            if (result.getStatus() != 200)
+            this.BeginInvoke(new Action(() =>
             {
-                MessageBox.Show(result.getMsg());
-                return;
-            }
-            this.member_info = JsonConvert.DeserializeObject<MemberEntity>(result.toString());
-            if (this.member_info == null)
-            {
-                MessageBox.Show(result.getMsg());
-                return;
-            }
-            this.notifyIcon1.Text = label1.Text = "寻仙：" + member_info.Nickname;
-            this.label8.Text = member_info.LevelTitle;
-            this.label9.Text = member_info.DataExp.ToString();
-            this.label10.Text = member_info.DataGoldCoin.ToString();
-            this.label11.Text = member_info.DataSpiritStone.ToString();
-            this.label36.Text = member_info.DataFortune.ToString();
-            this.label14.Text = member_info.DataPhysical.ToString() + " / " + member_info.DataPhysicalMax.ToString();
-            this.label34.Text = member_info.WorldBlood.ToString();
-            this.label27.Text = member_info.DataInsight.ToString();
-            this.label16.Text = member_info.WorldAttackPhysics.ToString();
-            this.label18.Text = member_info.WorldAttackMagic.ToString();
-            this.label20.Text = member_info.WorldDefensePhysics.ToString();
-            this.label22.Text = member_info.WorldDefenseMagic.ToString();
-            this.label24.Text = member_info.WorldSpeed.ToString();
-            this.label26.Text = (member_info.WorldCriticalRate * 100).ToString() + "%";
-            this.label7.Text = (member_info.WorldCriticalData * 100).ToString() + "%";
-            this.label30.Text = (member_info.WorldSure * 100).ToString() + "%";
-            this.label32.Text = (member_info.WorldEvade * 100).ToString() + "%";
+                ResultEntity result = http.apiPost("member/info/info");
+                if (result.getStatus() != 200)
+                {
+                    MessageBox.Show(result.getMsg());
+                    return;
+                }
+                this.member_info = JsonConvert.DeserializeObject<MemberEntity>(result.toString());
+                if (this.member_info == null)
+                {
+                    MessageBox.Show(result.getMsg());
+                    return;
+                }
+                this.notifyIcon1.Text = label1.Text = "寻仙：" + member_info.Nickname;
+                this.label8.Text = member_info.LevelTitle;
+                this.label9.Text = member_info.DataExp.ToString();
+                this.label10.Text = member_info.DataGoldCoin.ToString();
+                this.label11.Text = member_info.DataSpiritStone.ToString();
+                this.label36.Text = member_info.DataFortune.ToString();
+                this.label14.Text = member_info.DataPhysical.ToString() + " / " + member_info.DataPhysicalMax.ToString();
+                this.label34.Text = member_info.WorldBlood.ToString();
+                this.label27.Text = member_info.DataInsight.ToString();
+                this.label16.Text = member_info.WorldAttackPhysics.ToString();
+                this.label18.Text = member_info.WorldAttackMagic.ToString();
+                this.label20.Text = member_info.WorldDefensePhysics.ToString();
+                this.label22.Text = member_info.WorldDefenseMagic.ToString();
+                this.label24.Text = member_info.WorldSpeed.ToString();
+                this.label26.Text = (member_info.WorldCriticalRate * 100).ToString() + "%";
+                this.label7.Text = (member_info.WorldCriticalData * 100).ToString() + "%";
+                this.label30.Text = (member_info.WorldSure * 100).ToString() + "%";
+                this.label32.Text = (member_info.WorldEvade * 100).ToString() + "%";
+            }));
         }
 
         private void initAll()

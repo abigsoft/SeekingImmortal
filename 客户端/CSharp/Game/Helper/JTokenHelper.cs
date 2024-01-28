@@ -54,18 +54,24 @@ namespace Game.Helper
         {
             try
             {
+                string[] paths = path.Split('.');
                 if (obj == null)
                 {
-                    return ToStr(ToJToken(obj, path, def)) ;
+                    return def;
                 }
-                else
+                foreach (string s in paths)
                 {
-                    return obj.ToString();
+                    obj = obj[s];
+                    if (obj == null)
+                    {
+                        return def;
+                    }
                 }
+                return obj.ToString();
             }
             catch (Exception e)
             {
-                return "";
+                return def;
             }
 
         }

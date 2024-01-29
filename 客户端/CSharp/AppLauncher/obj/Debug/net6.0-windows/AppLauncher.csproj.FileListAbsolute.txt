@@ -14,3 +14,8 @@ F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLaunc
 F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\AppLauncher.pdb
 F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\AppLauncher.genruntimeconfig.cache
 F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\AppLauncher\obj\Debug\net6.0-windows\ref\AppLauncher.dll
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Builder\Debug\net6.0-windows\AppLauncher.exe
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Builder\Debug\net6.0-windows\AppLauncher.deps.json
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Builder\Debug\net6.0-windows\AppLauncher.runtimeconfig.json
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Builder\Debug\net6.0-windows\AppLauncher.dll
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Builder\Debug\net6.0-windows\AppLauncher.pdb

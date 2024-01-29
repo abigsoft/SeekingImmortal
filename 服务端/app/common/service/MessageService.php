@@ -35,4 +35,40 @@ class MessageService
         ]);
         return intval($res->id);
     }
+
+    public static function system($message, $color = '#FF0000', $to = '', $name = '系统', $notice = 0){
+        $data = [
+            "type" => "world",
+            "data" => [
+                "channel" => "world",//world世界,person个人,group群组，cancel撤销消息
+                "data" => [
+                    "id" => 0,//0为世界，群组为对应群组的ID
+                    "name" => "世界",
+                    "notice" => $notice,//是否提醒
+                    "message" => [
+                        "id" => 0,
+                        "from" => [
+                            "uid" => 'administrator',//用户ID
+                            "title" => '管理员',//称号
+                            "name" => $name//昵称
+                        ],
+                        "color" => [//颜色
+                            "title" => $color,
+                            "name" => $color,
+                            "message" => $color,
+                            "time" => $color,
+                        ],
+                        "event" => "",//事件标签
+                        "content" => [
+                            "type" => 'text',
+                            "data" => $message
+                        ],
+                        "time" => date('H:i:s')
+                    ]
+                ]
+            ]
+        ];
+        self::Uid($data,$to);
+
+    }
 }

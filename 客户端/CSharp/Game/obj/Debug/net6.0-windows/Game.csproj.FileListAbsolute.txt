@@ -20,3 +20,4 @@ F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Game\obj
 F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Game\obj\Debug\net6.0-windows\Game.Properties.Resources.resources
 F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Game\obj\Debug\net6.0-windows\Game.FrmUI.FrmLoading.resources
 F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Game\obj\Debug\net6.0-windows\Game.FrmUI.FrmSetting.resources
+F:\www\project\寻仙：敢问上天，可否有仙？\客户端\CSharp\Game\obj\Debug\net6.0-windows\Game.FrmUI.FrmEmoji.resources

@@ -11,10 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Program.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="logo.ico" />
   </ItemGroup>
 

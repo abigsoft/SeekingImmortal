@@ -11,11 +11,164 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\loading.gif" />
+    <None Remove="Resources\setting.png" />
+    <None Remove="Resources\steam.png" />
+    <None Remove="Resources\w1.jpg" />
+    <None Remove="Resources\w10.jpg" />
+    <None Remove="Resources\w11.jpg" />
+    <None Remove="Resources\w12.jpg" />
+    <None Remove="Resources\w13.jpg" />
+    <None Remove="Resources\w14.jpg" />
+    <None Remove="Resources\w15.jpg" />
+    <None Remove="Resources\w16.jpg" />
+    <None Remove="Resources\w17.jpg" />
+    <None Remove="Resources\w18.jpg" />
+    <None Remove="Resources\w19.jpg" />
+    <None Remove="Resources\w2.jpg" />
+    <None Remove="Resources\w20.jpg" />
+    <None Remove="Resources\w21.jpg" />
+    <None Remove="Resources\w22.jpg" />
+    <None Remove="Resources\w23.jpg" />
+    <None Remove="Resources\w24.jpg" />
+    <None Remove="Resources\w25.jpg" />
+    <None Remove="Resources\w26.jpg" />
+    <None Remove="Resources\w27.jpg" />
+    <None Remove="Resources\w28.jpg" />
+    <None Remove="Resources\w29.jpg" />
+    <None Remove="Resources\w3.jpg" />
+    <None Remove="Resources\w30.jpg" />
+    <None Remove="Resources\w31.jpg" />
+    <None Remove="Resources\w32.jpg" />
+    <None Remove="Resources\w33.jpg" />
+    <None Remove="Resources\w34.jpg" />
+    <None Remove="Resources\w35.jpg" />
+    <None Remove="Resources\w36.jpg" />
+    <None Remove="Resources\w37.jpg" />
+    <None Remove="Resources\w38.jpg" />
+    <None Remove="Resources\w39.jpg" />
+    <None Remove="Resources\w4.jpg" />
+    <None Remove="Resources\w40.jpg" />
+    <None Remove="Resources\w41.jpg" />
+    <None Remove="Resources\w42.jpg" />
+    <None Remove="Resources\w43.jpg" />
+    <None Remove="Resources\w44.jpg" />
+    <None Remove="Resources\w45.jpg" />
+    <None Remove="Resources\w46.jpg" />
+    <None Remove="Resources\w47.jpg" />
+    <None Remove="Resources\w48.jpg" />
+    <None Remove="Resources\w49.jpg" />
+    <None Remove="Resources\w5.jpg" />
+    <None Remove="Resources\w50.jpg" />
+    <None Remove="Resources\w51.jpg" />
+    <None Remove="Resources\w52.jpg" />
+    <None Remove="Resources\w53.jpg" />
+    <None Remove="Resources\w54.jpg" />
+    <None Remove="Resources\w55.jpg" />
+    <None Remove="Resources\w56.jpg" />
+    <None Remove="Resources\w57.jpg" />
+    <None Remove="Resources\w58.jpg" />
+    <None Remove="Resources\w59.jpg" />
+    <None Remove="Resources\w6.jpg" />
+    <None Remove="Resources\w60.jpg" />
+    <None Remove="Resources\w61.jpg" />
+    <None Remove="Resources\w62.jpg" />
+    <None Remove="Resources\w63.jpg" />
+    <None Remove="Resources\w64.jpg" />
+    <None Remove="Resources\w65.jpg" />
+    <None Remove="Resources\w66.jpg" />
+    <None Remove="Resources\w67.jpg" />
+    <None Remove="Resources\w68.jpg" />
+    <None Remove="Resources\w69.jpg" />
+    <None Remove="Resources\w7.jpg" />
+    <None Remove="Resources\w70.jpg" />
+    <None Remove="Resources\w8.jpg" />
+    <None Remove="Resources\w9.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\loading.gif" />
+    <EmbeddedResource Include="Resources\setting.png" />
+    <EmbeddedResource Include="Resources\steam.png" />
+    <EmbeddedResource Include="Resources\w1.jpg" />
+    <EmbeddedResource Include="Resources\w10.jpg" />
+    <EmbeddedResource Include="Resources\w11.jpg" />
+    <EmbeddedResource Include="Resources\w12.jpg" />
+    <EmbeddedResource Include="Resources\w13.jpg" />
+    <EmbeddedResource Include="Resources\w14.jpg" />
+    <EmbeddedResource Include="Resources\w15.jpg" />
+    <EmbeddedResource Include="Resources\w16.jpg" />
+    <EmbeddedResource Include="Resources\w17.jpg" />
+    <EmbeddedResource Include="Resources\w18.jpg" />
+    <EmbeddedResource Include="Resources\w19.jpg" />
+    <EmbeddedResource Include="Resources\w2.jpg" />
+    <EmbeddedResource Include="Resources\w20.jpg" />
+    <EmbeddedResource Include="Resources\w21.jpg" />
+    <EmbeddedResource Include="Resources\w22.jpg" />
+    <EmbeddedResource Include="Resources\w23.jpg" />
+    <EmbeddedResource Include="Resources\w24.jpg" />
+    <EmbeddedResource Include="Resources\w25.jpg" />
+    <EmbeddedResource Include="Resources\w26.jpg" />
+    <EmbeddedResource Include="Resources\w27.jpg" />
+    <EmbeddedResource Include="Resources\w28.jpg" />
+    <EmbeddedResource Include="Resources\w29.jpg" />
+    <EmbeddedResource Include="Resources\w3.jpg" />
+    <EmbeddedResource Include="Resources\w30.jpg" />
+    <EmbeddedResource Include="Resources\w31.jpg" />
+    <EmbeddedResource Include="Resources\w32.jpg" />
+    <EmbeddedResource Include="Resources\w33.jpg" />
+    <EmbeddedResource Include="Resources\w34.jpg" />
+    <EmbeddedResource Include="Resources\w35.jpg" />
+    <EmbeddedResource Include="Resources\w36.jpg" />
+    <EmbeddedResource Include="Resources\w37.jpg" />
+    <EmbeddedResource Include="Resources\w38.jpg" />
+    <EmbeddedResource Include="Resources\w39.jpg" />
+    <EmbeddedResource Include="Resources\w4.jpg" />
+    <EmbeddedResource Include="Resources\w40.jpg" />
+    <EmbeddedResource Include="Resources\w41.jpg" />
+    <EmbeddedResource Include="Resources\w42.jpg" />
+    <EmbeddedResource Include="Resources\w43.jpg" />
+    <EmbeddedResource Include="Resources\w44.jpg" />
+    <EmbeddedResource Include="Resources\w45.jpg" />
+    <EmbeddedResource Include="Resources\w46.jpg" />
+    <EmbeddedResource Include="Resources\w47.jpg" />
+    <EmbeddedResource Include="Resources\w48.jpg" />
+    <EmbeddedResource Include="Resources\w49.jpg" />
+    <EmbeddedResource Include="Resources\w5.jpg" />
+    <EmbeddedResource Include="Resources\w50.jpg" />
+    <EmbeddedResource Include="Resources\w51.jpg" />
+    <EmbeddedResource Include="Resources\w52.jpg" />
+    <EmbeddedResource Include="Resources\w53.jpg" />
+    <EmbeddedResource Include="Resources\w54.jpg" />
+    <EmbeddedResource Include="Resources\w55.jpg" />
+    <EmbeddedResource Include="Resources\w56.jpg" />
+    <EmbeddedResource Include="Resources\w57.jpg" />
+    <EmbeddedResource Include="Resources\w58.jpg" />
+    <EmbeddedResource Include="Resources\w59.jpg" />
+    <EmbeddedResource Include="Resources\w6.jpg" />
+    <EmbeddedResource Include="Resources\w60.jpg" />
+    <EmbeddedResource Include="Resources\w61.jpg" />
+    <EmbeddedResource Include="Resources\w62.jpg" />
+    <EmbeddedResource Include="Resources\w63.jpg" />
+    <EmbeddedResource Include="Resources\w64.jpg" />
+    <EmbeddedResource Include="Resources\w65.jpg" />
+    <EmbeddedResource Include="Resources\w66.jpg" />
+    <EmbeddedResource Include="Resources\w67.jpg" />
+    <EmbeddedResource Include="Resources\w68.jpg" />
+    <EmbeddedResource Include="Resources\w69.jpg" />
+    <EmbeddedResource Include="Resources\w7.jpg" />
+    <EmbeddedResource Include="Resources\w70.jpg" />
+    <EmbeddedResource Include="Resources\w8.jpg" />
+    <EmbeddedResource Include="Resources\w9.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

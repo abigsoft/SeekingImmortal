@@ -30,11 +30,11 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             panel_collapsed = new Panel();
             panel_main = new Panel();
             button4 = new Button();
@@ -56,19 +56,22 @@
             columnHeader10 = new ColumnHeader();
             tabControl2 = new TabControl();
             tabPage7 = new TabPage();
-            button5 = new Button();
             dataGridView1 = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
-            Column4 = new DataGridViewTextBoxColumn();
-            Column6 = new DataGridViewTextBoxColumn();
-            Column7 = new DataGridViewTextBoxColumn();
+            contextMenuStrip3 = new ContextMenuStrip(components);
+            快速艾特ToolStripMenuItem = new ToolStripMenuItem();
+            复制消息ToolStripMenuItem = new ToolStripMenuItem();
+            撤销消息ToolStripMenuItem = new ToolStripMenuItem();
+            自动滚动ToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
+            清空聊天ToolStripMenuItem = new ToolStripMenuItem();
             tabPage8 = new TabPage();
-            button6 = new Button();
             dataGridView2 = new DataGridView();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
+            contextMenuStrip4 = new ContextMenuStrip(components);
+            复制消息ToolStripMenuItem1 = new ToolStripMenuItem();
+            toolStripSeparator3 = new ToolStripSeparator();
+            清空列表ToolStripMenuItem = new ToolStripMenuItem();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             groupBox2 = new GroupBox();
@@ -115,7 +118,6 @@
             button3 = new Button();
             button1 = new Button();
             contextMenuStrip2 = new ContextMenuStrip(components);
-            发送图片ToolStripMenuItem = new ToolStripMenuItem();
             发送表情ToolStripMenuItem = new ToolStripMenuItem();
             textBox1 = new TextBox();
             button2 = new Button();
@@ -128,6 +130,12 @@
             toolStripSeparator1 = new ToolStripSeparator();
             退出ToolStripMenuItem = new ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
+            Column1 = new DataGridViewTextBoxColumn();
+            Column2 = new DataGridViewTextBoxColumn();
+            Column3 = new DataGridViewTextBoxColumn();
+            Column4 = new Assembly.TextAndImageColumn();
+            Column6 = new DataGridViewTextBoxColumn();
+            Column7 = new DataGridViewTextBoxColumn();
             panel_main.SuspendLayout();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
@@ -135,8 +143,10 @@
             tabControl2.SuspendLayout();
             tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            contextMenuStrip3.SuspendLayout();
             tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            contextMenuStrip4.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -234,11 +244,12 @@
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
+            listView1.DoubleClick += listView1_DoubleClick;
             // 
             // columnHeader4
             // 
             columnHeader4.Text = "消息";
-            columnHeader4.Width = 100;
+            columnHeader4.Width = 93;
             // 
             // columnHeader5
             // 
@@ -281,12 +292,13 @@
             listView2.TabIndex = 1;
             listView2.UseCompatibleStateImageBehavior = false;
             listView2.View = View.Details;
+            listView2.DoubleClick += listView2_DoubleClick;
             // 
             // columnHeader6
             // 
             columnHeader6.DisplayIndex = 3;
             columnHeader6.Text = "标题";
-            columnHeader6.Width = 100;
+            columnHeader6.Width = 93;
             // 
             // columnHeader7
             // 
@@ -325,7 +337,6 @@
             // 
             // tabPage7
             // 
-            tabPage7.Controls.Add(button5);
             tabPage7.Controls.Add(dataGridView1);
             tabPage7.Location = new Point(4, 26);
             tabPage7.Name = "tabPage7";
@@ -335,24 +346,15 @@
             tabPage7.Text = "世界聊天";
             tabPage7.UseVisualStyleBackColor = true;
             // 
-            // button5
-            // 
-            button5.Location = new Point(666, 161);
-            button5.Name = "button5";
-            button5.Size = new Size(97, 23);
-            button5.TabIndex = 3;
-            button5.Text = "滑动到最底部";
-            button5.UseVisualStyleBackColor = true;
-            button5.Visible = false;
-            // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.BackgroundColor = SystemColors.ButtonFace;
+            dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
@@ -362,6 +364,7 @@
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column6, Column7 });
+            dataGridView1.ContextMenuStrip = contextMenuStrip3;
             dataGridView1.Location = new Point(3, 4);
             dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
@@ -374,66 +377,61 @@
             dataGridView1.ShowEditingIcon = false;
             dataGridView1.ShowRowErrors = false;
             dataGridView1.Size = new Size(763, 183);
-            dataGridView1.TabIndex = 0;
+            dataGridView1.TabIndex = 100;
             dataGridView1.TabStop = false;
+            dataGridView1.CellMouseDown += dataGridView1_CellMouseDown;
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
             // 
-            // Column1
+            // contextMenuStrip3
             // 
-            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            Column1.HeaderText = "ID";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
-            Column1.SortMode = DataGridViewColumnSortMode.NotSortable;
-            Column1.Visible = false;
+            contextMenuStrip3.Items.AddRange(new ToolStripItem[] { 快速艾特ToolStripMenuItem, 复制消息ToolStripMenuItem, 撤销消息ToolStripMenuItem, 自动滚动ToolStripMenuItem, toolStripSeparator2, 清空聊天ToolStripMenuItem });
+            contextMenuStrip3.Name = "contextMenuStrip3";
+            contextMenuStrip3.Size = new Size(125, 120);
             // 
-            // Column2
+            // 快速艾特ToolStripMenuItem
             // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Column2.DefaultCellStyle = dataGridViewCellStyle2;
-            Column2.HeaderText = "称号";
-            Column2.Name = "Column2";
-            Column2.ReadOnly = true;
-            Column2.SortMode = DataGridViewColumnSortMode.NotSortable;
-            Column2.Width = 70;
+            快速艾特ToolStripMenuItem.Name = "快速艾特ToolStripMenuItem";
+            快速艾特ToolStripMenuItem.Size = new Size(124, 22);
+            快速艾特ToolStripMenuItem.Text = "快速艾特";
+            快速艾特ToolStripMenuItem.Click += 快速艾特ToolStripMenuItem_Click;
             // 
-            // Column3
+            // 复制消息ToolStripMenuItem
             // 
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Column3.DefaultCellStyle = dataGridViewCellStyle3;
-            Column3.HeaderText = "道号";
-            Column3.Name = "Column3";
-            Column3.ReadOnly = true;
-            Column3.SortMode = DataGridViewColumnSortMode.NotSortable;
+            复制消息ToolStripMenuItem.Name = "复制消息ToolStripMenuItem";
+            复制消息ToolStripMenuItem.Size = new Size(124, 22);
+            复制消息ToolStripMenuItem.Text = "复制消息";
+            复制消息ToolStripMenuItem.Click += 复制消息ToolStripMenuItem_Click;
             // 
-            // Column4
+            // 撤销消息ToolStripMenuItem
             // 
-            Column4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column4.HeaderText = "消息";
-            Column4.Name = "Column4";
-            Column4.ReadOnly = true;
-            Column4.SortMode = DataGridViewColumnSortMode.NotSortable;
+            撤销消息ToolStripMenuItem.Name = "撤销消息ToolStripMenuItem";
+            撤销消息ToolStripMenuItem.Size = new Size(124, 22);
+            撤销消息ToolStripMenuItem.Text = "撤销消息";
+            撤销消息ToolStripMenuItem.Click += 撤销消息ToolStripMenuItem_Click;
             // 
-            // Column6
+            // 自动滚动ToolStripMenuItem
             // 
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Column6.DefaultCellStyle = dataGridViewCellStyle4;
-            Column6.HeaderText = "时间";
-            Column6.Name = "Column6";
-            Column6.ReadOnly = true;
-            Column6.SortMode = DataGridViewColumnSortMode.NotSortable;
-            Column6.Width = 70;
+            自动滚动ToolStripMenuItem.Checked = true;
+            自动滚动ToolStripMenuItem.CheckOnClick = true;
+            自动滚动ToolStripMenuItem.CheckState = CheckState.Checked;
+            自动滚动ToolStripMenuItem.Name = "自动滚动ToolStripMenuItem";
+            自动滚动ToolStripMenuItem.Size = new Size(124, 22);
+            自动滚动ToolStripMenuItem.Text = "自动滚动";
             // 
-            // Column7
+            // toolStripSeparator2
             // 
-            Column7.HeaderText = "事件";
-            Column7.Name = "Column7";
-            Column7.ReadOnly = true;
-            Column7.SortMode = DataGridViewColumnSortMode.NotSortable;
-            Column7.Visible = false;
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(121, 6);
+            // 
+            // 清空聊天ToolStripMenuItem
+            // 
+            清空聊天ToolStripMenuItem.Name = "清空聊天ToolStripMenuItem";
+            清空聊天ToolStripMenuItem.Size = new Size(124, 22);
+            清空聊天ToolStripMenuItem.Text = "清空聊天";
+            清空聊天ToolStripMenuItem.Click += 清空聊天ToolStripMenuItem_Click;
             // 
             // tabPage8
             // 
-            tabPage8.Controls.Add(button6);
             tabPage8.Controls.Add(dataGridView2);
             tabPage8.Location = new Point(4, 26);
             tabPage8.Name = "tabPage8";
@@ -442,16 +440,6 @@
             tabPage8.TabIndex = 1;
             tabPage8.Text = "系统通知";
             tabPage8.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            button6.Location = new Point(666, 161);
-            button6.Name = "button6";
-            button6.Size = new Size(97, 23);
-            button6.TabIndex = 4;
-            button6.Text = "滑动到最底部";
-            button6.UseVisualStyleBackColor = true;
-            button6.Visible = false;
             // 
             // dataGridView2
             // 
@@ -462,6 +450,7 @@
             dataGridView2.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView2.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn6 });
+            dataGridView2.ContextMenuStrip = contextMenuStrip4;
             dataGridView2.Location = new Point(3, 4);
             dataGridView2.MultiSelect = false;
             dataGridView2.Name = "dataGridView2";
@@ -476,6 +465,7 @@
             dataGridView2.Size = new Size(763, 183);
             dataGridView2.TabIndex = 1;
             dataGridView2.TabStop = false;
+            dataGridView2.CellMouseDown += dataGridView2_CellMouseDown;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -493,6 +483,31 @@
             dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             dataGridViewTextBoxColumn6.ReadOnly = true;
             dataGridViewTextBoxColumn6.Width = 60;
+            // 
+            // contextMenuStrip4
+            // 
+            contextMenuStrip4.Items.AddRange(new ToolStripItem[] { 复制消息ToolStripMenuItem1, toolStripSeparator3, 清空列表ToolStripMenuItem });
+            contextMenuStrip4.Name = "contextMenuStrip4";
+            contextMenuStrip4.Size = new Size(125, 54);
+            // 
+            // 复制消息ToolStripMenuItem1
+            // 
+            复制消息ToolStripMenuItem1.Name = "复制消息ToolStripMenuItem1";
+            复制消息ToolStripMenuItem1.Size = new Size(124, 22);
+            复制消息ToolStripMenuItem1.Text = "复制消息";
+            复制消息ToolStripMenuItem1.Click += 复制消息ToolStripMenuItem1_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(121, 6);
+            // 
+            // 清空列表ToolStripMenuItem
+            // 
+            清空列表ToolStripMenuItem.Name = "清空列表ToolStripMenuItem";
+            清空列表ToolStripMenuItem.Size = new Size(124, 22);
+            清空列表ToolStripMenuItem.Text = "清空列表";
+            清空列表ToolStripMenuItem.Click += 清空列表ToolStripMenuItem_Click;
             // 
             // tabControl1
             // 
@@ -956,21 +971,16 @@
             // 
             // contextMenuStrip2
             // 
-            contextMenuStrip2.Items.AddRange(new ToolStripItem[] { 发送图片ToolStripMenuItem, 发送表情ToolStripMenuItem });
+            contextMenuStrip2.Items.AddRange(new ToolStripItem[] { 发送表情ToolStripMenuItem });
             contextMenuStrip2.Name = "contextMenuStrip2";
-            contextMenuStrip2.Size = new Size(125, 48);
-            // 
-            // 发送图片ToolStripMenuItem
-            // 
-            发送图片ToolStripMenuItem.Name = "发送图片ToolStripMenuItem";
-            发送图片ToolStripMenuItem.Size = new Size(124, 22);
-            发送图片ToolStripMenuItem.Text = "发送图片";
+            contextMenuStrip2.Size = new Size(125, 26);
             // 
             // 发送表情ToolStripMenuItem
             // 
             发送表情ToolStripMenuItem.Name = "发送表情ToolStripMenuItem";
             发送表情ToolStripMenuItem.Size = new Size(124, 22);
             发送表情ToolStripMenuItem.Text = "发送表情";
+            发送表情ToolStripMenuItem.Click += 发送表情ToolStripMenuItem_Click;
             // 
             // textBox1
             // 
@@ -1055,6 +1065,62 @@
             timer1.Interval = 300;
             timer1.Tick += timer1_Tick;
             // 
+            // Column1
+            // 
+            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Column1.HeaderText = "ID";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            Column1.SortMode = DataGridViewColumnSortMode.NotSortable;
+            Column1.Visible = false;
+            // 
+            // Column2
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Column2.DefaultCellStyle = dataGridViewCellStyle2;
+            Column2.HeaderText = "称号";
+            Column2.Name = "Column2";
+            Column2.ReadOnly = true;
+            Column2.SortMode = DataGridViewColumnSortMode.NotSortable;
+            Column2.Width = 70;
+            // 
+            // Column3
+            // 
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Column3.DefaultCellStyle = dataGridViewCellStyle3;
+            Column3.HeaderText = "道号";
+            Column3.Name = "Column3";
+            Column3.ReadOnly = true;
+            Column3.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column4
+            // 
+            Column4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column4.HeaderText = "消息";
+            Column4.Image = null;
+            Column4.Name = "Column4";
+            Column4.ReadOnly = true;
+            Column4.Resizable = DataGridViewTriState.True;
+            Column4.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column6
+            // 
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Column6.DefaultCellStyle = dataGridViewCellStyle4;
+            Column6.HeaderText = "时间";
+            Column6.Name = "Column6";
+            Column6.ReadOnly = true;
+            Column6.SortMode = DataGridViewColumnSortMode.NotSortable;
+            Column6.Width = 70;
+            // 
+            // Column7
+            // 
+            Column7.HeaderText = "事件";
+            Column7.Name = "Column7";
+            Column7.ReadOnly = true;
+            Column7.SortMode = DataGridViewColumnSortMode.NotSortable;
+            Column7.Visible = false;
+            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -1079,8 +1145,10 @@
             tabControl2.ResumeLayout(false);
             tabPage7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            contextMenuStrip3.ResumeLayout(false);
             tabPage8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            contextMenuStrip4.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
@@ -1108,7 +1176,6 @@
         private ToolStripMenuItem 退出ToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator1;
         private ContextMenuStrip contextMenuStrip2;
-        private ToolStripMenuItem 发送图片ToolStripMenuItem;
         private ToolStripMenuItem 发送表情ToolStripMenuItem;
         private TabControl tabControl1;
         private TabPage tabPage1;
@@ -1164,8 +1231,6 @@
         private Label label25;
         private Label label26;
         private GroupBox groupBox2;
-        private Button button5;
-        private Button button6;
         private Label label29;
         private Label label30;
         private Label label31;
@@ -1179,13 +1244,24 @@
         private Label label7;
         private Label label27;
         private Label label28;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private ContextMenuStrip contextMenuStrip3;
+        private ToolStripMenuItem 快速艾特ToolStripMenuItem;
+        private ToolStripMenuItem 撤销消息ToolStripMenuItem;
+        private ToolStripMenuItem 自动滚动ToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem 清空聊天ToolStripMenuItem;
+        private ToolStripMenuItem 复制消息ToolStripMenuItem;
+        private ContextMenuStrip contextMenuStrip4;
+        private ToolStripMenuItem 复制消息ToolStripMenuItem1;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripMenuItem 清空列表ToolStripMenuItem;
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
-        private DataGridViewTextBoxColumn Column4;
+        private Assembly.TextAndImageColumn Column4;
         private DataGridViewTextBoxColumn Column6;
         private DataGridViewTextBoxColumn Column7;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
     }
 }

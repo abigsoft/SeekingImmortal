@@ -16,6 +16,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Game.Entity;
 using Newtonsoft.Json;
+using System.Resources;
+using Game.Assembly;
 
 namespace Game.FrmUI
 {
@@ -70,12 +72,37 @@ namespace Game.FrmUI
                 switch (JTokenHelper.ToStrN(json, "type"))
                 {
                     case "system":
+                        if (JTokenHelper.ToStrN(json, "data.type") == "system")
+                        {
+                            if (JTokenHelper.ToStrN(json, "data.data") == "close")
+                            {
+                                this.Close();
+                            }
+                        }
                         if (JTokenHelper.ToStrN(json, "data.type") == "init")
                         {
                             if (JTokenHelper.ToStrN(json, "data.data") == "user")
                             {
                                 this.initUser();
                             }
+                        }
+                        if (JTokenHelper.ToStrN(json, "data.type") == "clear")
+                        {
+                            if (JTokenHelper.ToStrN(json, "data.data") == "world")
+                            {
+                                dataGridView1.Rows.Clear();
+                                this.previouslySelectedRowIndex = -1;
+                                addSystemLog("管理员开启了清屏");
+                            }
+                            if (JTokenHelper.ToStrN(json, "data.data") == "hearsay")
+                            {
+                                listView1.Items.Clear();
+                                addSystemLog("管理员开启了清屏");
+                            }
+                        }
+                        if (JTokenHelper.ToStrN(json, "data.type") == "message")
+                        {
+                            label2.Text = JTokenHelper.ToStrN(json, "data.data");
                         }
                         break;
                     case "statistics":
@@ -86,24 +113,119 @@ namespace Game.FrmUI
                 }
             }
         }
-
+        int previouslySelectedRowIndex = -1;
         private void dealWorldMessage(WorldMessageEntity? message)
         {
             if (message.Channel == "world")
             {
-                dataGridView1.Rows.Add(
-                    message.Data.Message.Id,
-                    message.Data.Message.From.Title,
-                    message.Data.Message.From.Name,
-                    message.Data.Message.Content.Data,
-                    message.Data.Message.Time
-                );
-                if (dataGridView1.Rows.Count > 0)
+                if (message.Data.Id == 0)
                 {
-                    dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows.Count - 1;
+                    int rowIndex = 0;
+                    if (message.Data.Message.Content.Type == "text")
+                    {
+                        rowIndex = dataGridView1.Rows.Add(
+                            message.Data.Message.Id,
+                            "[" + message.Data.Message.From.Title + "]",
+                            message.Data.Message.From.Name,
+                            message.Data.Message.Content.Data,
+                            message.Data.Message.Time
+                        );
+                    }
+                    else if (message.Data.Message.Content.Type == "emoji")
+                    {
+                        Image smileyImage = Properties.Resources.ResourceManager.GetObject(message.Data.Message.Content.Data) as Image;
+                        //TextAndImageCell textAndImageCell = new TextAndImageCell();
+                        //textAndImageCell.Image = smileyImage;
+
+                        rowIndex = dataGridView1.Rows.Add(
+                            message.Data.Message.Id,
+                            "[" + message.Data.Message.From.Title + "]",
+                            message.Data.Message.From.Name,
+                            "",
+                            message.Data.Message.Time
+                        );
+                        ((TextAndImageCell)dataGridView1.Rows[rowIndex].Cells[3]).Image = smileyImage;
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                    //判断有没有艾特
+                    if ((message.Data.Message.From.Uid != member_info.Uid) && ((message.Data.Message.Content.Data.IndexOf("@所有人") > -1 && message.Data.Message.From.Uid == "administrator") || message.Data.Message.Content.Data.IndexOf("@" + member_info.Nickname + "") > -1))
+                    {
+                        ListViewItem hearsay_item = new ListViewItem(new string[] {
+                        "有人艾特你了",
+                        DateTime.Now.ToString("HH:mm:ss"),
+                        message.Data.Message.Id.ToString(),
+                        "at",
+                        rowIndex.ToString()
+                    });
+
+                        hearsay_item.UseItemStyleForSubItems = false;
+                        hearsay_item.SubItems[0].ForeColor = hearsay_item.SubItems[1].ForeColor = StrHelper.HexToColor("#6495ED");
+                        listView1.Items.Add(hearsay_item);
+                        this.listView1.Items[this.listView1.Items.Count - 1].EnsureVisible();
+                    }
+
+
+                    if (message.Data.Message.Color.Title != "#000000")
+                    {
+                        dataGridView1.Rows[rowIndex].Cells["Column2"].Style.ForeColor = StrHelper.HexToColor(message.Data.Message.Color.Title);
+                    }
+                    if (message.Data.Message.Color.Title != "#000000")
+                    {
+                        dataGridView1.Rows[rowIndex].Cells["Column3"].Style.ForeColor = StrHelper.HexToColor(message.Data.Message.Color.Name);
+                    }
+                    if (message.Data.Message.Color.Title != "#000000")
+                    {
+                        dataGridView1.Rows[rowIndex].Cells["Column4"].Style.ForeColor = StrHelper.HexToColor(message.Data.Message.Color.Message);
+                    }
+                    if (message.Data.Message.Color.Title != "#000000")
+                    {
+                        dataGridView1.Rows[rowIndex].Cells["Column6"].Style.ForeColor = StrHelper.HexToColor(message.Data.Message.Color.Time);
+                    }
+
+                    if (dataGridView1.Rows.Count == 1)
+                    {
+                        dataGridView1.ClearSelection();
+                    }
+
+                    if (this.自动滚动ToolStripMenuItem.Checked && dataGridView1.Rows.Count > 0)
+                    {
+                        dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows.Count - 1;
+                    }
+
+                    if (message.Data.Notice == 1)
+                    {
+                        notifyIcon1.BalloonTipText = message.Data.Message.Content.Data;
+                        notifyIcon1.BalloonTipTitle = "系统消息";
+                        notifyIcon1.ShowBalloonTip(1000);
+                        addSystemLog("系统消息：" + message.Data.Message.Content.Data);
+                    }
+                    panel_collapsed.BackColor = System.Drawing.Color.DarkViolet;
                 }
             }
+            else if (message.Channel == "cancel")
+            {
+                if (message.Data.Id == 0)
+                {
+                    for (int i = dataGridView1.Rows.Count - 1; i >= 0; i--)
+                    {
+                        if (Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value) > 0 && Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value) < message.Data.Message.Id)
+                        {
+                            break;
+                        }
+                        if (dataGridView1.Rows[i].Cells[0].Value.ToString() == message.Data.Message.Id.ToString())
+                        {
+                            DataGridViewRow select_row = dataGridView1.Rows[i];
+                            dataGridView1.Rows.Remove(select_row);
+                            break;
+                        }
+                    }
+                }
 
+            }
         }
 
         private void addSystemLog(string message, bool jump = true)
@@ -358,6 +480,189 @@ namespace Game.FrmUI
         private void 设置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WinformHelper.Open<FrmSetting>();
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells.Count == 0)
+            {
+                return;
+            }
+            if (this.previouslySelectedRowIndex >= 0)
+            {
+                this.previouslySelectedRowIndex = dataGridView1.SelectedCells[0].RowIndex;
+            }
+
+        }
+
+        private void 快速艾特ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.dataGridView1.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+                textBox1.Text += "@" + selectedRow.Cells["Column3"].Value.ToString() + " ";
+            }
+        }
+
+        private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            // 检查是否是右键点击
+            if (e.Button == MouseButtons.Right)
+            {
+                // 确保点击的是行头或单元格，而不是列头或行外的位置
+                if (e.RowIndex != -1 && e.ColumnIndex != -1)
+                {
+                    // 选中当前右键点击的行
+                    dataGridView1.Rows[e.RowIndex].Selected = true;
+
+                }
+            }
+        }
+
+        private void dataGridView2_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            // 检查是否是右键点击
+            if (e.Button == MouseButtons.Right)
+            {
+                // 确保点击的是行头或单元格，而不是列头或行外的位置
+                if (e.RowIndex != -1 && e.ColumnIndex != -1)
+                {
+                    // 选中当前右键点击的行
+                    dataGridView2.Rows[e.RowIndex].Selected = true;
+
+                }
+            }
+        }
+
+        private void 复制消息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.dataGridView1.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+                if (!string.IsNullOrEmpty(selectedRow.Cells["Column4"].Value.ToString()))
+                {
+                    Clipboard.SetText(selectedRow.Cells["Column4"].Value.ToString());
+                }
+
+            }
+        }
+
+        private void 清空聊天ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+            this.previouslySelectedRowIndex = -1;
+        }
+
+        private void listView2_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            if (listView1.FocusedItem == null)
+            {
+                return;
+            }
+            string message = listView1.FocusedItem.SubItems[0].Text;
+            string id = listView1.FocusedItem.SubItems[2].Text;
+            string type = listView1.FocusedItem.SubItems[3].Text;
+            string data = listView1.FocusedItem.SubItems[4].Text;
+
+            switch (type)
+            {
+                case "apply":
+                    tabControl1.SelectedIndex = 0;
+                    break;
+                case "show":
+                    MessageBox.Show(data, message);
+                    break;
+                case "at":
+                    for (int i = dataGridView1.Rows.Count - 1; i >= 0; i--)
+                    {
+                        if (Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value) > 0 && Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value) < Convert.ToInt32(id))
+                        {
+                            break;
+                        }
+                        if (dataGridView1.Rows[i].Cells[0].Value.ToString() == id)
+                        {
+                            DataGridViewRow select_row = dataGridView1.Rows[i];
+                            自动滚动ToolStripMenuItem.Checked = false;
+                            select_row.Selected = true;
+                            dataGridView1.FirstDisplayedScrollingRowIndex = select_row.Index;
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    MessageBox.Show(data, message);
+                    break;
+            }
+        }
+
+        private void 复制消息ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (this.dataGridView2.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView2.SelectedRows[0];
+                Clipboard.SetText(selectedRow.Cells["dataGridViewTextBoxColumn4"].Value.ToString());
+            }
+        }
+
+        private void 清空列表ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataGridView2.Rows.Clear();
+        }
+
+        private void 发送表情ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmEmoji frm = new FrmEmoji();
+            frm.ShowDialog();
+            if (frm.getSelect != "")
+            {
+                this.BeginInvoke(new Action(() =>
+                {
+                    Dictionary<string, string> dic = new Dictionary<string, string>();
+                    dic.Add("message", frm.getSelect);
+                    dic.Add("type", "emoji");
+                    ResultEntity result = new ResultEntity();
+                    result = http.apiPost("message/world", dic);
+                    if (result.getStatus() != 200)
+                    {
+                        MessageBox.Show(result.getMsg());
+                        return;
+                    }
+                    this.Focus();
+                }));
+            }
+        }
+
+        private void 撤销消息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.dataGridView1.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+                if (!string.IsNullOrEmpty(selectedRow.Cells["Column1"].Value.ToString()))
+                {
+                    string? message_id = selectedRow.Cells["Column1"].Value.ToString();
+                    if (message_id != null)
+                    {
+                        this.BeginInvoke(new Action(() =>
+                        {
+                            Dictionary<string, string> dic = new Dictionary<string, string>();
+                            dic.Add("message_id", message_id);
+                            ResultEntity result = new ResultEntity();
+                            result = http.apiPost("message/cancel", dic);
+                            addSystemLog(result.getMsg(), false);
+                            if (result.getStatus() == 200 && textBox1.Text == "")
+                            {
+                                textBox1.Text = JTokenHelper.ToStr(result.getData());
+                            }
+                        }));
+                    }
+                }
+
+            }
         }
     }
 }

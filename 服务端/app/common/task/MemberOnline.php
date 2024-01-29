@@ -18,7 +18,7 @@ class MemberOnline
                 $redis->hSet('task:member_list', $member['uid'], json_encode($member));
             }
         }
-        Timer::add(10, function () use ($redis) {
+        Timer::add(60, function () use ($redis) {
             $member_list = $redis->hGetAll('task:member_list');
             foreach ($member_list as $uid => $member) {
                 //上次在不在线

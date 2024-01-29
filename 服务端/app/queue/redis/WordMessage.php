@@ -18,7 +18,7 @@ class WordMessage implements Consumer
                 Gateway::sendToAll($data);
             }else{
                 if(isset($data['uid']) && isset($data['data']) && isset($data['group'])){
-                    if($data['uid'] == 'all'){
+                    if($data['uid'] == 'all' || $data['uid'] ==''){
                         Gateway::sendToAll(json_encode($data['data']));
                     }elseif(!$data['group']){
                         Gateway::sendToUid($data['uid'],json_encode($data['data']));

@@ -9,8 +9,7 @@ namespace Game.Helper
 {
     class StrHelper
     {
-        public static Color HexToColor(string hex)
-
+        public static Color HexToColor(string hex = "#000000")
         {
             Color col = ColorTranslator.FromHtml(hex);
             return col;

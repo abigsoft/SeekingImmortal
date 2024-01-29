@@ -4,6 +4,7 @@ namespace app\api\controller;
 
 use app\common\exception\ParamException;
 use app\common\model\TitleMainModel;
+use app\common\model\WorldChatModel;
 use app\common\service\MessageService;
 use GatewayWorker\Lib\Gateway;
 use Workbunny\WebmanIpAttribution\Location;
@@ -112,5 +113,59 @@ class Message extends Base
             ]
         ]);
         return $this->success('SUCCESS');
+    }
+
+    function cancel(){
+        $message_id = $this->request->param('message_id', '');
+        if (!$message_id) {
+            throw new ParamException('该消息不能撤回');
+        }
+        if (!$this->user['account_status']) {
+            throw new ParamException('您的账号已被禁用');
+        }
+        if (!$this->user['character_status']) {
+            throw new ParamException('您的角色已被禁用');
+        }
+        if ($this->uid != "administrator") {
+            $info = WorldChatModel::where('id', $message_id)
+                //->where('channel', 'world')
+                ->field('id,create_time,member_uid,message_data')
+                ->find();
+            if (!$info) {
+                throw new ParamException('该消息不存在');
+            }
+            if ($info['member_uid'] != $this->uid) {
+                throw new ParamException('不是你的消息禁止撤销');
+            }
+            if (time() - strtotime($info['create_time']) > 120) {
+                throw new ParamException('2 分钟以上的消息禁止撤回');
+            }
+            if(stripos($info['message_data'],'#')!== false){
+                throw new ParamException('事件消息禁止撤回');
+            }
+        }else{
+            $info['message_data'] = '';
+        }
+        MessageService::World([
+            "type" => "world",
+            "data" => [
+                "channel" => "cancel",//world世界,person个人,group群组，cancel撤销消息
+                "data" => [
+                    "id" => 0,//0为世界，群组为对应群组的ID
+                    "name" => "世界",
+                    "notice" => 0,//是否提醒
+                    "message" => [
+                        "id" => $message_id,
+                        "time" => date('H:i:s')
+                    ]
+                ]
+            ]
+        ]);
+        if ($this->uid != "administrator") {
+            MessageService::System(($this->user['nickname']) . " 刚刚撤回了一条见不得人的消息", '#C0C0C0');
+            MessageService::System(($this->user['nickname']) . " 撤回了一条消息：" . $info['message_data'], '#FF0000','administrator');
+        }
+
+        return $this->success('消息撤销成功', $info['message_data']);
     }
 }

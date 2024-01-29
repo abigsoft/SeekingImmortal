@@ -1,0 +1,46 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "AppLauncher/1.0.0": {
+        "dependencies": {
+          "fishlee.net.simpleupdater": "5.1.2"
+        },
+        "runtime": {
+          "AppLauncher.dll": {}
+        }
+      },
+      "fishlee.net.simpleupdater/5.1.2": {
+        "runtime": {
+          "lib/net5.0-windows7.0/SimpleUpdater.dll": {
+            "assemblyVersion": "5.1.2.0",
+            "fileVersion": "5.1.2.0"
+          }
+        },
+        "resources": {
+          "lib/net5.0-windows7.0/en/SimpleUpdater.resources.dll": {
+            "locale": "en"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AppLauncher/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "fishlee.net.simpleupdater/5.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/iQhLujB8OZRsMmu1HKbHh6UeBhbAQG0Vru7oZ+Mu1poTEmqpGiEbf1E9/n/pV9hBL5HG+hAZSjG1rtIgwZSPQ==",
+      "path": "fishlee.net.simpleupdater/5.1.2",
+      "hashPath": "fishlee.net.simpleupdater.5.1.2.nupkg.sha512"
+    }
+  }
+}

@@ -55,51 +55,26 @@ namespace Game.Helper
         /// <param name="url">地址</param>
         /// <param name="dic">请求参数定义</param>
         /// <returns></returns>
-        public static string Get(string url, string token = "", Dictionary<string, string> dic = null)
+        public static async Task<string> GetAsync(string url, string token = "")
         {
-            string result = "";
-            StringBuilder builder = new StringBuilder();
-            builder.Append(url);
-            if (dic != null && dic.Count > 0)
-            {
-                builder.Append("?");
-                int i = 0;
-                foreach (var item in dic)
-                {
-                    if (i > 0)
-                        builder.Append("&");
-                    builder.AppendFormat("{0}={1}", item.Key, item.Value);
-                    i++;
-                }
-            }
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(builder.ToString());
-            if (token != "")
-            {
-                req.Headers["Authorization"] = "Bearer " + token;
-            }
-            req.Headers["Version"] = ConfigModel.version_id.ToString();
-            req.Timeout = 60000;
-            //添加参数
-            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-            Stream stream = resp.GetResponseStream();
             try
             {
-                //获取内容
-                using (StreamReader reader = new StreamReader(stream))
+                if (!string.IsNullOrEmpty(token))
                 {
-                    result = reader.ReadToEnd();
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 }
+                HttpResponseMessage response = await _httpClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                string result = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(result);
+                return result;
             }
             catch (Exception e)
             {
-                Console.WriteLine(result);
+                Console.WriteLine(e.Message);
                 return "{\"status\":203,\"msg\":\"服务异常\",\"data\":\"\"}";
             }
-            finally
-            {
-                stream.Close();
-            }
-            return result;
+
         }
     }
 }

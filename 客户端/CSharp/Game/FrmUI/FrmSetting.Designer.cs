@@ -31,6 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSetting));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            button7 = new Button();
+            comboBox1 = new ComboBox();
+            label3 = new Label();
             button4 = new Button();
             label5 = new Label();
             label4 = new Label();
@@ -46,10 +49,10 @@
             checkBox2 = new CheckBox();
             checkBox1 = new CheckBox();
             tabPage3 = new TabPage();
+            button6 = new Button();
             button5 = new Button();
             button3 = new Button();
             checkedListBox1 = new CheckedListBox();
-            button6 = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -70,6 +73,9 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(button7);
+            tabPage1.Controls.Add(comboBox1);
+            tabPage1.Controls.Add(label3);
             tabPage1.Controls.Add(button4);
             tabPage1.Controls.Add(label5);
             tabPage1.Controls.Add(label4);
@@ -87,9 +93,37 @@
             tabPage1.Text = "资料设置";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button7
+            // 
+            button7.Location = new Point(356, 153);
+            button7.Name = "button7";
+            button7.Size = new Size(75, 23);
+            button7.TabIndex = 14;
+            button7.Text = "保存";
+            button7.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "无称号" });
+            comboBox1.Location = new Point(100, 152);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(233, 25);
+            comboBox1.TabIndex = 13;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(40, 155);
+            label3.Name = "label3";
+            label3.Size = new Size(44, 17);
+            label3.TabIndex = 12;
+            label3.Text = "称号：";
+            // 
             // button4
             // 
-            button4.Location = new Point(363, 204);
+            button4.Location = new Point(356, 199);
             button4.Name = "button4";
             button4.Size = new Size(75, 23);
             button4.TabIndex = 11;
@@ -100,7 +134,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("文道粗楷体", 10.4999981F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(107, 209);
+            label5.Location = new Point(102, 203);
             label5.Name = "label5";
             label5.Size = new Size(51, 19);
             label5.TabIndex = 10;
@@ -109,7 +143,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(45, 210);
+            label4.Location = new Point(40, 204);
             label4.Name = "label4";
             label4.Size = new Size(56, 17);
             label4.TabIndex = 9;
@@ -117,27 +151,29 @@
             // 
             // button2
             // 
-            button2.Location = new Point(363, 115);
+            button2.Location = new Point(356, 104);
             button2.Name = "button2";
             button2.Size = new Size(75, 23);
             button2.TabIndex = 7;
             button2.Text = "保存";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // button1
             // 
-            button1.Location = new Point(363, 57);
+            button1.Location = new Point(356, 46);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 6;
             button1.Text = "保存";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // textBox2
             // 
             textBox2.BorderStyle = BorderStyle.FixedSingle;
             textBox2.Font = new Font("文道粗楷体", 10.4999981F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox2.Location = new Point(107, 112);
+            textBox2.Location = new Point(100, 101);
             textBox2.Name = "textBox2";
             textBox2.PlaceholderText = "输入要修改的密码";
             textBox2.Size = new Size(233, 26);
@@ -148,7 +184,7 @@
             // 
             textBox1.BorderStyle = BorderStyle.FixedSingle;
             textBox1.Font = new Font("文道粗楷体", 10.4999981F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox1.Location = new Point(107, 56);
+            textBox1.Location = new Point(100, 45);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "输入要修改的道号";
             textBox1.Size = new Size(233, 26);
@@ -158,7 +194,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(47, 116);
+            label2.Location = new Point(40, 105);
             label2.Name = "label2";
             label2.Size = new Size(44, 17);
             label2.TabIndex = 1;
@@ -167,7 +203,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(47, 60);
+            label1.Location = new Point(40, 49);
             label1.Name = "label1";
             label1.Size = new Size(44, 17);
             label1.TabIndex = 0;
@@ -241,6 +277,15 @@
             tabPage3.Text = "插件设置";
             tabPage3.UseVisualStyleBackColor = true;
             // 
+            // button6
+            // 
+            button6.Location = new Point(365, 28);
+            button6.Name = "button6";
+            button6.Size = new Size(75, 23);
+            button6.TabIndex = 3;
+            button6.Text = "刷新";
+            button6.UseVisualStyleBackColor = true;
+            // 
             // button5
             // 
             button5.Location = new Point(365, 114);
@@ -266,15 +311,6 @@
             checkedListBox1.Name = "checkedListBox1";
             checkedListBox1.Size = new Size(312, 220);
             checkedListBox1.TabIndex = 0;
-            // 
-            // button6
-            // 
-            button6.Location = new Point(365, 28);
-            button6.Name = "button6";
-            button6.Size = new Size(75, 23);
-            button6.TabIndex = 3;
-            button6.Text = "刷新";
-            button6.UseVisualStyleBackColor = true;
             // 
             // FrmSetting
             // 
@@ -322,5 +358,8 @@
         private Button button3;
         private Button button5;
         private Button button6;
+        private Label label3;
+        private ComboBox comboBox1;
+        private Button button7;
     }
 }

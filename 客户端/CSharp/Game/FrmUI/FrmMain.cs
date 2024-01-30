@@ -481,12 +481,12 @@ namespace Game.FrmUI
 
         private void button4_Click(object sender, EventArgs e)
         {
-            WinformHelper.Open<FrmSetting>();
+            WinformHelper.Open<FrmSetting>(http);
         }
 
         private void 设置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            WinformHelper.Open<FrmSetting>();
+            WinformHelper.Open<FrmSetting>(http);
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)

@@ -46,10 +46,10 @@ namespace Game.FrmUI
 
         private void button3_Click(object sender, EventArgs e)
         {
-            doLogin();
+            _ = doLoginAsync();
         }
 
-        private void doLogin()
+        private async Task doLoginAsync()
         {
             String account = textBox1.Text;
             String password = textBox2.Text;
@@ -62,7 +62,7 @@ namespace Game.FrmUI
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("account", account);
             dic.Add("password", password);
-            ResultEntity result = http.apiPost("login/account", dic);
+            ResultEntity result = await http.apiPost("login/account", dic);
 
             if (result.getStatus() != 200)
             {
@@ -77,7 +77,7 @@ namespace Game.FrmUI
             this.Close();
         }
 
-        private void doRegister()
+        private async void doRegister()
         {
             String account = textBox3.Text;
             String password = textBox4.Text;
@@ -94,7 +94,7 @@ namespace Game.FrmUI
             dic.Add("password", password);
             dic.Add("nickname", name);
             dic.Add("sex", sex.ToString());
-            ResultEntity result = http.apiPost("register/account", dic);
+            ResultEntity result = await http.apiPost("register/account", dic);
             MessageBox.Show(result.getMsg());
             if (result.getStatus() != 200)
             {
@@ -150,7 +150,7 @@ namespace Game.FrmUI
         {
             if (e.KeyChar == 13)
             {
-                doLogin();
+                doLoginAsync();
                 //e.Handled = true;
             }
         }

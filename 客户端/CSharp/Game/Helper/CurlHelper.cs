@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,63 +12,40 @@ namespace Game.Helper
 {
     public class CurlHelper
     {
+        static readonly HttpClient _httpClient = new HttpClient();
+
+        static CurlHelper()
+        {
+            _httpClient.Timeout = TimeSpan.FromMilliseconds(60000);
+            // 配置你的 HttpClient (如添加通用的 Headers) 可以在这里完成
+            _httpClient.DefaultRequestHeaders.Add("Version", ConfigModel.version_id.ToString());
+        }
         /// <summary>
         /// 指定Post地址使用Get 方式获取全部字符串
         /// </summary>
         /// <param name="url">请求后台地址</param>
         /// <returns></returns>
-        public static string Post(string url, string token = "", Dictionary<string, string> dic = null)
+        public static async Task<string> PostAsync(string url, string token = "", Dictionary<string, string> dic = null)
         {
-            string result = "";
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-            req.Method = "POST";
-            req.ContentType = "application/x-www-form-urlencoded";
-            if (token != "")
-            {
-                req.Headers["Authorization"] = "Bearer " + token;
-            }
-            req.Headers["Version"] = ConfigModel.version_id.ToString();
-            req.Timeout = 60000;
-            #region 添加Post 参数
-            StringBuilder builder = new StringBuilder();
-            int i = 0;
-            if (dic != null)
-            {
-                foreach (var item in dic)
-                {
-                    if (i > 0)
-                        builder.Append("&");
-                    builder.AppendFormat("{0}={1}", item.Key, StrHelper.ChEncodeUrl(item.Value));
-                    i++;
-                }
-            }
-
-            byte[] data = Encoding.UTF8.GetBytes(builder.ToString());
-            req.ContentLength = data.Length;
-            using (Stream reqStream = req.GetRequestStream())
-            {
-                reqStream.Write(data, 0, data.Length);
-                reqStream.Close();
-            }
             try
             {
-                #endregion
-                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-                Stream stream = resp.GetResponseStream();
-                //获取响应内容
-                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+                if (!string.IsNullOrEmpty(token))
                 {
-                    result = reader.ReadToEnd();
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 }
+
+                var content = new FormUrlEncodedContent(dic ?? new Dictionary<string, string>());
+                HttpResponseMessage response = await _httpClient.PostAsync(url, content);
+                response.EnsureSuccessStatusCode();
+                string result = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(result);
                 return result;
             }
             catch (Exception e)
             {
-                Console.WriteLine(result);
+                Console.WriteLine(e.Message);
                 return "{\"status\":203,\"msg\":\"服务异常\",\"data\":\"\"}";
             }
-
 
         }
 

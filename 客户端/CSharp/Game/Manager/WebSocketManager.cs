@@ -13,89 +13,124 @@ namespace Game.Manager
     public class WebSocketManager
     {
         private static readonly Lazy<WebSocketManager> _instance = new Lazy<WebSocketManager>(() => new WebSocketManager());
-        private ClientWebSocket _webSocket;
-        private Uri _serverUri;
-        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-
-        public event Action<string> MessageReceived;
-        public event Action<Exception> ErrorOccurred;
-        public event Action Disconnected;
-
-        // 获取WebSocketManager实例的静态属性
         public static WebSocketManager Instance => _instance.Value;
+
+        private ClientWebSocket _webSocket;
+        private CancellationTokenSource _cts;
+        private Uri _serverUri;
+        public event Action<string> OnMessageReceived;
+        public event Action<Exception> OnError;
 
         private WebSocketManager()
         {
             _webSocket = new ClientWebSocket();
+            _cts = new CancellationTokenSource();
+            //_serverUri = new Uri("ws://your-websocket-server-uri"); // 替换为你的WebSocket服务端地址
         }
 
-        public async Task ConnectAsync(string uri)
+        public async Task ConnectAsync(Uri serverUri)
         {
-            try
-            {
-                this._serverUri = new Uri(uri);
-                await _webSocket.ConnectAsync(_serverUri, _cancellationTokenSource.Token);
-                StartListening();
-            }
-            catch (Exception ex)
-            {
-                ErrorOccurred?.Invoke(ex);
-            }
-        }
-
-        private async void StartListening()
-        {
-            var buffer = new byte[1024 * 4];
-            while (!_cancellationTokenSource.IsCancellationRequested && _webSocket.State == WebSocketState.Open)
+            _serverUri = serverUri;
+            while (true)
             {
                 try
                 {
-                    var result = await _webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), _cancellationTokenSource.Token);
-                    if (result.MessageType == WebSocketMessageType.Text)
+                    if (_webSocket.State == WebSocketState.Open)
                     {
-                        var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                        MessageReceived?.Invoke(message);
+                        // 如果WebSocket已经是打开状态，不需要重新连接
+                        break;
                     }
-                    else if (result.MessageType == WebSocketMessageType.Close)
+                    else
                     {
-                        Disconnected?.Invoke();
+                        if (_webSocket.State != WebSocketState.Connecting)
+                        {
+                            _webSocket.Dispose();
+                            _webSocket = new ClientWebSocket();
+                            await _webSocket.ConnectAsync(_serverUri, _cts.Token);
+                            StartHeartbeat();
+                            StartReceiving();
+                        }
+                    }
+                }
+                catch (WebSocketException ex)
+                {
+                    OnError?.Invoke(ex);
+                    // 等待一段时间再尝试重连
+                    await Task.Delay(TimeSpan.FromSeconds(10), _cts.Token);
+                }
+            }
+        }
+
+        private void StartReceiving()
+        {
+            Task.Run(async () =>
+            {
+                var buffer = new byte[4096];
+
+                try
+                {
+                    while (!_webSocket.CloseStatus.HasValue)
+                    {
+                        var result = await _webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), _cts.Token);
+
+                        if (result.MessageType == WebSocketMessageType.Close)
+                        {
+                            // 如果服务器关闭了WebSocket连接，尝试重新连接
+                            await ConnectAsync(_serverUri);
+                        }
+                        else
+                        {
+                            var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                            OnMessageReceived?.Invoke(message);
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
-                    ErrorOccurred?.Invoke(ex);
+                    //OnError?.Invoke(ex);
+                    // 如果发生异常（可能是因为服务器重启），尝试重新连接
+                    await ConnectAsync(_serverUri);
                 }
-            }
-
+            }, _cts.Token);
         }
 
-        public async Task SendMessageAsync(string message)
+        private void StartHeartbeat()
         {
-            try
+            Task.Run(async () =>
             {
-                if (_webSocket.State == WebSocketState.Open)
+                while (!_webSocket.CloseStatus.HasValue)
                 {
-                    var buffer = Encoding.UTF8.GetBytes(message);
-                    await _webSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, _cancellationTokenSource.Token);
+                    try
+                    {
+                        await SendAsync("{\"type\":\"ping\"}");
+                    }
+                    catch (Exception ex)
+                    {
+                        //OnError?.Invoke(ex);
+                    }
+
+                    await Task.Delay(TimeSpan.FromSeconds(20), _cts.Token);
                 }
-            }
-            catch (Exception ex)
+            });
+        }
+
+        public async Task SendAsync(string message)
+        {
+            if (_webSocket.State == WebSocketState.Open)
             {
-                ErrorOccurred?.Invoke(ex);
+                var bytes = Encoding.UTF8.GetBytes(message);
+                await _webSocket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, _cts.Token);
             }
         }
 
         public async Task DisconnectAsync()
         {
-            if (_webSocket != null)
-            { 
-                if (_webSocket.State != WebSocketState.Closed && _webSocket.State != WebSocketState.Aborted)
-                {
-                    _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None).Wait();
-                }
-                _webSocket.Dispose();
-                _webSocket = null;
+            _cts.Cancel();
+            if (_webSocket.State == WebSocketState.Open)
+            {
+                await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, _cts.Token);
             }
+            _webSocket.Dispose();
         }
     }
 }

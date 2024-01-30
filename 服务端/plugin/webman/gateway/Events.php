@@ -48,7 +48,8 @@ class Events
 
     public static function onMessage($client_id, $message)
     {
-        Gateway::sendToClient($client_id, "receive message $message");
+        //Gateway::sendToClient($client_id, "receive message $message");
+        //var_dump($message);
     }
 
     public static function onClose($client_id)

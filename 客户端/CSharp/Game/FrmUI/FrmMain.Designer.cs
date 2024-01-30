@@ -30,11 +30,11 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             panel_collapsed = new Panel();
             panel_main = new Panel();
             button4 = new Button();
@@ -57,6 +57,12 @@
             tabControl2 = new TabControl();
             tabPage7 = new TabPage();
             dataGridView1 = new DataGridView();
+            Column1 = new DataGridViewTextBoxColumn();
+            Column2 = new DataGridViewTextBoxColumn();
+            Column3 = new DataGridViewTextBoxColumn();
+            Column4 = new Assembly.TextAndImageColumn();
+            Column6 = new DataGridViewTextBoxColumn();
+            Column7 = new DataGridViewTextBoxColumn();
             contextMenuStrip3 = new ContextMenuStrip(components);
             快速艾特ToolStripMenuItem = new ToolStripMenuItem();
             复制消息ToolStripMenuItem = new ToolStripMenuItem();
@@ -74,6 +80,11 @@
             清空列表ToolStripMenuItem = new ToolStripMenuItem();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            button11 = new Button();
+            button10 = new Button();
+            button9 = new Button();
+            button8 = new Button();
+            button7 = new Button();
             groupBox2 = new GroupBox();
             label27 = new Label();
             label28 = new Label();
@@ -111,6 +122,9 @@
             label5 = new Label();
             label4 = new Label();
             tabPage5 = new TabPage();
+            groupBox3 = new GroupBox();
+            button6 = new Button();
+            button5 = new Button();
             tabPage6 = new TabPage();
             tabPage11 = new TabPage();
             tabPage4 = new TabPage();
@@ -130,12 +144,6 @@
             toolStripSeparator1 = new ToolStripSeparator();
             退出ToolStripMenuItem = new ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
-            Column4 = new Assembly.TextAndImageColumn();
-            Column6 = new DataGridViewTextBoxColumn();
-            Column7 = new DataGridViewTextBoxColumn();
             panel_main.SuspendLayout();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
@@ -151,6 +159,8 @@
             tabPage1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
+            tabPage5.SuspendLayout();
+            groupBox3.SuspendLayout();
             contextMenuStrip2.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
@@ -382,6 +392,62 @@
             dataGridView1.CellMouseDown += dataGridView1_CellMouseDown;
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
             // 
+            // Column1
+            // 
+            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Column1.HeaderText = "ID";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            Column1.SortMode = DataGridViewColumnSortMode.NotSortable;
+            Column1.Visible = false;
+            // 
+            // Column2
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Column2.DefaultCellStyle = dataGridViewCellStyle2;
+            Column2.HeaderText = "称号";
+            Column2.Name = "Column2";
+            Column2.ReadOnly = true;
+            Column2.SortMode = DataGridViewColumnSortMode.NotSortable;
+            Column2.Width = 70;
+            // 
+            // Column3
+            // 
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Column3.DefaultCellStyle = dataGridViewCellStyle3;
+            Column3.HeaderText = "道号";
+            Column3.Name = "Column3";
+            Column3.ReadOnly = true;
+            Column3.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column4
+            // 
+            Column4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column4.HeaderText = "消息";
+            Column4.Image = null;
+            Column4.Name = "Column4";
+            Column4.ReadOnly = true;
+            Column4.Resizable = DataGridViewTriState.True;
+            Column4.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column6
+            // 
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Column6.DefaultCellStyle = dataGridViewCellStyle4;
+            Column6.HeaderText = "时间";
+            Column6.Name = "Column6";
+            Column6.ReadOnly = true;
+            Column6.SortMode = DataGridViewColumnSortMode.NotSortable;
+            Column6.Width = 70;
+            // 
+            // Column7
+            // 
+            Column7.HeaderText = "事件";
+            Column7.Name = "Column7";
+            Column7.ReadOnly = true;
+            Column7.SortMode = DataGridViewColumnSortMode.NotSortable;
+            Column7.Visible = false;
+            // 
             // contextMenuStrip3
             // 
             contextMenuStrip3.Items.AddRange(new ToolStripItem[] { 快速艾特ToolStripMenuItem, 复制消息ToolStripMenuItem, 撤销消息ToolStripMenuItem, 自动滚动ToolStripMenuItem, toolStripSeparator2, 清空聊天ToolStripMenuItem });
@@ -527,6 +593,11 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(button11);
+            tabPage1.Controls.Add(button10);
+            tabPage1.Controls.Add(button9);
+            tabPage1.Controls.Add(button8);
+            tabPage1.Controls.Add(button7);
             tabPage1.Controls.Add(groupBox2);
             tabPage1.Controls.Add(groupBox1);
             tabPage1.Location = new Point(4, 26);
@@ -536,6 +607,52 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "信息";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button11
+            // 
+            button11.Location = new Point(500, 213);
+            button11.Name = "button11";
+            button11.Size = new Size(62, 23);
+            button11.TabIndex = 6;
+            button11.Text = "技能";
+            button11.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            button10.Location = new Point(500, 168);
+            button10.Name = "button10";
+            button10.Size = new Size(62, 23);
+            button10.TabIndex = 5;
+            button10.Text = "统计";
+            button10.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            button9.Location = new Point(500, 122);
+            button9.Name = "button9";
+            button9.Size = new Size(62, 23);
+            button9.TabIndex = 4;
+            button9.Text = "境界";
+            button9.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            button8.Location = new Point(500, 75);
+            button8.Name = "button8";
+            button8.Size = new Size(62, 23);
+            button8.TabIndex = 3;
+            button8.Text = "分点";
+            button8.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            button7.Location = new Point(500, 27);
+            button7.Name = "button7";
+            button7.Size = new Size(62, 23);
+            button7.TabIndex = 2;
+            button7.Text = "刷新";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
             // 
             // groupBox2
             // 
@@ -561,9 +678,9 @@
             groupBox2.Controls.Add(label19);
             groupBox2.Controls.Add(label21);
             groupBox2.Controls.Add(label20);
-            groupBox2.Location = new Point(190, 18);
+            groupBox2.Location = new Point(208, 18);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(291, 218);
+            groupBox2.Size = new Size(286, 218);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "属性";
@@ -571,7 +688,7 @@
             // label27
             // 
             label27.AutoSize = true;
-            label27.Location = new Point(208, 35);
+            label27.Location = new Point(212, 35);
             label27.Name = "label27";
             label27.Size = new Size(50, 17);
             label27.TabIndex = 35;
@@ -580,7 +697,7 @@
             // label28
             // 
             label28.AutoSize = true;
-            label28.Location = new Point(158, 35);
+            label28.Location = new Point(162, 35);
             label28.Name = "label28";
             label28.Size = new Size(44, 17);
             label28.TabIndex = 34;
@@ -589,7 +706,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(208, 91);
+            label7.Location = new Point(212, 91);
             label7.Name = "label7";
             label7.Size = new Size(40, 17);
             label7.TabIndex = 33;
@@ -598,7 +715,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(158, 91);
+            label3.Location = new Point(162, 91);
             label3.Name = "label3";
             label3.Size = new Size(44, 17);
             label3.TabIndex = 32;
@@ -607,7 +724,7 @@
             // label34
             // 
             label34.AutoSize = true;
-            label34.Location = new Point(71, 35);
+            label34.Location = new Point(75, 35);
             label34.Name = "label34";
             label34.Size = new Size(50, 17);
             label34.TabIndex = 29;
@@ -616,7 +733,7 @@
             // label33
             // 
             label33.AutoSize = true;
-            label33.Location = new Point(21, 35);
+            label33.Location = new Point(25, 35);
             label33.Name = "label33";
             label33.Size = new Size(44, 17);
             label33.TabIndex = 28;
@@ -625,7 +742,7 @@
             // label32
             // 
             label32.AutoSize = true;
-            label32.Location = new Point(208, 147);
+            label32.Location = new Point(212, 147);
             label32.Name = "label32";
             label32.Size = new Size(40, 17);
             label32.TabIndex = 27;
@@ -634,7 +751,7 @@
             // label31
             // 
             label31.AutoSize = true;
-            label31.Location = new Point(158, 146);
+            label31.Location = new Point(162, 146);
             label31.Name = "label31";
             label31.Size = new Size(44, 17);
             label31.TabIndex = 26;
@@ -643,7 +760,7 @@
             // label30
             // 
             label30.AutoSize = true;
-            label30.Location = new Point(208, 119);
+            label30.Location = new Point(212, 119);
             label30.Name = "label30";
             label30.Size = new Size(40, 17);
             label30.TabIndex = 25;
@@ -652,7 +769,7 @@
             // label29
             // 
             label29.AutoSize = true;
-            label29.Location = new Point(158, 119);
+            label29.Location = new Point(162, 119);
             label29.Name = "label29";
             label29.Size = new Size(44, 17);
             label29.TabIndex = 24;
@@ -661,7 +778,7 @@
             // label26
             // 
             label26.AutoSize = true;
-            label26.Location = new Point(208, 63);
+            label26.Location = new Point(212, 63);
             label26.Name = "label26";
             label26.Size = new Size(40, 17);
             label26.TabIndex = 23;
@@ -670,7 +787,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(21, 63);
+            label15.Location = new Point(25, 63);
             label15.Name = "label15";
             label15.Size = new Size(44, 17);
             label15.TabIndex = 12;
@@ -679,7 +796,7 @@
             // label25
             // 
             label25.AutoSize = true;
-            label25.Location = new Point(158, 63);
+            label25.Location = new Point(162, 63);
             label25.Name = "label25";
             label25.Size = new Size(44, 17);
             label25.TabIndex = 22;
@@ -688,7 +805,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(71, 63);
+            label16.Location = new Point(75, 63);
             label16.Name = "label16";
             label16.Size = new Size(50, 17);
             label16.TabIndex = 13;
@@ -697,7 +814,7 @@
             // label24
             // 
             label24.AutoSize = true;
-            label24.Location = new Point(71, 175);
+            label24.Location = new Point(75, 175);
             label24.Name = "label24";
             label24.Size = new Size(50, 17);
             label24.TabIndex = 21;
@@ -706,7 +823,7 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(21, 91);
+            label17.Location = new Point(25, 91);
             label17.Name = "label17";
             label17.Size = new Size(44, 17);
             label17.TabIndex = 14;
@@ -715,7 +832,7 @@
             // label23
             // 
             label23.AutoSize = true;
-            label23.Location = new Point(21, 175);
+            label23.Location = new Point(25, 175);
             label23.Name = "label23";
             label23.Size = new Size(44, 17);
             label23.TabIndex = 20;
@@ -724,7 +841,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(71, 91);
+            label18.Location = new Point(75, 91);
             label18.Name = "label18";
             label18.Size = new Size(50, 17);
             label18.TabIndex = 15;
@@ -733,7 +850,7 @@
             // label22
             // 
             label22.AutoSize = true;
-            label22.Location = new Point(71, 147);
+            label22.Location = new Point(75, 147);
             label22.Name = "label22";
             label22.Size = new Size(50, 17);
             label22.TabIndex = 19;
@@ -742,7 +859,7 @@
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(21, 119);
+            label19.Location = new Point(25, 119);
             label19.Name = "label19";
             label19.Size = new Size(44, 17);
             label19.TabIndex = 16;
@@ -751,7 +868,7 @@
             // label21
             // 
             label21.AutoSize = true;
-            label21.Location = new Point(21, 147);
+            label21.Location = new Point(25, 147);
             label21.Name = "label21";
             label21.Size = new Size(44, 17);
             label21.TabIndex = 18;
@@ -760,7 +877,7 @@
             // label20
             // 
             label20.AutoSize = true;
-            label20.Location = new Point(71, 119);
+            label20.Location = new Point(75, 119);
             label20.Name = "label20";
             label20.Size = new Size(50, 17);
             label20.TabIndex = 17;
@@ -782,7 +899,7 @@
             groupBox1.Controls.Add(label4);
             groupBox1.Location = new Point(18, 18);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(166, 218);
+            groupBox1.Size = new Size(184, 218);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "角色";
@@ -897,6 +1014,7 @@
             // 
             // tabPage5
             // 
+            tabPage5.Controls.Add(groupBox3);
             tabPage5.Location = new Point(4, 26);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3);
@@ -904,6 +1022,35 @@
             tabPage5.TabIndex = 4;
             tabPage5.Text = "家园";
             tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(button6);
+            groupBox3.Controls.Add(button5);
+            groupBox3.Location = new Point(16, 18);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(126, 219);
+            groupBox3.TabIndex = 0;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "洞府";
+            // 
+            // button6
+            // 
+            button6.Location = new Point(26, 97);
+            button6.Name = "button6";
+            button6.Size = new Size(75, 23);
+            button6.TabIndex = 1;
+            button6.Text = "休息";
+            button6.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            button5.Location = new Point(26, 44);
+            button5.Name = "button5";
+            button5.Size = new Size(75, 23);
+            button5.TabIndex = 0;
+            button5.Text = "感悟";
+            button5.UseVisualStyleBackColor = true;
             // 
             // tabPage6
             // 
@@ -987,7 +1134,7 @@
             textBox1.BorderStyle = BorderStyle.FixedSingle;
             textBox1.Font = new Font("文道粗楷体", 10.4999981F, FontStyle.Regular, GraphicsUnit.Point);
             textBox1.Location = new Point(13, 583);
-            textBox1.MaxLength = 30;
+            textBox1.MaxLength = 120;
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "在这里输入发送的消息";
             textBox1.Size = new Size(682, 26);
@@ -1017,7 +1164,8 @@
             // 
             // heart_jump
             // 
-            heart_jump.Interval = 20000;
+            heart_jump.Enabled = true;
+            heart_jump.Interval = 5000;
             heart_jump.Tick += heart_jump_Tick;
             // 
             // notifyIcon1
@@ -1065,62 +1213,6 @@
             timer1.Interval = 300;
             timer1.Tick += timer1_Tick;
             // 
-            // Column1
-            // 
-            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            Column1.HeaderText = "ID";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
-            Column1.SortMode = DataGridViewColumnSortMode.NotSortable;
-            Column1.Visible = false;
-            // 
-            // Column2
-            // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Column2.DefaultCellStyle = dataGridViewCellStyle2;
-            Column2.HeaderText = "称号";
-            Column2.Name = "Column2";
-            Column2.ReadOnly = true;
-            Column2.SortMode = DataGridViewColumnSortMode.NotSortable;
-            Column2.Width = 70;
-            // 
-            // Column3
-            // 
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Column3.DefaultCellStyle = dataGridViewCellStyle3;
-            Column3.HeaderText = "道号";
-            Column3.Name = "Column3";
-            Column3.ReadOnly = true;
-            Column3.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column4
-            // 
-            Column4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column4.HeaderText = "消息";
-            Column4.Image = null;
-            Column4.Name = "Column4";
-            Column4.ReadOnly = true;
-            Column4.Resizable = DataGridViewTriState.True;
-            Column4.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Column6
-            // 
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Column6.DefaultCellStyle = dataGridViewCellStyle4;
-            Column6.HeaderText = "时间";
-            Column6.Name = "Column6";
-            Column6.ReadOnly = true;
-            Column6.SortMode = DataGridViewColumnSortMode.NotSortable;
-            Column6.Width = 70;
-            // 
-            // Column7
-            // 
-            Column7.HeaderText = "事件";
-            Column7.Name = "Column7";
-            Column7.ReadOnly = true;
-            Column7.SortMode = DataGridViewColumnSortMode.NotSortable;
-            Column7.Visible = false;
-            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -1155,6 +1247,8 @@
             groupBox2.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            tabPage5.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
             contextMenuStrip2.ResumeLayout(false);
             contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
@@ -1263,5 +1357,13 @@
         private Assembly.TextAndImageColumn Column4;
         private DataGridViewTextBoxColumn Column6;
         private DataGridViewTextBoxColumn Column7;
+        private GroupBox groupBox3;
+        private Button button5;
+        private Button button6;
+        private Button button7;
+        private Button button8;
+        private Button button9;
+        private Button button10;
+        private Button button11;
     }
 }

@@ -41,21 +41,26 @@ namespace Game.FrmUI
 
         private void SetupWebSocketEvents()
         {
-            WebSocketManager.Instance.MessageReceived += Instance_OnMessageReceived;
-            WebSocketManager.Instance.ErrorOccurred += Instance_OnErrorOccurred;
+            WebSocketManager.Instance.OnMessageReceived += Instance_OnMessageReceived;
+            WebSocketManager.Instance.OnError += Instance_OnErrorOccurred;
         }
 
         private async void InitSocket()
         {
-            await WebSocketManager.Instance.ConnectAsync(ConfigModel.socket_url + "/?token=" + this.token);
+            await WebSocketManager.Instance.ConnectAsync(new Uri(ConfigModel.socket_url + "/?token=" + this.token));
         }
 
         private void Instance_OnErrorOccurred(Exception ex)
         {
-            this.Invoke((MethodInvoker)delegate
+            if (InvokeRequired)
             {
-                this.InitSocket();
-            });
+                Invoke(new Action(() => Instance_OnErrorOccurred(ex)));
+            }
+            else
+            {
+                //InitSocket();
+                addSystemLog("连接出现问题，请检查网络，稍后进行自动重连");
+            }
         }
 
         private void Instance_OnMessageReceived(string message)
@@ -228,7 +233,7 @@ namespace Game.FrmUI
             }
         }
 
-        private void addSystemLog(string message, bool jump = true)
+        private void addSystemLog(string message, bool jump = false)
         {
             this.BeginInvoke(new Action(() =>
             {
@@ -236,6 +241,14 @@ namespace Game.FrmUI
                 if (dataGridView2.Rows.Count > 0)
                 {
                     dataGridView2.FirstDisplayedScrollingRowIndex = dataGridView2.Rows.Count - 1;
+                }
+                if (jump)
+                {
+                    tabControl2.SelectedIndex = 1;
+                }
+                if (dataGridView2.Rows.Count == 1)
+                {
+                    dataGridView2.ClearSelection();
                 }
             }));
 
@@ -249,41 +262,38 @@ namespace Game.FrmUI
             }, this);
         }
         MemberEntity member_info = new MemberEntity();
-        private void initUser()
+        private async void initUser()
         {
-            this.BeginInvoke(new Action(() =>
+            ResultEntity result = await http.apiPost("member/info/info");
+            if (result.getStatus() != 200)
             {
-                ResultEntity result = http.apiPost("member/info/info");
-                if (result.getStatus() != 200)
-                {
-                    MessageBox.Show(result.getMsg());
-                    return;
-                }
-                this.member_info = JsonConvert.DeserializeObject<MemberEntity>(result.toString());
-                if (this.member_info == null)
-                {
-                    MessageBox.Show(result.getMsg());
-                    return;
-                }
-                this.notifyIcon1.Text = label1.Text = "寻仙：" + member_info.Nickname;
-                this.label8.Text = member_info.LevelTitle;
-                this.label9.Text = member_info.DataExp.ToString();
-                this.label10.Text = member_info.DataGoldCoin.ToString();
-                this.label11.Text = member_info.DataSpiritStone.ToString();
-                this.label36.Text = member_info.DataFortune.ToString();
-                this.label14.Text = member_info.DataPhysical.ToString() + " / " + member_info.DataPhysicalMax.ToString();
-                this.label34.Text = member_info.WorldBlood.ToString();
-                this.label27.Text = member_info.DataInsight.ToString();
-                this.label16.Text = member_info.WorldAttackPhysics.ToString();
-                this.label18.Text = member_info.WorldAttackMagic.ToString();
-                this.label20.Text = member_info.WorldDefensePhysics.ToString();
-                this.label22.Text = member_info.WorldDefenseMagic.ToString();
-                this.label24.Text = member_info.WorldSpeed.ToString();
-                this.label26.Text = (member_info.WorldCriticalRate * 100).ToString() + "%";
-                this.label7.Text = (member_info.WorldCriticalData * 100).ToString() + "%";
-                this.label30.Text = (member_info.WorldSure * 100).ToString() + "%";
-                this.label32.Text = (member_info.WorldEvade * 100).ToString() + "%";
-            }));
+                MessageBox.Show(result.getMsg());
+                return;
+            }
+            this.member_info = JsonConvert.DeserializeObject<MemberEntity>(result.toString());
+            if (this.member_info == null)
+            {
+                MessageBox.Show(result.getMsg());
+                return;
+            }
+            this.notifyIcon1.Text = label1.Text = "寻仙：" + member_info.Nickname;
+            this.label8.Text = member_info.LevelTitle;
+            this.label9.Text = member_info.DataExp.ToString();
+            this.label10.Text = member_info.DataGoldCoin.ToString();
+            this.label11.Text = member_info.DataSpiritStone.ToString();
+            this.label36.Text = member_info.DataFortune.ToString();
+            this.label14.Text = member_info.DataPhysical.ToString() + " / " + member_info.DataPhysicalMax.ToString();
+            this.label34.Text = member_info.WorldBlood.ToString();
+            this.label27.Text = member_info.DataInsight.ToString();
+            this.label16.Text = member_info.WorldAttackPhysics.ToString();
+            this.label18.Text = member_info.WorldAttackMagic.ToString();
+            this.label20.Text = member_info.WorldDefensePhysics.ToString();
+            this.label22.Text = member_info.WorldDefenseMagic.ToString();
+            this.label24.Text = member_info.WorldSpeed.ToString();
+            this.label26.Text = (member_info.WorldCriticalRate * 100).ToString() + "%";
+            this.label7.Text = (member_info.WorldCriticalData * 100).ToString() + "%";
+            this.label30.Text = (member_info.WorldSure * 100).ToString() + "%";
+            this.label32.Text = (member_info.WorldEvade * 100).ToString() + "%";
         }
 
         private void initAll()
@@ -406,7 +416,7 @@ namespace Game.FrmUI
 
         private async void heart_jump_Tick(object sender, EventArgs e)
         {
-            await WebSocketManager.Instance.SendMessageAsync("{\"type\":\"ping\"}");
+            //await WebSocketManager.Instance.SendMessageAsync("{\"type\":\"ping\"}");
             StrHelper.ClearMemory();
         }
 
@@ -419,26 +429,23 @@ namespace Game.FrmUI
             }
         }
 
-        private void sendMessage()
+        private async void sendMessage()
         {
             if (textBox1.Text == "")
             {
                 return;
             }
-            this.BeginInvoke(new Action(() =>
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add("message", textBox1.Text);
+            ResultEntity result = new ResultEntity();
+            result = await http.apiPost("message/world", dic);
+            if (result.getStatus() != 200)
             {
-                Dictionary<string, string> dic = new Dictionary<string, string>();
-                dic.Add("message", textBox1.Text);
-                ResultEntity result = new ResultEntity();
-                result = http.apiPost("message/world", dic);
-                if (result.getStatus() != 200)
-                {
-                    MessageBox.Show(result.getMsg());
-                    return;
-                }
-                this.textBox1.Text = "";
-                this.Focus();
-            }));
+                MessageBox.Show(result.getMsg());
+                return;
+            }
+            this.textBox1.Text = "";
+            this.Focus();
 
         }
 
@@ -614,30 +621,27 @@ namespace Game.FrmUI
             dataGridView2.Rows.Clear();
         }
 
-        private void 发送表情ToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void 发送表情ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmEmoji frm = new FrmEmoji();
             frm.ShowDialog();
             if (frm.getSelect != "")
             {
-                this.BeginInvoke(new Action(() =>
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                dic.Add("message", frm.getSelect);
+                dic.Add("type", "emoji");
+                ResultEntity result = new ResultEntity();
+                result = await http.apiPost("message/world", dic);
+                if (result.getStatus() != 200)
                 {
-                    Dictionary<string, string> dic = new Dictionary<string, string>();
-                    dic.Add("message", frm.getSelect);
-                    dic.Add("type", "emoji");
-                    ResultEntity result = new ResultEntity();
-                    result = http.apiPost("message/world", dic);
-                    if (result.getStatus() != 200)
-                    {
-                        MessageBox.Show(result.getMsg());
-                        return;
-                    }
-                    this.Focus();
-                }));
+                    MessageBox.Show(result.getMsg());
+                    return;
+                }
+                this.Focus();
             }
         }
 
-        private void 撤销消息ToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void 撤销消息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.dataGridView1.SelectedRows.Count > 0)
             {
@@ -647,22 +651,25 @@ namespace Game.FrmUI
                     string? message_id = selectedRow.Cells["Column1"].Value.ToString();
                     if (message_id != null)
                     {
-                        this.BeginInvoke(new Action(() =>
+                        Dictionary<string, string> dic = new Dictionary<string, string>();
+                        dic.Add("message_id", message_id);
+                        ResultEntity result = new ResultEntity();
+                        result = await http.apiPost("message/cancel", dic);
+                        addSystemLog(result.getMsg(), false);
+                        if (result.getStatus() == 200 && textBox1.Text == "")
                         {
-                            Dictionary<string, string> dic = new Dictionary<string, string>();
-                            dic.Add("message_id", message_id);
-                            ResultEntity result = new ResultEntity();
-                            result = http.apiPost("message/cancel", dic);
-                            addSystemLog(result.getMsg(), false);
-                            if (result.getStatus() == 200 && textBox1.Text == "")
-                            {
-                                textBox1.Text = JTokenHelper.ToStr(result.getData());
-                            }
-                        }));
+                            textBox1.Text = JTokenHelper.ToStr(result.getData());
+                        }
                     }
                 }
 
             }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            this.initUser();
+            addSystemLog("人物信息刷新成功", true);
         }
     }
 }

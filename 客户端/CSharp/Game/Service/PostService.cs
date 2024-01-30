@@ -11,35 +11,30 @@ namespace Game.Service
 {
     public class PostService
     {
-        private String base_url = ConfigModel.base_url;
+        private static String base_url = ConfigModel.base_url;
 
         public String token = "";
         public String password = "";
 
-        public ResultEntity apiPost(String route, Dictionary<string, string> dic = null)
+        public async Task<ResultEntity> apiPost(String route, Dictionary<string, string> dic = null)
         {
             dic = OrderByKey(dic);
             String url = base_url + route;
             ResultEntity result = new ResultEntity();
-            Thread thread = new Thread(() =>
+            string html = await CurlHelper.PostAsync(url, token, dic);
+            JToken res = JsonHelper.ExtractAll(html);
+            if (res != null)
             {
-                String html = CurlHelper.Post(url, token, dic);
-                JToken res = JsonHelper.ExtractAll(html);
-                if (res != null)
-                {
-                    result.setStatus(JTokenHelper.ToInt(res["status"], result.getStatus()));
-                    result.setMsg(JTokenHelper.ToStr(res["msg"], result.getMsg()));
-                    result.setData(JTokenHelper.ToJToken(res, "data", result.getData()));
-                }
-                /**
-                if (result.getStatus() == 888 || result.getStatus() == 887)
-                {
-                    MessageBox.Show("登录已失效");
-                    Application.Exit();
-                }**/
-            });
-            thread.Start();
-            thread.Join();
+                result.setStatus(JTokenHelper.ToInt(res["status"], result.getStatus()));
+                result.setMsg(JTokenHelper.ToStr(res["msg"], result.getMsg()));
+                result.setData(JTokenHelper.ToJToken(res, "data", result.getData()));
+            }
+            /**
+            if (result.getStatus() == 888 || result.getStatus() == 887)
+            {
+                MessageBox.Show("登录已失效");
+                Application.Exit();
+            }**/
             return result;
         }
 

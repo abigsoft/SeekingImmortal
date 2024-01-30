@@ -45,8 +45,8 @@ namespace Game.Helper
         }
         public static DateTime ConvertTimeStampToDateTime(int timeStamp)
         {
-            DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1, 0, 0, 0));
-            return dtStart.AddSeconds(timeStamp);
+            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            return epoch.AddSeconds(timeStamp).ToLocalTime(); // 转换为本地时区的时间
         }
     }
 }

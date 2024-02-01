@@ -4,6 +4,7 @@ namespace app\common\exception;
 use app\common\model\LogExceptionModel;
 use Next\VarDumper\Dumper;
 use Next\VarDumper\DumperHandler;
+use Tinywan\Jwt\Exception\JwtTokenException;
 use Webman\Http\Request;
 use Webman\Http\Response;
 use Throwable;
@@ -34,6 +35,12 @@ class ExceptionHandler extends \Webman\Exception\ExceptionHandler
         }
         if (($exception instanceof BaseException) && ($response = $exception->render($request))) {
             return $response;
+        }
+
+        if($exception instanceof JwtTokenException){
+            $json = ['status' => 888, 'msg' => '登录失效', 'data' => []];
+            return new Response(200, ['Content-Type' => 'application/json'],
+                json_encode($json, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         }
 
         if ($exception instanceof Dumper) {

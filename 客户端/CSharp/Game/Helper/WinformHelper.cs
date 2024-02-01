@@ -43,6 +43,7 @@ namespace Game.Helper
             {
                 // 使用反射创建带参数的窗体实例
                 var form = (T)Activator.CreateInstance(typeof(T), args);
+                form.StartPosition = FormStartPosition.CenterParent;
                 form.Show();
             }
         }

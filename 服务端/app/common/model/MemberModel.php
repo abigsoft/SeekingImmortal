@@ -9,9 +9,9 @@ class MemberModel extends BaseModel
 
     protected $name = 'member';
 
-    public static function onAfterWrite(\think\Model $model)
+    protected static function onAfterWrite(\think\Model $model): void
     {
-        \support\Redis::set('user_info_' . $model->uid, $model->toJson());
-        \support\Redis::hSet('task:member_list',$model->uid,$model->toJson());
+        //\support\Redis::set('user_info_' . $model->uid, $model->toJson());
+        //\support\Redis::hSet('task:member_list',$model->uid,$model->toJson());
     }
 }

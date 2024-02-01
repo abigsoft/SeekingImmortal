@@ -80,6 +80,7 @@
             清空列表ToolStripMenuItem = new ToolStripMenuItem();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            button16 = new Button();
             button11 = new Button();
             button10 = new Button();
             button9 = new Button();
@@ -93,9 +94,11 @@
             label34 = new Label();
             label33 = new Label();
             label32 = new Label();
+            label9 = new Label();
             label31 = new Label();
             label30 = new Label();
             label29 = new Label();
+            label5 = new Label();
             label26 = new Label();
             label15 = new Label();
             label25 = new Label();
@@ -109,6 +112,8 @@
             label21 = new Label();
             label20 = new Label();
             groupBox1 = new GroupBox();
+            label38 = new Label();
+            label37 = new Label();
             label11 = new Label();
             label12 = new Label();
             label14 = new Label();
@@ -116,19 +121,49 @@
             label13 = new Label();
             label10 = new Label();
             label35 = new Label();
-            label9 = new Label();
             label8 = new Label();
             label6 = new Label();
-            label5 = new Label();
             label4 = new Label();
             tabPage5 = new TabPage();
+            groupBox4 = new GroupBox();
+            button14 = new Button();
+            button13 = new Button();
             groupBox3 = new GroupBox();
+            button15 = new Button();
+            button12 = new Button();
             button6 = new Button();
             button5 = new Button();
             tabPage6 = new TabPage();
+            groupBox9 = new GroupBox();
+            button21 = new Button();
+            groupBox8 = new GroupBox();
+            button20 = new Button();
+            groupBox7 = new GroupBox();
+            button19 = new Button();
+            groupBox6 = new GroupBox();
+            button18 = new Button();
+            groupBox5 = new GroupBox();
+            button17 = new Button();
             tabPage11 = new TabPage();
+            groupBox15 = new GroupBox();
+            button31 = new Button();
+            button32 = new Button();
+            button33 = new Button();
+            groupBox14 = new GroupBox();
+            button28 = new Button();
+            button29 = new Button();
+            button30 = new Button();
+            groupBox13 = new GroupBox();
+            button27 = new Button();
+            button26 = new Button();
+            button25 = new Button();
             tabPage4 = new TabPage();
-            tabPage3 = new TabPage();
+            groupBox12 = new GroupBox();
+            button24 = new Button();
+            groupBox11 = new GroupBox();
+            button23 = new Button();
+            groupBox10 = new GroupBox();
+            button22 = new Button();
             button3 = new Button();
             button1 = new Button();
             contextMenuStrip2 = new ContextMenuStrip(components);
@@ -160,7 +195,22 @@
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             tabPage5.SuspendLayout();
+            groupBox4.SuspendLayout();
             groupBox3.SuspendLayout();
+            tabPage6.SuspendLayout();
+            groupBox9.SuspendLayout();
+            groupBox8.SuspendLayout();
+            groupBox7.SuspendLayout();
+            groupBox6.SuspendLayout();
+            groupBox5.SuspendLayout();
+            tabPage11.SuspendLayout();
+            groupBox15.SuspendLayout();
+            groupBox14.SuspendLayout();
+            groupBox13.SuspendLayout();
+            tabPage4.SuspendLayout();
+            groupBox12.SuspendLayout();
+            groupBox11.SuspendLayout();
+            groupBox10.SuspendLayout();
             contextMenuStrip2.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
@@ -582,7 +632,6 @@
             tabControl1.Controls.Add(tabPage6);
             tabControl1.Controls.Add(tabPage11);
             tabControl1.Controls.Add(tabPage4);
-            tabControl1.Controls.Add(tabPage3);
             tabControl1.ItemSize = new Size(76, 22);
             tabControl1.Location = new Point(9, 41);
             tabControl1.Name = "tabControl1";
@@ -593,6 +642,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(button16);
             tabPage1.Controls.Add(button11);
             tabPage1.Controls.Add(button10);
             tabPage1.Controls.Add(button9);
@@ -608,6 +658,15 @@
             tabPage1.Text = "信息";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button16
+            // 
+            button16.Location = new Point(500, 65);
+            button16.Name = "button16";
+            button16.Size = new Size(62, 23);
+            button16.TabIndex = 7;
+            button16.Text = "背包";
+            button16.UseVisualStyleBackColor = true;
+            // 
             // button11
             // 
             button11.Location = new Point(500, 213);
@@ -619,7 +678,7 @@
             // 
             // button10
             // 
-            button10.Location = new Point(500, 168);
+            button10.Location = new Point(500, 176);
             button10.Name = "button10";
             button10.Size = new Size(62, 23);
             button10.TabIndex = 5;
@@ -628,7 +687,7 @@
             // 
             // button9
             // 
-            button9.Location = new Point(500, 122);
+            button9.Location = new Point(500, 140);
             button9.Name = "button9";
             button9.Size = new Size(62, 23);
             button9.TabIndex = 4;
@@ -637,12 +696,13 @@
             // 
             // button8
             // 
-            button8.Location = new Point(500, 75);
+            button8.Location = new Point(500, 102);
             button8.Name = "button8";
             button8.Size = new Size(62, 23);
             button8.TabIndex = 3;
             button8.Text = "分点";
             button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
             // 
             // button7
             // 
@@ -663,9 +723,11 @@
             groupBox2.Controls.Add(label34);
             groupBox2.Controls.Add(label33);
             groupBox2.Controls.Add(label32);
+            groupBox2.Controls.Add(label9);
             groupBox2.Controls.Add(label31);
             groupBox2.Controls.Add(label30);
             groupBox2.Controls.Add(label29);
+            groupBox2.Controls.Add(label5);
             groupBox2.Controls.Add(label26);
             groupBox2.Controls.Add(label15);
             groupBox2.Controls.Add(label25);
@@ -748,6 +810,15 @@
             label32.TabIndex = 27;
             label32.Text = "100%";
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(212, 63);
+            label9.Name = "label9";
+            label9.Size = new Size(50, 17);
+            label9.TabIndex = 6;
+            label9.Text = "999999";
+            // 
             // label31
             // 
             label31.AutoSize = true;
@@ -775,10 +846,19 @@
             label29.TabIndex = 24;
             label29.Text = "命中：";
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(162, 63);
+            label5.Name = "label5";
+            label5.Size = new Size(44, 17);
+            label5.TabIndex = 2;
+            label5.Text = "经验：";
+            // 
             // label26
             // 
             label26.AutoSize = true;
-            label26.Location = new Point(212, 63);
+            label26.Location = new Point(212, 175);
             label26.Name = "label26";
             label26.Size = new Size(40, 17);
             label26.TabIndex = 23;
@@ -796,7 +876,7 @@
             // label25
             // 
             label25.AutoSize = true;
-            label25.Location = new Point(162, 63);
+            label25.Location = new Point(162, 175);
             label25.Name = "label25";
             label25.Size = new Size(44, 17);
             label25.TabIndex = 22;
@@ -885,6 +965,8 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(label38);
+            groupBox1.Controls.Add(label37);
             groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(label12);
             groupBox1.Controls.Add(label14);
@@ -892,10 +974,8 @@
             groupBox1.Controls.Add(label13);
             groupBox1.Controls.Add(label10);
             groupBox1.Controls.Add(label35);
-            groupBox1.Controls.Add(label9);
             groupBox1.Controls.Add(label8);
             groupBox1.Controls.Add(label6);
-            groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(label4);
             groupBox1.Location = new Point(18, 18);
             groupBox1.Name = "groupBox1";
@@ -903,6 +983,24 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "角色";
+            // 
+            // label38
+            // 
+            label38.AutoSize = true;
+            label38.Location = new Point(73, 63);
+            label38.Name = "label38";
+            label38.Size = new Size(32, 17);
+            label38.TabIndex = 33;
+            label38.Text = "保密";
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Location = new Point(23, 63);
+            label37.Name = "label37";
+            label37.Size = new Size(44, 17);
+            label37.TabIndex = 32;
+            label37.Text = "性别：";
             // 
             // label11
             // 
@@ -967,15 +1065,6 @@
             label35.TabIndex = 30;
             label35.Text = "运势：";
             // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(73, 63);
-            label9.Name = "label9";
-            label9.Size = new Size(50, 17);
-            label9.TabIndex = 6;
-            label9.Text = "999999";
-            // 
             // label8
             // 
             label8.AutoSize = true;
@@ -994,15 +1083,6 @@
             label6.TabIndex = 3;
             label6.Text = "金币：";
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(23, 63);
-            label5.Name = "label5";
-            label5.Size = new Size(44, 17);
-            label5.TabIndex = 2;
-            label5.Text = "经验：";
-            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -1014,6 +1094,7 @@
             // 
             // tabPage5
             // 
+            tabPage5.Controls.Add(groupBox4);
             tabPage5.Controls.Add(groupBox3);
             tabPage5.Location = new Point(4, 26);
             tabPage5.Name = "tabPage5";
@@ -1023,8 +1104,39 @@
             tabPage5.Text = "家园";
             tabPage5.UseVisualStyleBackColor = true;
             // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(button14);
+            groupBox4.Controls.Add(button13);
+            groupBox4.Location = new Point(148, 18);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(220, 82);
+            groupBox4.TabIndex = 1;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "庄园";
+            // 
+            // button14
+            // 
+            button14.Location = new Point(122, 35);
+            button14.Name = "button14";
+            button14.Size = new Size(75, 23);
+            button14.TabIndex = 4;
+            button14.Text = "鱼塘";
+            button14.UseVisualStyleBackColor = true;
+            // 
+            // button13
+            // 
+            button13.Location = new Point(22, 35);
+            button13.Name = "button13";
+            button13.Size = new Size(75, 23);
+            button13.TabIndex = 3;
+            button13.Text = "种植";
+            button13.UseVisualStyleBackColor = true;
+            // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(button15);
+            groupBox3.Controls.Add(button12);
             groupBox3.Controls.Add(button6);
             groupBox3.Controls.Add(button5);
             groupBox3.Location = new Point(16, 18);
@@ -1034,26 +1146,52 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "洞府";
             // 
+            // button15
+            // 
+            button15.Location = new Point(25, 165);
+            button15.Name = "button15";
+            button15.Size = new Size(75, 23);
+            button15.TabIndex = 3;
+            button15.Text = "后宫";
+            button15.UseVisualStyleBackColor = true;
+            // 
+            // button12
+            // 
+            button12.Location = new Point(25, 126);
+            button12.Name = "button12";
+            button12.Size = new Size(75, 23);
+            button12.TabIndex = 2;
+            button12.Text = "挖矿";
+            button12.UseVisualStyleBackColor = true;
+            button12.Click += button12_Click;
+            // 
             // button6
             // 
-            button6.Location = new Point(26, 97);
+            button6.Location = new Point(25, 88);
             button6.Name = "button6";
             button6.Size = new Size(75, 23);
             button6.TabIndex = 1;
             button6.Text = "休息";
             button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
             // 
             // button5
             // 
-            button5.Location = new Point(26, 44);
+            button5.Location = new Point(25, 46);
             button5.Name = "button5";
             button5.Size = new Size(75, 23);
             button5.TabIndex = 0;
             button5.Text = "感悟";
             button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
             // 
             // tabPage6
             // 
+            tabPage6.Controls.Add(groupBox9);
+            tabPage6.Controls.Add(groupBox8);
+            tabPage6.Controls.Add(groupBox7);
+            tabPage6.Controls.Add(groupBox6);
+            tabPage6.Controls.Add(groupBox5);
             tabPage6.Location = new Point(4, 26);
             tabPage6.Name = "tabPage6";
             tabPage6.Padding = new Padding(3);
@@ -1062,8 +1200,106 @@
             tabPage6.Text = "市场";
             tabPage6.UseVisualStyleBackColor = true;
             // 
+            // groupBox9
+            // 
+            groupBox9.Controls.Add(button21);
+            groupBox9.Location = new Point(19, 134);
+            groupBox9.Name = "groupBox9";
+            groupBox9.Size = new Size(117, 92);
+            groupBox9.TabIndex = 4;
+            groupBox9.TabStop = false;
+            groupBox9.Text = "祈福";
+            // 
+            // button21
+            // 
+            button21.Location = new Point(14, 36);
+            button21.Name = "button21";
+            button21.Size = new Size(90, 31);
+            button21.TabIndex = 0;
+            button21.Text = "祈福许愿";
+            button21.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            groupBox8.Controls.Add(button20);
+            groupBox8.Location = new Point(436, 21);
+            groupBox8.Name = "groupBox8";
+            groupBox8.Size = new Size(117, 92);
+            groupBox8.TabIndex = 3;
+            groupBox8.TabStop = false;
+            groupBox8.Text = "任务";
+            // 
+            // button20
+            // 
+            button20.Location = new Point(15, 36);
+            button20.Name = "button20";
+            button20.Size = new Size(90, 31);
+            button20.TabIndex = 0;
+            button20.Text = "任务悬赏";
+            button20.UseVisualStyleBackColor = true;
+            // 
+            // groupBox7
+            // 
+            groupBox7.Controls.Add(button19);
+            groupBox7.Location = new Point(299, 21);
+            groupBox7.Name = "groupBox7";
+            groupBox7.Size = new Size(117, 92);
+            groupBox7.TabIndex = 2;
+            groupBox7.TabStop = false;
+            groupBox7.Text = "擂台";
+            // 
+            // button19
+            // 
+            button19.Location = new Point(14, 36);
+            button19.Name = "button19";
+            button19.Size = new Size(90, 31);
+            button19.TabIndex = 0;
+            button19.Text = "擂台比武";
+            button19.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            groupBox6.Controls.Add(button18);
+            groupBox6.Location = new Point(158, 21);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Size = new Size(117, 92);
+            groupBox6.TabIndex = 1;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "商店";
+            // 
+            // button18
+            // 
+            button18.Location = new Point(14, 36);
+            button18.Name = "button18";
+            button18.Size = new Size(90, 31);
+            button18.TabIndex = 0;
+            button18.Text = "小卖部";
+            button18.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            groupBox5.Controls.Add(button17);
+            groupBox5.Location = new Point(19, 21);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(117, 92);
+            groupBox5.TabIndex = 0;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "拍卖";
+            // 
+            // button17
+            // 
+            button17.Location = new Point(14, 36);
+            button17.Name = "button17";
+            button17.Size = new Size(90, 31);
+            button17.TabIndex = 0;
+            button17.Text = "拍卖会";
+            button17.UseVisualStyleBackColor = true;
+            // 
             // tabPage11
             // 
+            tabPage11.Controls.Add(groupBox15);
+            tabPage11.Controls.Add(groupBox14);
+            tabPage11.Controls.Add(groupBox13);
             tabPage11.Location = new Point(4, 26);
             tabPage11.Name = "tabPage11";
             tabPage11.Padding = new Padding(3);
@@ -1072,8 +1308,128 @@
             tabPage11.Text = "探索";
             tabPage11.UseVisualStyleBackColor = true;
             // 
+            // groupBox15
+            // 
+            groupBox15.Controls.Add(button31);
+            groupBox15.Controls.Add(button32);
+            groupBox15.Controls.Add(button33);
+            groupBox15.Location = new Point(394, 21);
+            groupBox15.Name = "groupBox15";
+            groupBox15.Size = new Size(154, 212);
+            groupBox15.TabIndex = 3;
+            groupBox15.TabStop = false;
+            groupBox15.Text = "试炼";
+            // 
+            // button31
+            // 
+            button31.Location = new Point(34, 148);
+            button31.Name = "button31";
+            button31.Size = new Size(90, 31);
+            button31.TabIndex = 2;
+            button31.Text = "龙穴";
+            button31.UseVisualStyleBackColor = true;
+            // 
+            // button32
+            // 
+            button32.Location = new Point(33, 93);
+            button32.Name = "button32";
+            button32.Size = new Size(90, 31);
+            button32.TabIndex = 1;
+            button32.Text = "剑关";
+            button32.UseVisualStyleBackColor = true;
+            // 
+            // button33
+            // 
+            button33.Location = new Point(34, 38);
+            button33.Name = "button33";
+            button33.Size = new Size(90, 31);
+            button33.TabIndex = 0;
+            button33.Text = "妖塔";
+            button33.UseVisualStyleBackColor = true;
+            // 
+            // groupBox14
+            // 
+            groupBox14.Controls.Add(button28);
+            groupBox14.Controls.Add(button29);
+            groupBox14.Controls.Add(button30);
+            groupBox14.Location = new Point(206, 21);
+            groupBox14.Name = "groupBox14";
+            groupBox14.Size = new Size(154, 212);
+            groupBox14.TabIndex = 2;
+            groupBox14.TabStop = false;
+            groupBox14.Text = "禁地";
+            // 
+            // button28
+            // 
+            button28.Location = new Point(34, 148);
+            button28.Name = "button28";
+            button28.Size = new Size(90, 31);
+            button28.TabIndex = 2;
+            button28.Text = "毒窟";
+            button28.UseVisualStyleBackColor = true;
+            // 
+            // button29
+            // 
+            button29.Location = new Point(33, 93);
+            button29.Name = "button29";
+            button29.Size = new Size(90, 31);
+            button29.TabIndex = 1;
+            button29.Text = "归墟";
+            button29.UseVisualStyleBackColor = true;
+            // 
+            // button30
+            // 
+            button30.Location = new Point(34, 38);
+            button30.Name = "button30";
+            button30.Size = new Size(90, 31);
+            button30.TabIndex = 0;
+            button30.Text = "昆仑";
+            button30.UseVisualStyleBackColor = true;
+            // 
+            // groupBox13
+            // 
+            groupBox13.Controls.Add(button27);
+            groupBox13.Controls.Add(button26);
+            groupBox13.Controls.Add(button25);
+            groupBox13.Location = new Point(19, 21);
+            groupBox13.Name = "groupBox13";
+            groupBox13.Size = new Size(154, 212);
+            groupBox13.TabIndex = 1;
+            groupBox13.TabStop = false;
+            groupBox13.Text = "仙境";
+            // 
+            // button27
+            // 
+            button27.Location = new Point(34, 148);
+            button27.Name = "button27";
+            button27.Size = new Size(90, 31);
+            button27.TabIndex = 2;
+            button27.Text = "瑶池";
+            button27.UseVisualStyleBackColor = true;
+            // 
+            // button26
+            // 
+            button26.Location = new Point(33, 93);
+            button26.Name = "button26";
+            button26.Size = new Size(90, 31);
+            button26.TabIndex = 1;
+            button26.Text = "金陵";
+            button26.UseVisualStyleBackColor = true;
+            // 
+            // button25
+            // 
+            button25.Location = new Point(34, 38);
+            button25.Name = "button25";
+            button25.Size = new Size(90, 31);
+            button25.TabIndex = 0;
+            button25.Text = "琼华";
+            button25.UseVisualStyleBackColor = true;
+            // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(groupBox12);
+            tabPage4.Controls.Add(groupBox11);
+            tabPage4.Controls.Add(groupBox10);
             tabPage4.Location = new Point(4, 26);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
@@ -1082,15 +1438,62 @@
             tabPage4.Text = "娱乐";
             tabPage4.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // groupBox12
             // 
-            tabPage3.Location = new Point(4, 26);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(573, 253);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "工具";
-            tabPage3.UseVisualStyleBackColor = true;
+            groupBox12.Controls.Add(button24);
+            groupBox12.Location = new Point(295, 21);
+            groupBox12.Name = "groupBox12";
+            groupBox12.Size = new Size(117, 92);
+            groupBox12.TabIndex = 3;
+            groupBox12.TabStop = false;
+            groupBox12.Text = "斗地主";
+            // 
+            // button24
+            // 
+            button24.Location = new Point(14, 36);
+            button24.Name = "button24";
+            button24.Size = new Size(90, 31);
+            button24.TabIndex = 0;
+            button24.Text = "开始游戏";
+            button24.UseVisualStyleBackColor = true;
+            // 
+            // groupBox11
+            // 
+            groupBox11.Controls.Add(button23);
+            groupBox11.Location = new Point(157, 21);
+            groupBox11.Name = "groupBox11";
+            groupBox11.Size = new Size(117, 92);
+            groupBox11.TabIndex = 2;
+            groupBox11.TabStop = false;
+            groupBox11.Text = "天黑请闭眼";
+            // 
+            // button23
+            // 
+            button23.Location = new Point(14, 36);
+            button23.Name = "button23";
+            button23.Size = new Size(90, 31);
+            button23.TabIndex = 0;
+            button23.Text = "开始游戏";
+            button23.UseVisualStyleBackColor = true;
+            // 
+            // groupBox10
+            // 
+            groupBox10.Controls.Add(button22);
+            groupBox10.Location = new Point(19, 21);
+            groupBox10.Name = "groupBox10";
+            groupBox10.Size = new Size(117, 92);
+            groupBox10.TabIndex = 1;
+            groupBox10.TabStop = false;
+            groupBox10.Text = "拈阄";
+            // 
+            // button22
+            // 
+            button22.Location = new Point(14, 36);
+            button22.Name = "button22";
+            button22.Size = new Size(90, 31);
+            button22.TabIndex = 0;
+            button22.Text = "开始游戏";
+            button22.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
@@ -1226,7 +1629,7 @@
             MaximizeBox = false;
             Name = "FrmMain";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "寻仙：敢问上天，可否有仙？";
+            Text = "修仙聊天群";
             FormClosing += FrmMain_FormClosing;
             Load += FrmMain_Load;
             panel_main.ResumeLayout(false);
@@ -1248,7 +1651,22 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             tabPage5.ResumeLayout(false);
+            groupBox4.ResumeLayout(false);
             groupBox3.ResumeLayout(false);
+            tabPage6.ResumeLayout(false);
+            groupBox9.ResumeLayout(false);
+            groupBox8.ResumeLayout(false);
+            groupBox7.ResumeLayout(false);
+            groupBox6.ResumeLayout(false);
+            groupBox5.ResumeLayout(false);
+            tabPage11.ResumeLayout(false);
+            groupBox15.ResumeLayout(false);
+            groupBox14.ResumeLayout(false);
+            groupBox13.ResumeLayout(false);
+            tabPage4.ResumeLayout(false);
+            groupBox12.ResumeLayout(false);
+            groupBox11.ResumeLayout(false);
+            groupBox10.ResumeLayout(false);
             contextMenuStrip2.ResumeLayout(false);
             contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
@@ -1274,7 +1692,6 @@
         private TabControl tabControl1;
         private TabPage tabPage1;
         private System.Windows.Forms.Timer timer1;
-        private TabPage tabPage3;
         private TabPage tabPage4;
         private TabPage tabPage5;
         private TabPage tabPage6;
@@ -1285,7 +1702,6 @@
         private TabPage tabPage9;
         private TabPage tabPage10;
         private Label label2;
-        private TabPage tabPage11;
         private Button button4;
         private DataGridView dataGridView1;
         private DataGridView dataGridView2;
@@ -1365,5 +1781,42 @@
         private Button button9;
         private Button button10;
         private Button button11;
+        private Button button12;
+        private Label label37;
+        private Label label38;
+        private GroupBox groupBox4;
+        private Button button13;
+        private Button button14;
+        private Button button15;
+        private Button button16;
+        private TabPage tabPage11;
+        private GroupBox groupBox5;
+        private Button button17;
+        private GroupBox groupBox6;
+        private Button button18;
+        private GroupBox groupBox7;
+        private Button button19;
+        private GroupBox groupBox8;
+        private Button button20;
+        private GroupBox groupBox9;
+        private Button button21;
+        private GroupBox groupBox10;
+        private Button button22;
+        private GroupBox groupBox11;
+        private Button button23;
+        private GroupBox groupBox12;
+        private Button button24;
+        private GroupBox groupBox13;
+        private Button button25;
+        private Button button26;
+        private Button button27;
+        private GroupBox groupBox14;
+        private Button button28;
+        private Button button29;
+        private Button button30;
+        private GroupBox groupBox15;
+        private Button button31;
+        private Button button32;
+        private Button button33;
     }
 }

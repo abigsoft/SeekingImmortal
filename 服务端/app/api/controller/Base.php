@@ -22,10 +22,6 @@ class Base extends BaseController
         $this->user = \Tinywan\Jwt\JwtToken::getUser();
     }
 
-    protected function refreshUser($uid): void
-    {
-        $user_info = MemberModel::find($uid)->toArray();
-        \support\Redis::set('user_info_' . $uid, $user_info);
-    }
+
 
 }

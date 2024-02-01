@@ -7,6 +7,7 @@ use app\common\exception\ParamException;
 use app\common\model\MemberModel;
 use app\common\validate\MemberValidate;
 use Tinywan\Jwt\JwtToken;
+use Webman\Event\Event;
 
 class Register extends BaseController
 {
@@ -63,6 +64,7 @@ class Register extends BaseController
             'world_online_time' => 0,
         ]);
         $token = $this->makeToken($uuid, $param['nickname']);
+        Event::emit('refresh.member',$uuid);
         return $this->success('注册成功', $token);
     }
 

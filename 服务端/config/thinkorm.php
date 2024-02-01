@@ -30,7 +30,8 @@ return [
             // 关闭SQL监听日志
             'trigger_sql' => getenv('DB_DEBUG'),
             // 自定义分页类
-            'bootstrap' =>  ''
+            'bootstrap' =>  '',
+            //'fields_cache'    => true,
         ],
     ],
 ];

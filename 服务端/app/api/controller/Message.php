@@ -7,6 +7,7 @@ use app\common\model\TitleMainModel;
 use app\common\model\WorldChatModel;
 use app\common\service\MessageService;
 use GatewayWorker\Lib\Gateway;
+use support\Redis;
 use Workbunny\WebmanIpAttribution\Location;
 
 class Message extends Base
@@ -37,23 +38,43 @@ class Message extends Base
         $message_id = MessageService::Create(['uid' => $this->uid, 'name' => $this->user['nickname'], 'type' => $type, 'data' => $message]);
         $mask_title_info = null;
         if($this->user['mask_title_id']){
-            $mask_title_info = TitleMainModel::where('id',$this->user['mask_title_id'])
-                ->cache(true)
-                ->field('id,title,color,special_effect')
-                ->find();
+            if(!Redis::get('mask:' . $this->user['mask_title_id'])){
+                $mask_title_info = TitleMainModel::where('id',$this->user['mask_title_id'])
+                    ->field('id,title,color,special_effect')
+                    ->find();
+                if($mask_title_info){
+                    Redis::set('mask:' . $this->user['mask_title_id'],json_encode($mask_title_info));
+                }
+            }else{
+                $mask_title_info = json_decode(Redis::get('mask:' . $this->user['mask_title_id']),true);
+            }
         }
         if($mask_title_info){
             if($mask_title_info['special_effect'] != 'random'){
-                $mask_title = [
-                    'name' => $mask_title_info['title'],
-                    "color" => [
-                        "title" => $mask_title_info['color'] ? :'#000000',//称号
-                        "name" => in_array('name',explode(',',$mask_title_info['special_effect'])) ? ($mask_title_info['color'] ? :'#000000') : '#000000',//昵称
-                        "message" => in_array('message',explode(',',$mask_title_info['special_effect'])) ? ($mask_title_info['color'] ? :'#000000') : '#000000',//昵称
-                        "area" => in_array('area',explode(',',$mask_title_info['special_effect'])) ? ($mask_title_info['color'] ? :'#000000') : '#000000',//昵称
-                        "time" => in_array('time',explode(',',$mask_title_info['special_effect'])) ? ($mask_title_info['color'] ? :'#000000') : '#000000',//昵称
-                    ],
-                ];
+                if($mask_title_info['special_effect'] == 'all'){
+                    $mask_title = [
+                        'name' => $mask_title_info['title'],
+                        "color" => [
+                            "title" => $mask_title_info['color'] ? :'#000000',//称号
+                            "name" => $mask_title_info['color'] ? :'#000000',//称号
+                            "message" => $mask_title_info['color'] ? :'#000000',//称号
+                            "area" => $mask_title_info['color'] ? :'#000000',//称号
+                            "time" => $mask_title_info['color'] ? :'#000000',//称号
+                        ],
+                    ];
+                }else{
+                    $mask_title = [
+                        'name' => $mask_title_info['title'],
+                        "color" => [
+                            "title" => $mask_title_info['color'] ? :'#000000',//称号
+                            "name" => in_array('name',explode(',',$mask_title_info['special_effect'])) ? ($mask_title_info['color'] ? :'#000000') : '#000000',//昵称
+                            "message" => in_array('message',explode(',',$mask_title_info['special_effect'])) ? ($mask_title_info['color'] ? :'#000000') : '#000000',//昵称
+                            "area" => in_array('area',explode(',',$mask_title_info['special_effect'])) ? ($mask_title_info['color'] ? :'#000000') : '#000000',//昵称
+                            "time" => in_array('time',explode(',',$mask_title_info['special_effect'])) ? ($mask_title_info['color'] ? :'#000000') : '#000000',//昵称
+                        ],
+                    ];
+                }
+
             }else{
                 $random_title_color = randomColor();
                 $mask_title = [

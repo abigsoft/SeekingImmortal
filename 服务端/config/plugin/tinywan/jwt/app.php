@@ -1,5 +1,7 @@
 <?php
 
+use Webman\Event\Event;
+
 return [
     'enable' => true,
     'jwt' => [
@@ -45,15 +47,16 @@ return [
         /** 用户信息模型 */
         'user_model' => function($uid) {
             $user_info = \support\Redis::get('user_info_' . $uid);
-            if(!$user_info){
+            if(!$user_info || $user_info == 'null'){
                 $user_info = \think\facade\Db::table('member')->where('uid',$uid)->find();
                 if(!$user_info){
                     return [];
                 }
+                Event::emit('refresh.member',$uid);
             }else{
                 $user_info = json_decode($user_info,true);
             }
-            \support\Redis::set('user_info_' . $uid, json_encode($user_info));
+
             // 返回一个数组
             return $user_info;
         },

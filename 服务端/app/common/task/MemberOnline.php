@@ -5,6 +5,7 @@ namespace app\common\task;
 use app\common\model\MemberModel;
 use GatewayWorker\Lib\Gateway;
 use support\Redis;
+use Webman\Event\Event;
 use Workerman\Timer;
 
 class MemberOnline
@@ -31,13 +32,15 @@ class MemberOnline
                     $redis->set('task:member_online_last:' . $uid, "1");
                     if ($last_online) {
                         MemberModel::where('uid', $uid)->inc('world_online_time')->update();
+                        /**
+                        Event::emit('refresh.member',$uid);
                         Gateway::sendToUid($uid,json_encode([
                             'type'=>'system',
                             'data'=>[
                                 'type' => 'init',
                                 'data' => 'user',
                             ]
-                        ]));
+                        ]));**/
                     }
                 }else{
                     $redis->set('task:member_online_last:' . $uid, "0");

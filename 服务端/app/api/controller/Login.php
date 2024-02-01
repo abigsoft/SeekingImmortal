@@ -6,6 +6,7 @@ use app\common\controller\BaseController;
 use app\common\exception\ParamException;
 use app\common\model\MemberModel;
 use Tinywan\Jwt\JwtToken;
+use Webman\Event\Event;
 
 class Login extends BaseController
 {
@@ -44,6 +45,7 @@ class Login extends BaseController
             throw new ParamException('角色已被禁用');
         }
         $token = $this->makeToken($user_info['uid'],$user_info['nickname']);
+        //Event::emit('refresh.member',$user_info['uid']);
         return $this->success('登录成功',$token);
     }
 

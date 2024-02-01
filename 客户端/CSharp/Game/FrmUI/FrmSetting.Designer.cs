@@ -44,7 +44,7 @@
             label2 = new Label();
             label1 = new Label();
             tabPage2 = new TabPage();
-            checkBox4 = new CheckBox();
+            button8 = new Button();
             checkBox3 = new CheckBox();
             checkBox2 = new CheckBox();
             checkBox1 = new CheckBox();
@@ -101,16 +101,20 @@
             button7.TabIndex = 14;
             button7.Text = "保存";
             button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
             // 
             // comboBox1
             // 
+            comboBox1.DrawMode = DrawMode.OwnerDrawFixed;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "无称号" });
             comboBox1.Location = new Point(100, 152);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(233, 25);
+            comboBox1.Size = new Size(233, 24);
             comboBox1.TabIndex = 13;
+            comboBox1.DrawItem += comboBox1_DrawItem;
+            comboBox1.DropDown += comboBox1_DropDown;
             // 
             // label3
             // 
@@ -211,7 +215,7 @@
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(checkBox4);
+            tabPage2.Controls.Add(button8);
             tabPage2.Controls.Add(checkBox3);
             tabPage2.Controls.Add(checkBox2);
             tabPage2.Controls.Add(checkBox1);
@@ -223,15 +227,15 @@
             tabPage2.Text = "系统设置";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // button8
             // 
-            checkBox4.AutoSize = true;
-            checkBox4.Location = new Point(55, 166);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(99, 21);
-            checkBox4.TabIndex = 3;
-            checkBox4.Text = "隐藏到任务栏";
-            checkBox4.UseVisualStyleBackColor = true;
+            button8.Location = new Point(370, 228);
+            button8.Name = "button8";
+            button8.Size = new Size(75, 28);
+            button8.TabIndex = 3;
+            button8.Text = "保存";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
             // 
             // checkBox3
             // 
@@ -353,7 +357,6 @@
         private CheckBox checkBox1;
         private CheckBox checkBox2;
         private CheckBox checkBox3;
-        private CheckBox checkBox4;
         private CheckedListBox checkedListBox1;
         private Button button3;
         private Button button5;
@@ -361,5 +364,6 @@
         private Label label3;
         private ComboBox comboBox1;
         private Button button7;
+        private Button button8;
     }
 }

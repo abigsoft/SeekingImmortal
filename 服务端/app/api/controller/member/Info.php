@@ -4,9 +4,12 @@ use app\api\controller\Base;
 use app\common\exception\ParamException;
 use app\common\model\MemberModel;
 use app\common\model\MemberTitleModel;
+use app\common\service\MessageService;
 use app\common\validate\MemberValidate;
+use GatewayWorker\Lib\Gateway;
 use think\exception\ValidateException;
 use think\facade\Db;
+use Webman\Event\Event;
 
 class Info extends Base{
     function info(){
@@ -33,6 +36,7 @@ class Info extends Base{
             ->update([
                 'password' => buildPass($password)
             ]);
+        Event::emit('refresh.member',$this->uid);
         return $this->success('密码重置成功');
     }
 
@@ -50,14 +54,14 @@ class Info extends Base{
             throw new ParamException('新道号未发生改变');
         }
         if ($this->user['data_gold_coin'] < 200) {
-            throw new ParamException('修改道号需要支付200金币，余额不足');
+            //throw new ParamException('修改道号需要支付200金币，余额不足');
         }
         $check = MemberModel::where('nickname', $nickname)->count();
         if ($check > 0) {
             throw new ParamException('道号已被占用');
         }
         $res = MemberModel::where('uid', $this->uid)
-            ->where('data_gold_coin', '>=', 200)
+            //->where('data_gold_coin', '>=', 200)
             ->update([
                 'nickname' => $nickname,
                 'data_gold_coin' => Db::raw('data_gold_coin - 200'),
@@ -68,6 +72,14 @@ class Info extends Base{
             throw new ParamException('余额不足');
         }
         MemberTitleModel::destroy(['member_uid' => $this->uid],true);
+        Event::emit('refresh.member',$this->uid);
+        MessageService::Uid([
+            'type'=>'system',
+            'data'=>[
+                'type' => 'init',
+                'data' => 'user',
+            ]
+        ],$this->uid);
         return $this->success('修改成功');
     }
 
@@ -98,6 +110,14 @@ class Info extends Base{
             'mask_title_id' => $id,
             'mask_title_name' => $mask_title_name,
         ]);
+        Event::emit('refresh.member',$this->uid);
+        MessageService::Uid([
+            'type'=>'system',
+            'data'=>[
+                'type' => 'init',
+                'data' => 'user',
+            ]
+        ],$this->uid);
         return $this->success('称号使用成功');
     }
 }

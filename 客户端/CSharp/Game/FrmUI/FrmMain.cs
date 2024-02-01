@@ -36,7 +36,9 @@ namespace Game.FrmUI
             InitializeComponent();
             this.default_width = this.Width;
             http.token = this.token = token;
-
+            system_setting.isMute = IniHelper.Instance.ReadInteger("Setting", "isMute", 0) == 1;
+            system_setting.isAutoRefresh = IniHelper.Instance.ReadInteger("Setting", "isAutoRefresh", 0) == 1;
+            system_setting.isAutoCollapsed = IniHelper.Instance.ReadInteger("Setting", "isAutoCollapsed", 1) == 1;
         }
 
         private void SetupWebSocketEvents()
@@ -157,7 +159,7 @@ namespace Game.FrmUI
                     }
 
                     //判断有没有艾特
-                    if ((message.Data.Message.From.Uid != member_info.Uid) && ((message.Data.Message.Content.Data.IndexOf("@所有人") > -1 && message.Data.Message.From.Uid == "administrator") || message.Data.Message.Content.Data.IndexOf("@" + member_info.Nickname + "") > -1))
+                    if (!system_setting.isMute && (message.Data.Message.From.Uid != member_info.Uid) && ((message.Data.Message.Content.Data.IndexOf("@所有人") > -1 && message.Data.Message.From.Uid == "administrator") || message.Data.Message.Content.Data.IndexOf("@" + member_info.Nickname + "") > -1))
                     {
                         ListViewItem hearsay_item = new ListViewItem(new string[] {
                         "有人艾特你了",
@@ -201,7 +203,7 @@ namespace Game.FrmUI
                         dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows.Count - 1;
                     }
 
-                    if (message.Data.Notice == 1)
+                    if (!system_setting.isMute && message.Data.Notice == 1)
                     {
                         notifyIcon1.BalloonTipText = message.Data.Message.Content.Data;
                         notifyIcon1.BalloonTipTitle = "系统消息";
@@ -267,16 +269,22 @@ namespace Game.FrmUI
             ResultEntity result = await http.apiPost("member/info/info");
             if (result.getStatus() != 200)
             {
-                MessageBox.Show(result.getMsg());
+                addSystemLog(result.getMsg(), true);
+                //MessageBox.Show();
                 return;
             }
             this.member_info = JsonConvert.DeserializeObject<MemberEntity>(result.toString());
             if (this.member_info == null)
             {
-                MessageBox.Show(result.getMsg());
+                addSystemLog(result.getMsg());
                 return;
             }
-            this.notifyIcon1.Text = label1.Text = "寻仙：" + member_info.Nickname;
+            label1.Text = "修仙聊天群：" + member_info.Nickname;
+            if (member_info.MaskTitleId > 0)
+            {
+                label1.Text = "修仙聊天群：" + "【" + member_info.MaskTitleName + "】" + member_info.Nickname;
+            }
+            this.notifyIcon1.Text = "修仙聊天群：" + member_info.Nickname;
             this.label8.Text = member_info.LevelTitle;
             this.label9.Text = member_info.DataExp.ToString();
             this.label10.Text = member_info.DataGoldCoin.ToString();
@@ -294,6 +302,7 @@ namespace Game.FrmUI
             this.label7.Text = (member_info.WorldCriticalData * 100).ToString() + "%";
             this.label30.Text = (member_info.WorldSure * 100).ToString() + "%";
             this.label32.Text = (member_info.WorldEvade * 100).ToString() + "%";
+            label38.Text = member_info.Sex == 2 ? "公主" : "公子";
         }
 
         private void initAll()
@@ -473,20 +482,41 @@ namespace Game.FrmUI
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (!isCollapsed && !this.ClientRectangle.Contains(this.PointToClient(Control.MousePosition)))
+            if (system_setting.isAutoCollapsed && this.WindowState == FormWindowState.Normal)
             {
-                AllMouseLeave();
+                if (!isCollapsed && !this.ClientRectangle.Contains(this.PointToClient(Control.MousePosition)))
+                {
+                    AllMouseLeave();
+                }
             }
-        }
 
+        }
+        SystemSetting system_setting = new SystemSetting();
         private void button4_Click(object sender, EventArgs e)
         {
-            WinformHelper.Open<FrmSetting>(http);
+            FrmSetting frm = new FrmSetting(member_info, http, system_setting);
+            frm.ShowDialog();
+            if (frm.Reset)
+            {
+                system_setting.isMute = IniHelper.Instance.ReadInteger("Setting", "isMute", 0) == 1;
+                system_setting.isAutoRefresh = IniHelper.Instance.ReadInteger("Setting", "isAutoRefresh", 0) == 1;
+                system_setting.isAutoCollapsed = IniHelper.Instance.ReadInteger("Setting", "isAutoCollapsed", 1) == 1;
+            }
+
+            //WinformHelper.Open<FrmSetting>(http, system_setting);
         }
 
         private void 设置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            WinformHelper.Open<FrmSetting>(http);
+            FrmSetting frm = new FrmSetting(member_info, http, system_setting);
+            frm.ShowDialog();
+            if (frm.Reset)
+            {
+                system_setting.isMute = IniHelper.Instance.ReadInteger("Setting", "isMute", 0) == 1;
+                system_setting.isAutoRefresh = IniHelper.Instance.ReadInteger("Setting", "isAutoRefresh", 0) == 1;
+                system_setting.isAutoCollapsed = IniHelper.Instance.ReadInteger("Setting", "isAutoCollapsed", 1) == 1;
+            }
+            //WinformHelper.Open<FrmSetting>(http, system_setting);
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -670,6 +700,31 @@ namespace Game.FrmUI
         {
             this.initUser();
             addSystemLog("人物信息刷新成功", true);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            WinformHelper.Open<FrmMemberAttribute>(member_info, http);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            doTrain("train");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            doTrain("sleep");
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            doTrain("mining");
+        }
+
+        private async void doTrain(string type)
+        {
+
         }
     }
 }

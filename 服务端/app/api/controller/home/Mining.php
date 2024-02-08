@@ -7,6 +7,7 @@ use app\common\exception\ParamException;
 use app\common\model\MemberModel;
 use app\common\model\TrainModel;
 use support\Redis;
+use Webman\Event\Event;
 
 class Mining extends Base
 {
@@ -53,7 +54,7 @@ class Mining extends Base
         if (rate(60)) {
             MemberModel::where('uid', $this->uid)
                 ->dec('data_physical')->update();
-            $this->refreshUser($this->uid);
+            Event::emit('refresh.member',$this->uid);
             return $this->success('挖矿失败，没有失去也没有获得。');
         }
         $result = '挖矿成功，获得 ';
@@ -75,7 +76,7 @@ class Mining extends Base
             'type' => 'mining',
             'result' => $result
         ]);
-        $this->refreshUser($this->uid);
+        Event::emit('refresh.member',$this->uid);
         return $this->success($result);
     }
 }

@@ -28,13 +28,19 @@ namespace Game.FrmUI
             this.system_setting = system_setting;
             this.member_info = member_info;
         }
-        JToken select_title_list;
+        JToken? select_title_list;
         private async void FrmSetting_Load(object sender, EventArgs e)
         {
             this.textBox1.Text = member_info.Nickname;
             this.checkBox1.Checked = system_setting.isMute;
             this.checkBox2.Checked = system_setting.isAutoRefresh;
             this.checkBox3.Checked = system_setting.isAutoCollapsed;
+            this.checkBox4.Checked = system_setting.isSystemLogToWorld;
+
+            this.textBox6.Text = system_setting.worldColor.title_str;
+            this.textBox3.Text = system_setting.worldColor.message_color;
+            this.textBox4.Text = system_setting.worldColor.title_color;
+            this.textBox5.Text = system_setting.worldColor.friends_color;
 
             ResultEntity result = await http.apiGet("member/info/title");
             if (result.getStatus() != 200)
@@ -88,6 +94,10 @@ namespace Game.FrmUI
 
         private async void button7_Click(object sender, EventArgs e)
         {
+            if (select_title_list == null)
+            {
+                return;
+            }
             string id = "0";
             if (comboBox1.SelectedIndex > 0)
             {
@@ -104,6 +114,7 @@ namespace Game.FrmUI
             IniHelper.Instance.WriteInteger("Setting", "isMute", checkBox1.Checked ? 1 : 0);
             IniHelper.Instance.WriteInteger("Setting", "isAutoRefresh", checkBox2.Checked ? 1 : 0);
             IniHelper.Instance.WriteInteger("Setting", "isAutoCollapsed", checkBox3.Checked ? 1 : 0);
+            IniHelper.Instance.WriteInteger("Setting", "isSystemLogToWorld", checkBox4.Checked ? 1 : 0);
             this.Reset = true;
             this.Close();
         }
@@ -165,6 +176,29 @@ namespace Game.FrmUI
             {
                 senderComboBox.DropDownWidth = (int)newWidth;
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            UtilService.openUlr("https://www.sioe.cn/yingyong/yanse-rgb-16/");
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            IniHelper.Instance.WriteString("Setting", "WorldTitleStr", textBox6.Text.Trim());
+            IniHelper.Instance.WriteString("Setting", "WorldMessageColor", textBox3.Text.Trim());
+            IniHelper.Instance.WriteString("Setting", "WorldTitleColor", textBox4.Text.Trim());
+            IniHelper.Instance.WriteString("Setting", "WorldFriendsColor", textBox5.Text.Trim());
+            this.Reset = true;
+            this.Close();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            this.textBox6.Text = system_setting.worldColor.title_str;
+            this.textBox3.Text = system_setting.worldColor.message_color;
+            this.textBox4.Text = system_setting.worldColor.title_color;
+            this.textBox5.Text = system_setting.worldColor.friends_color;
         }
     }
 }

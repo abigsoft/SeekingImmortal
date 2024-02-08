@@ -32,6 +32,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMemberAttribute));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            linkLabel14 = new LinkLabel();
+            linkLabel15 = new LinkLabel();
+            linkLabel16 = new LinkLabel();
+            linkLabel11 = new LinkLabel();
+            linkLabel12 = new LinkLabel();
+            linkLabel13 = new LinkLabel();
+            linkLabel8 = new LinkLabel();
+            linkLabel9 = new LinkLabel();
+            linkLabel10 = new LinkLabel();
+            linkLabel5 = new LinkLabel();
+            linkLabel6 = new LinkLabel();
+            linkLabel7 = new LinkLabel();
+            linkLabel4 = new LinkLabel();
+            linkLabel3 = new LinkLabel();
+            linkLabel2 = new LinkLabel();
             label14 = new Label();
             label13 = new Label();
             label34 = new Label();
@@ -94,6 +109,21 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(linkLabel14);
+            tabPage1.Controls.Add(linkLabel15);
+            tabPage1.Controls.Add(linkLabel16);
+            tabPage1.Controls.Add(linkLabel11);
+            tabPage1.Controls.Add(linkLabel12);
+            tabPage1.Controls.Add(linkLabel13);
+            tabPage1.Controls.Add(linkLabel8);
+            tabPage1.Controls.Add(linkLabel9);
+            tabPage1.Controls.Add(linkLabel10);
+            tabPage1.Controls.Add(linkLabel5);
+            tabPage1.Controls.Add(linkLabel6);
+            tabPage1.Controls.Add(linkLabel7);
+            tabPage1.Controls.Add(linkLabel4);
+            tabPage1.Controls.Add(linkLabel3);
+            tabPage1.Controls.Add(linkLabel2);
             tabPage1.Controls.Add(label14);
             tabPage1.Controls.Add(label13);
             tabPage1.Controls.Add(label34);
@@ -114,28 +144,179 @@
             tabPage1.Text = "基础属性";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // linkLabel14
+            // 
+            linkLabel14.AutoSize = true;
+            linkLabel14.Location = new Point(513, 275);
+            linkLabel14.Name = "linkLabel14";
+            linkLabel14.Size = new Size(42, 17);
+            linkLabel14.TabIndex = 56;
+            linkLabel14.TabStop = true;
+            linkLabel14.Text = "+ 100";
+            // 
+            // linkLabel15
+            // 
+            linkLabel15.AutoSize = true;
+            linkLabel15.Location = new Point(455, 275);
+            linkLabel15.Name = "linkLabel15";
+            linkLabel15.Size = new Size(35, 17);
+            linkLabel15.TabIndex = 55;
+            linkLabel15.TabStop = true;
+            linkLabel15.Text = "+ 10";
+            // 
+            // linkLabel16
+            // 
+            linkLabel16.AutoSize = true;
+            linkLabel16.Location = new Point(405, 275);
+            linkLabel16.Name = "linkLabel16";
+            linkLabel16.Size = new Size(28, 17);
+            linkLabel16.TabIndex = 54;
+            linkLabel16.TabStop = true;
+            linkLabel16.Text = "+ 1";
+            // 
+            // linkLabel11
+            // 
+            linkLabel11.AutoSize = true;
+            linkLabel11.Location = new Point(513, 233);
+            linkLabel11.Name = "linkLabel11";
+            linkLabel11.Size = new Size(42, 17);
+            linkLabel11.TabIndex = 53;
+            linkLabel11.TabStop = true;
+            linkLabel11.Text = "+ 100";
+            // 
+            // linkLabel12
+            // 
+            linkLabel12.AutoSize = true;
+            linkLabel12.Location = new Point(455, 233);
+            linkLabel12.Name = "linkLabel12";
+            linkLabel12.Size = new Size(35, 17);
+            linkLabel12.TabIndex = 52;
+            linkLabel12.TabStop = true;
+            linkLabel12.Text = "+ 10";
+            // 
+            // linkLabel13
+            // 
+            linkLabel13.AutoSize = true;
+            linkLabel13.Location = new Point(405, 233);
+            linkLabel13.Name = "linkLabel13";
+            linkLabel13.Size = new Size(28, 17);
+            linkLabel13.TabIndex = 51;
+            linkLabel13.TabStop = true;
+            linkLabel13.Text = "+ 1";
+            // 
+            // linkLabel8
+            // 
+            linkLabel8.AutoSize = true;
+            linkLabel8.Location = new Point(513, 192);
+            linkLabel8.Name = "linkLabel8";
+            linkLabel8.Size = new Size(42, 17);
+            linkLabel8.TabIndex = 50;
+            linkLabel8.TabStop = true;
+            linkLabel8.Text = "+ 100";
+            // 
+            // linkLabel9
+            // 
+            linkLabel9.AutoSize = true;
+            linkLabel9.Location = new Point(455, 192);
+            linkLabel9.Name = "linkLabel9";
+            linkLabel9.Size = new Size(35, 17);
+            linkLabel9.TabIndex = 49;
+            linkLabel9.TabStop = true;
+            linkLabel9.Text = "+ 10";
+            // 
+            // linkLabel10
+            // 
+            linkLabel10.AutoSize = true;
+            linkLabel10.Location = new Point(405, 192);
+            linkLabel10.Name = "linkLabel10";
+            linkLabel10.Size = new Size(28, 17);
+            linkLabel10.TabIndex = 48;
+            linkLabel10.TabStop = true;
+            linkLabel10.Text = "+ 1";
+            // 
+            // linkLabel5
+            // 
+            linkLabel5.AutoSize = true;
+            linkLabel5.Location = new Point(513, 152);
+            linkLabel5.Name = "linkLabel5";
+            linkLabel5.Size = new Size(42, 17);
+            linkLabel5.TabIndex = 47;
+            linkLabel5.TabStop = true;
+            linkLabel5.Text = "+ 100";
+            // 
+            // linkLabel6
+            // 
+            linkLabel6.AutoSize = true;
+            linkLabel6.Location = new Point(455, 152);
+            linkLabel6.Name = "linkLabel6";
+            linkLabel6.Size = new Size(35, 17);
+            linkLabel6.TabIndex = 46;
+            linkLabel6.TabStop = true;
+            linkLabel6.Text = "+ 10";
+            // 
+            // linkLabel7
+            // 
+            linkLabel7.AutoSize = true;
+            linkLabel7.Location = new Point(405, 152);
+            linkLabel7.Name = "linkLabel7";
+            linkLabel7.Size = new Size(28, 17);
+            linkLabel7.TabIndex = 45;
+            linkLabel7.TabStop = true;
+            linkLabel7.Text = "+ 1";
+            // 
+            // linkLabel4
+            // 
+            linkLabel4.AutoSize = true;
+            linkLabel4.Location = new Point(513, 109);
+            linkLabel4.Name = "linkLabel4";
+            linkLabel4.Size = new Size(42, 17);
+            linkLabel4.TabIndex = 44;
+            linkLabel4.TabStop = true;
+            linkLabel4.Text = "+ 100";
+            // 
+            // linkLabel3
+            // 
+            linkLabel3.AutoSize = true;
+            linkLabel3.Location = new Point(455, 109);
+            linkLabel3.Name = "linkLabel3";
+            linkLabel3.Size = new Size(35, 17);
+            linkLabel3.TabIndex = 43;
+            linkLabel3.TabStop = true;
+            linkLabel3.Text = "+ 10";
+            // 
+            // linkLabel2
+            // 
+            linkLabel2.AutoSize = true;
+            linkLabel2.Location = new Point(405, 109);
+            linkLabel2.Name = "linkLabel2";
+            linkLabel2.Size = new Size(28, 17);
+            linkLabel2.TabIndex = 42;
+            linkLabel2.TabStop = true;
+            linkLabel2.Text = "+ 1";
+            // 
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(130, 47);
+            label14.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label14.Location = new Point(229, 49);
             label14.Name = "label14";
-            label14.Size = new Size(50, 17);
+            label14.Size = new Size(78, 25);
             label14.TabIndex = 41;
             label14.Text = "999999";
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(46, 47);
+            label13.Location = new Point(119, 49);
             label13.Name = "label13";
-            label13.Size = new Size(68, 17);
+            label13.Size = new Size(80, 17);
             label13.TabIndex = 40;
-            label13.Text = "最大体力：";
+            label13.Text = "可分配点数：";
             // 
             // label34
             // 
             label34.AutoSize = true;
-            label34.Location = new Point(130, 115);
+            label34.Location = new Point(289, 109);
             label34.Name = "label34";
             label34.Size = new Size(50, 17);
             label34.TabIndex = 39;
@@ -144,7 +325,7 @@
             // label33
             // 
             label33.AutoSize = true;
-            label33.Location = new Point(46, 115);
+            label33.Location = new Point(205, 109);
             label33.Name = "label33";
             label33.Size = new Size(44, 17);
             label33.TabIndex = 38;
@@ -153,7 +334,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(46, 143);
+            label15.Location = new Point(205, 152);
             label15.Name = "label15";
             label15.Size = new Size(44, 17);
             label15.TabIndex = 30;
@@ -162,7 +343,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(130, 143);
+            label16.Location = new Point(289, 152);
             label16.Name = "label16";
             label16.Size = new Size(50, 17);
             label16.TabIndex = 31;
@@ -171,7 +352,7 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(46, 171);
+            label17.Location = new Point(205, 192);
             label17.Name = "label17";
             label17.Size = new Size(44, 17);
             label17.TabIndex = 32;
@@ -180,7 +361,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(130, 171);
+            label18.Location = new Point(289, 192);
             label18.Name = "label18";
             label18.Size = new Size(50, 17);
             label18.TabIndex = 33;
@@ -189,7 +370,7 @@
             // label22
             // 
             label22.AutoSize = true;
-            label22.Location = new Point(130, 227);
+            label22.Location = new Point(289, 275);
             label22.Name = "label22";
             label22.Size = new Size(50, 17);
             label22.TabIndex = 37;
@@ -198,7 +379,7 @@
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(46, 199);
+            label19.Location = new Point(205, 233);
             label19.Name = "label19";
             label19.Size = new Size(44, 17);
             label19.TabIndex = 34;
@@ -207,7 +388,7 @@
             // label21
             // 
             label21.AutoSize = true;
-            label21.Location = new Point(46, 227);
+            label21.Location = new Point(205, 275);
             label21.Name = "label21";
             label21.Size = new Size(44, 17);
             label21.TabIndex = 36;
@@ -216,7 +397,7 @@
             // label20
             // 
             label20.AutoSize = true;
-            label20.Location = new Point(130, 199);
+            label20.Location = new Point(289, 233);
             label20.Name = "label20";
             label20.Size = new Size(50, 17);
             label20.TabIndex = 35;
@@ -604,5 +785,20 @@
         private Label label2;
         private LinkLabel linkLabel1;
         private ToolTip toolTip1;
+        private LinkLabel linkLabel2;
+        private LinkLabel linkLabel3;
+        private LinkLabel linkLabel4;
+        private LinkLabel linkLabel8;
+        private LinkLabel linkLabel9;
+        private LinkLabel linkLabel10;
+        private LinkLabel linkLabel5;
+        private LinkLabel linkLabel6;
+        private LinkLabel linkLabel7;
+        private LinkLabel linkLabel14;
+        private LinkLabel linkLabel15;
+        private LinkLabel linkLabel16;
+        private LinkLabel linkLabel11;
+        private LinkLabel linkLabel12;
+        private LinkLabel linkLabel13;
     }
 }

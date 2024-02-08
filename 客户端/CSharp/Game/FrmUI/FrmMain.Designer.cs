@@ -129,10 +129,13 @@
             button14 = new Button();
             button13 = new Button();
             groupBox3 = new GroupBox();
-            button15 = new Button();
+            label41 = new Label();
+            label40 = new Label();
+            label39 = new Label();
             button12 = new Button();
             button6 = new Button();
             button5 = new Button();
+            tabPage2 = new TabPage();
             tabPage6 = new TabPage();
             groupBox9 = new GroupBox();
             button21 = new Button();
@@ -179,6 +182,7 @@
             toolStripSeparator1 = new ToolStripSeparator();
             退出ToolStripMenuItem = new ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
+            timer2 = new System.Windows.Forms.Timer(components);
             panel_main.SuspendLayout();
             tabControl3.SuspendLayout();
             tabPage9.SuspendLayout();
@@ -629,6 +633,7 @@
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage5);
+            tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage6);
             tabControl1.Controls.Add(tabPage11);
             tabControl1.Controls.Add(tabPage4);
@@ -669,6 +674,7 @@
             // 
             // button11
             // 
+            button11.Enabled = false;
             button11.Location = new Point(500, 213);
             button11.Name = "button11";
             button11.Size = new Size(62, 23);
@@ -678,6 +684,7 @@
             // 
             // button10
             // 
+            button10.Enabled = false;
             button10.Location = new Point(500, 176);
             button10.Name = "button10";
             button10.Size = new Size(62, 23);
@@ -687,6 +694,7 @@
             // 
             // button9
             // 
+            button9.Enabled = false;
             button9.Location = new Point(500, 140);
             button9.Name = "button9";
             button9.Size = new Size(62, 23);
@@ -1108,15 +1116,16 @@
             // 
             groupBox4.Controls.Add(button14);
             groupBox4.Controls.Add(button13);
-            groupBox4.Location = new Point(148, 18);
+            groupBox4.Location = new Point(168, 18);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(220, 82);
+            groupBox4.Size = new Size(218, 82);
             groupBox4.TabIndex = 1;
             groupBox4.TabStop = false;
             groupBox4.Text = "庄园";
             // 
             // button14
             // 
+            button14.Enabled = false;
             button14.Location = new Point(122, 35);
             button14.Name = "button14";
             button14.Size = new Size(75, 23);
@@ -1126,6 +1135,7 @@
             // 
             // button13
             // 
+            button13.Enabled = false;
             button13.Location = new Point(22, 35);
             button13.Name = "button13";
             button13.Size = new Size(75, 23);
@@ -1135,31 +1145,57 @@
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(button15);
+            groupBox3.Controls.Add(label41);
+            groupBox3.Controls.Add(label40);
+            groupBox3.Controls.Add(label39);
             groupBox3.Controls.Add(button12);
             groupBox3.Controls.Add(button6);
             groupBox3.Controls.Add(button5);
             groupBox3.Location = new Point(16, 18);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(126, 219);
+            groupBox3.Size = new Size(136, 219);
             groupBox3.TabIndex = 0;
             groupBox3.TabStop = false;
             groupBox3.Text = "洞府";
             // 
-            // button15
+            // label41
             // 
-            button15.Location = new Point(25, 165);
-            button15.Name = "button15";
-            button15.Size = new Size(75, 23);
-            button15.TabIndex = 3;
-            button15.Text = "后宫";
-            button15.UseVisualStyleBackColor = true;
+            label41.BackColor = Color.Gainsboro;
+            label41.BorderStyle = BorderStyle.FixedSingle;
+            label41.Location = new Point(25, 183);
+            label41.Name = "label41";
+            label41.Size = new Size(87, 23);
+            label41.TabIndex = 6;
+            label41.Text = "剩余 600 秒";
+            label41.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label40
+            // 
+            label40.BackColor = Color.Gainsboro;
+            label40.BorderStyle = BorderStyle.FixedSingle;
+            label40.Location = new Point(25, 120);
+            label40.Name = "label40";
+            label40.Size = new Size(87, 23);
+            label40.TabIndex = 5;
+            label40.Text = "剩余 300 秒";
+            label40.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label39
+            // 
+            label39.BackColor = Color.Gainsboro;
+            label39.BorderStyle = BorderStyle.FixedSingle;
+            label39.Location = new Point(25, 55);
+            label39.Name = "label39";
+            label39.Size = new Size(87, 23);
+            label39.TabIndex = 4;
+            label39.Text = "剩余 300 秒";
+            label39.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // button12
             // 
-            button12.Location = new Point(25, 126);
+            button12.Location = new Point(25, 157);
             button12.Name = "button12";
-            button12.Size = new Size(75, 23);
+            button12.Size = new Size(87, 23);
             button12.TabIndex = 2;
             button12.Text = "挖矿";
             button12.UseVisualStyleBackColor = true;
@@ -1167,9 +1203,9 @@
             // 
             // button6
             // 
-            button6.Location = new Point(25, 88);
+            button6.Location = new Point(25, 94);
             button6.Name = "button6";
-            button6.Size = new Size(75, 23);
+            button6.Size = new Size(87, 23);
             button6.TabIndex = 1;
             button6.Text = "休息";
             button6.UseVisualStyleBackColor = true;
@@ -1177,13 +1213,23 @@
             // 
             // button5
             // 
-            button5.Location = new Point(25, 46);
+            button5.Location = new Point(25, 31);
             button5.Name = "button5";
-            button5.Size = new Size(75, 23);
+            button5.Size = new Size(87, 23);
             button5.TabIndex = 0;
             button5.Text = "感悟";
             button5.UseVisualStyleBackColor = true;
             button5.Click += button5_Click;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Location = new Point(4, 26);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(573, 253);
+            tabPage2.TabIndex = 7;
+            tabPage2.Text = "后宫";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage6
             // 
@@ -1218,6 +1264,7 @@
             button21.TabIndex = 0;
             button21.Text = "祈福许愿";
             button21.UseVisualStyleBackColor = true;
+            button21.Click += button21_Click;
             // 
             // groupBox8
             // 
@@ -1231,6 +1278,7 @@
             // 
             // button20
             // 
+            button20.Enabled = false;
             button20.Location = new Point(15, 36);
             button20.Name = "button20";
             button20.Size = new Size(90, 31);
@@ -1250,6 +1298,7 @@
             // 
             // button19
             // 
+            button19.Enabled = false;
             button19.Location = new Point(14, 36);
             button19.Name = "button19";
             button19.Size = new Size(90, 31);
@@ -1269,6 +1318,7 @@
             // 
             // button18
             // 
+            button18.Enabled = false;
             button18.Location = new Point(14, 36);
             button18.Name = "button18";
             button18.Size = new Size(90, 31);
@@ -1288,6 +1338,7 @@
             // 
             // button17
             // 
+            button17.Enabled = false;
             button17.Location = new Point(14, 36);
             button17.Name = "button17";
             button17.Size = new Size(90, 31);
@@ -1322,6 +1373,7 @@
             // 
             // button31
             // 
+            button31.Enabled = false;
             button31.Location = new Point(34, 148);
             button31.Name = "button31";
             button31.Size = new Size(90, 31);
@@ -1331,6 +1383,7 @@
             // 
             // button32
             // 
+            button32.Enabled = false;
             button32.Location = new Point(33, 93);
             button32.Name = "button32";
             button32.Size = new Size(90, 31);
@@ -1340,6 +1393,7 @@
             // 
             // button33
             // 
+            button33.Enabled = false;
             button33.Location = new Point(34, 38);
             button33.Name = "button33";
             button33.Size = new Size(90, 31);
@@ -1361,6 +1415,7 @@
             // 
             // button28
             // 
+            button28.Enabled = false;
             button28.Location = new Point(34, 148);
             button28.Name = "button28";
             button28.Size = new Size(90, 31);
@@ -1370,6 +1425,7 @@
             // 
             // button29
             // 
+            button29.Enabled = false;
             button29.Location = new Point(33, 93);
             button29.Name = "button29";
             button29.Size = new Size(90, 31);
@@ -1379,6 +1435,7 @@
             // 
             // button30
             // 
+            button30.Enabled = false;
             button30.Location = new Point(34, 38);
             button30.Name = "button30";
             button30.Size = new Size(90, 31);
@@ -1400,6 +1457,7 @@
             // 
             // button27
             // 
+            button27.Enabled = false;
             button27.Location = new Point(34, 148);
             button27.Name = "button27";
             button27.Size = new Size(90, 31);
@@ -1409,6 +1467,7 @@
             // 
             // button26
             // 
+            button26.Enabled = false;
             button26.Location = new Point(33, 93);
             button26.Name = "button26";
             button26.Size = new Size(90, 31);
@@ -1418,6 +1477,7 @@
             // 
             // button25
             // 
+            button25.Enabled = false;
             button25.Location = new Point(34, 38);
             button25.Name = "button25";
             button25.Size = new Size(90, 31);
@@ -1450,6 +1510,7 @@
             // 
             // button24
             // 
+            button24.Enabled = false;
             button24.Location = new Point(14, 36);
             button24.Name = "button24";
             button24.Size = new Size(90, 31);
@@ -1469,6 +1530,7 @@
             // 
             // button23
             // 
+            button23.Enabled = false;
             button23.Location = new Point(14, 36);
             button23.Name = "button23";
             button23.Size = new Size(90, 31);
@@ -1488,6 +1550,7 @@
             // 
             // button22
             // 
+            button22.Enabled = false;
             button22.Location = new Point(14, 36);
             button22.Name = "button22";
             button22.Size = new Size(90, 31);
@@ -1615,6 +1678,11 @@
             timer1.Enabled = true;
             timer1.Interval = 300;
             timer1.Tick += timer1_Tick;
+            // 
+            // timer2
+            // 
+            timer2.Interval = 1000;
+            timer2.Tick += timer2_Tick;
             // 
             // FrmMain
             // 
@@ -1787,7 +1855,6 @@
         private GroupBox groupBox4;
         private Button button13;
         private Button button14;
-        private Button button15;
         private Button button16;
         private TabPage tabPage11;
         private GroupBox groupBox5;
@@ -1818,5 +1885,10 @@
         private Button button31;
         private Button button32;
         private Button button33;
+        private System.Windows.Forms.Timer timer2;
+        private Label label39;
+        private Label label40;
+        private Label label41;
+        private TabPage tabPage2;
     }
 }

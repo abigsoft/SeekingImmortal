@@ -84,7 +84,7 @@ namespace Game.Service
             }
             buffer.AppendFormat("&secret=" + StrHelper.ChEncodeUrl("ox-*ppxljyhr-_$4b"));
             string sign = buffer.ToString();
-            dic1Asc.Add("sign", StrHelper.MD5Encrypt(sign.ToLower()));
+            //dic1Asc.Add("sign", StrHelper.MD5Encrypt(sign.ToLower()));
             return dic1Asc;
         }
     }

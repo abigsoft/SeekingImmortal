@@ -46,6 +46,9 @@ return [
 
         /** 用户信息模型 */
         'user_model' => function($uid) {
+            if(!$uid){
+                return [];
+            }
             $user_info = \support\Redis::get('user_info_' . $uid);
             if(!$user_info || $user_info == 'null'){
                 $user_info = \think\facade\Db::table('member')->where('uid',$uid)->find();

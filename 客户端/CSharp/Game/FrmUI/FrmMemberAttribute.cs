@@ -25,7 +25,12 @@ namespace Game.FrmUI
 
         private void FrmMemberAttribute_Load(object sender, EventArgs e)
         {
-
+            label14.Text = member_info.DataDot.ToString();
+            label34.Text = member_info.WorldBloodMax.ToString();
+            label16.Text = member_info.WorldAttackPhysics.ToString();
+            label18.Text = member_info.WorldAttackMagic.ToString();
+            label20.Text = member_info.WorldDefensePhysics.ToString();
+            label22.Text = member_info.WorldDefenseMagic.ToString();
         }
     }
 }

@@ -9,6 +9,7 @@ use app\common\model\MemberModel;
 use app\common\model\TrainModel;
 use support\Redis;
 use think\facade\Db;
+use Webman\Event\Event;
 
 class Sleep extends Base
 {
@@ -65,7 +66,7 @@ class Sleep extends Base
             'type' => 'sleep',
             'result' => $result
         ]);
-        $this->refreshUser($this->uid);
+        Event::emit('refresh.member',$this->uid);
         return $this->success($result);
     }
 }

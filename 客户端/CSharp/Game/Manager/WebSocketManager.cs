@@ -104,7 +104,7 @@ namespace Game.Manager
                     {
                         await SendAsync("{\"type\":\"ping\"}");
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         //OnError?.Invoke(ex);
                     }

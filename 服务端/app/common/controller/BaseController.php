@@ -6,6 +6,7 @@ use app\common\model\MemberModel;
 use support\Request;
 use support\Cache;
 use support\View;
+use Webman\Event\Event;
 
 class BaseController
 {
@@ -70,6 +71,8 @@ class BaseController
 
     protected function refreshUser($uid): void
     {
+        Event::emit('refresh.member',$uid);
+        /*
         $user_info = MemberModel::where('uid',$uid)->field('uid,account,password,nickname,
             sex,steam_id,account_status,character_status,level_id,data_exp,
             data_insight,data_fortune,data_physical,data_physical_max,
@@ -81,6 +84,6 @@ class BaseController
             world_critical_rate,world_critical_data,world_sure,world_evade,
             world_online_time,data_dot')->find();
         \support\Redis::set('user_info_' . $uid, $user_info);
-        \support\Redis::hSet('task:member_list',$uid,$user_info);
+        \support\Redis::hSet('task:member_list',$uid,$user_info);*/
     }
 }

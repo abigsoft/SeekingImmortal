@@ -36,9 +36,7 @@ namespace Game.FrmUI
             InitializeComponent();
             this.default_width = this.Width;
             http.token = this.token = token;
-            system_setting.isMute = IniHelper.Instance.ReadInteger("Setting", "isMute", 0) == 1;
-            system_setting.isAutoRefresh = IniHelper.Instance.ReadInteger("Setting", "isAutoRefresh", 0) == 1;
-            system_setting.isAutoCollapsed = IniHelper.Instance.ReadInteger("Setting", "isAutoCollapsed", 1) == 1;
+
         }
 
         private void SetupWebSocketEvents()
@@ -128,6 +126,37 @@ namespace Game.FrmUI
                 if (message.Data.Id == 0)
                 {
                     int rowIndex = 0;
+                    if (message.Data.Message.Id > 0)
+                    {
+                        //称号替换
+                        if (!string.IsNullOrEmpty(system_setting.worldColor.title_str.Trim()))
+                        {
+                            if (message.Data.Message.From.Uid == member_info.Uid)
+                            {
+                                message.Data.Message.From.Title = system_setting.worldColor.title_str.Trim();
+                            }
+                        }
+                        //消息颜色替换
+                        if (!string.IsNullOrEmpty(system_setting.worldColor.message_color.Trim()))
+                        {
+                            if (message.Data.Message.From.Uid == member_info.Uid)
+                            {
+                                //message.Data.Message.Color.Title = textBox3.Text.Trim();
+                                message.Data.Message.Color.Name = system_setting.worldColor.message_color.Trim();
+                                message.Data.Message.Color.Message = system_setting.worldColor.message_color.Trim();
+                                message.Data.Message.Color.Time = system_setting.worldColor.message_color.Trim();
+                            }
+                        }
+                        //称号颜色替换
+                        if (!string.IsNullOrEmpty(system_setting.worldColor.title_color.Trim()))
+                        {
+                            if (message.Data.Message.From.Uid == member_info.Uid)
+                            {
+                                message.Data.Message.Color.Title = system_setting.worldColor.title_color.Trim();
+                            }
+                        }
+                    }
+
                     if (message.Data.Message.Content.Type == "text")
                     {
                         rowIndex = dataGridView1.Rows.Add(
@@ -175,20 +204,19 @@ namespace Game.FrmUI
                         this.listView1.Items[this.listView1.Items.Count - 1].EnsureVisible();
                     }
 
-
                     if (message.Data.Message.Color.Title != "#000000")
                     {
                         dataGridView1.Rows[rowIndex].Cells["Column2"].Style.ForeColor = StrHelper.HexToColor(message.Data.Message.Color.Title);
                     }
-                    if (message.Data.Message.Color.Title != "#000000")
+                    if (message.Data.Message.Color.Name != "#000000")
                     {
                         dataGridView1.Rows[rowIndex].Cells["Column3"].Style.ForeColor = StrHelper.HexToColor(message.Data.Message.Color.Name);
                     }
-                    if (message.Data.Message.Color.Title != "#000000")
+                    if (message.Data.Message.Color.Message != "#000000")
                     {
                         dataGridView1.Rows[rowIndex].Cells["Column4"].Style.ForeColor = StrHelper.HexToColor(message.Data.Message.Color.Message);
                     }
-                    if (message.Data.Message.Color.Title != "#000000")
+                    if (message.Data.Message.Color.Time != "#000000")
                     {
                         dataGridView1.Rows[rowIndex].Cells["Column6"].Style.ForeColor = StrHelper.HexToColor(message.Data.Message.Color.Time);
                     }
@@ -252,6 +280,26 @@ namespace Game.FrmUI
                 {
                     dataGridView2.ClearSelection();
                 }
+                if (system_setting.isSystemLogToWorld)
+                {
+                    int rowIndex = dataGridView1.Rows.Add(
+                            0,
+                            "通知",
+                            "系统",
+                            message,
+                            DateTime.Now.ToString("HH:mm:ss")
+                        );
+                    if (dataGridView1.Rows.Count == 1)
+                    {
+                        dataGridView1.ClearSelection();
+                    }
+                    //dataGridView1.Rows[rowIndex].Cells["Column1"].Style.ForeColor = StrHelper.HexToColor("#D3D3D3");
+                    dataGridView1.Rows[rowIndex].Cells["Column2"].Style.ForeColor = StrHelper.HexToColor("#A9A9A9");
+                    dataGridView1.Rows[rowIndex].Cells["Column3"].Style.ForeColor = StrHelper.HexToColor("#A9A9A9");
+                    dataGridView1.Rows[rowIndex].Cells["Column4"].Style.ForeColor = StrHelper.HexToColor("#A9A9A9");
+                    dataGridView1.Rows[rowIndex].Cells["Column6"].Style.ForeColor = StrHelper.HexToColor("#A9A9A9");
+                    //dataGridView1.Rows[rowIndex].Cells["Column7"].Style.ForeColor = StrHelper.HexToColor("#D3D3D3");
+                }
             }));
 
         }
@@ -261,6 +309,7 @@ namespace Game.FrmUI
             new FrmLoading(() =>
             {
                 this.initAll();
+                this.initSystem();
             }, this);
         }
         MemberEntity member_info = new MemberEntity();
@@ -423,7 +472,7 @@ namespace Game.FrmUI
 
         }
 
-        private async void heart_jump_Tick(object sender, EventArgs e)
+        private void heart_jump_Tick(object sender, EventArgs e)
         {
             //await WebSocketManager.Instance.SendMessageAsync("{\"type\":\"ping\"}");
             StrHelper.ClearMemory();
@@ -491,6 +540,18 @@ namespace Game.FrmUI
             }
 
         }
+
+        private void initSystem()
+        {
+            system_setting.isMute = IniHelper.Instance.ReadInteger("Setting", "isMute", 0) == 1;
+            system_setting.isAutoRefresh = IniHelper.Instance.ReadInteger("Setting", "isAutoRefresh", 0) == 1;
+            system_setting.isAutoCollapsed = IniHelper.Instance.ReadInteger("Setting", "isAutoCollapsed", 1) == 1;
+            system_setting.isSystemLogToWorld = IniHelper.Instance.ReadInteger("Setting", "isSystemLogToWorld", 0) == 1;
+            system_setting.worldColor.title_str = IniHelper.Instance.ReadString("Setting", "WorldTitleStr", "");
+            system_setting.worldColor.message_color = IniHelper.Instance.ReadString("Setting", "WorldMessageColor", "");
+            system_setting.worldColor.title_color = IniHelper.Instance.ReadString("Setting", "WorldTitleColor", "");
+            system_setting.worldColor.friends_color = IniHelper.Instance.ReadString("Setting", "WorldFriendsColor", "");
+        }
         SystemSetting system_setting = new SystemSetting();
         private void button4_Click(object sender, EventArgs e)
         {
@@ -498,9 +559,7 @@ namespace Game.FrmUI
             frm.ShowDialog();
             if (frm.Reset)
             {
-                system_setting.isMute = IniHelper.Instance.ReadInteger("Setting", "isMute", 0) == 1;
-                system_setting.isAutoRefresh = IniHelper.Instance.ReadInteger("Setting", "isAutoRefresh", 0) == 1;
-                system_setting.isAutoCollapsed = IniHelper.Instance.ReadInteger("Setting", "isAutoCollapsed", 1) == 1;
+                initSystem();
             }
 
             //WinformHelper.Open<FrmSetting>(http, system_setting);
@@ -512,9 +571,7 @@ namespace Game.FrmUI
             frm.ShowDialog();
             if (frm.Reset)
             {
-                system_setting.isMute = IniHelper.Instance.ReadInteger("Setting", "isMute", 0) == 1;
-                system_setting.isAutoRefresh = IniHelper.Instance.ReadInteger("Setting", "isAutoRefresh", 0) == 1;
-                system_setting.isAutoCollapsed = IniHelper.Instance.ReadInteger("Setting", "isAutoCollapsed", 1) == 1;
+                initSystem();
             }
             //WinformHelper.Open<FrmSetting>(http, system_setting);
         }
@@ -709,22 +766,189 @@ namespace Game.FrmUI
 
         private void button5_Click(object sender, EventArgs e)
         {
-            doTrain("train");
+            if (train_type == "train")
+            {
+                addSystemLog("停止感悟");
+                doTrain();
+            }
+            else
+            {
+                addSystemLog("开始感悟");
+                doTrain();
+                doTrain("train");
+            }
+
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            doTrain("sleep");
+            if (train_type == "sleep")
+            {
+                addSystemLog("停止休息");
+                doTrain();
+            }
+            else
+            {
+                doTrain();
+                addSystemLog("开始休息");
+                doTrain("sleep");
+            }
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
-            doTrain("mining");
+            if (train_type == "mining")
+            {
+                doTrain();
+                addSystemLog("停止挖矿");
+            }
+            else
+            {
+                doTrain();
+                addSystemLog("开始挖矿");
+                doTrain("mining");
+            }
+        }
+        private string train_type = "";
+        private async void doTrain(string type = "")
+        {
+            timer2.Stop();
+            train_type = type;
+            ResultEntity result = new ResultEntity();
+
+            switch (type)
+            {
+                case "train":
+                    result = await http.apiPost("home/train/create");
+                    if (result.getStatus() != 200)
+                    {
+                        addSystemLog(result.getMsg());
+                        doTrain();
+                        return;
+                    }
+                    train_type = JTokenHelper.ToStr(result.getData()["type"]);
+                    train_time = JTokenHelper.ToInt(result.getData()["time"]);
+                    train_key = JTokenHelper.ToStr(result.getData()["key"]);
+                    button5.Text = "停止感悟";
+                    button6.Text = "休息";
+                    button12.Text = "挖矿";
+                    break;
+                case "sleep":
+                    result = await http.apiPost("home/sleep/create");
+                    if (result.getStatus() != 200)
+                    {
+                        doTrain();
+                        addSystemLog(result.getMsg());
+                        return;
+                    }
+                    train_type = JTokenHelper.ToStr(result.getData()["type"]);
+                    train_time = JTokenHelper.ToInt(result.getData()["time"]);
+                    train_key = JTokenHelper.ToStr(result.getData()["key"]);
+                    button6.Text = "停止休息";
+                    button5.Text = "感悟";
+                    button12.Text = "挖矿";
+                    break;
+                case "mining":
+                    result = await http.apiPost("home/mining/create");
+                    if (result.getStatus() != 200)
+                    {
+                        doTrain();
+                        addSystemLog(result.getMsg());
+                        return;
+                    }
+                    train_type = JTokenHelper.ToStr(result.getData()["type"]);
+                    train_time = JTokenHelper.ToInt(result.getData()["time"]);
+                    train_key = JTokenHelper.ToStr(result.getData()["key"]);
+                    button12.Text = "停止挖矿";
+                    button5.Text = "感悟";
+                    button6.Text = "休息";
+                    break;
+                default:
+                    button5.Text = "感悟";
+                    button6.Text = "休息";
+                    button12.Text = "挖矿";
+                    label39.Text = label40.Text = "剩余 300 秒";
+                    label41.Text = "剩余 600 秒";
+                    //button5.Enabled = button6.Enabled = button12.Enabled = true;
+                    return;
+            }
+            timer2.Start();
+        }
+        string train_key = "";
+        int train_time = 300;
+        private async void timer2_Tick(object sender, EventArgs e)
+        {
+            if (train_time <= 0)
+            {
+                ResultEntity result = new ResultEntity();
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                dic.Add("key", train_key);
+                switch (train_type)
+                {
+                    case "train":
+                        label39.Text = "感悟结束";
+                        result = await http.apiPost("home/train/finish", dic);
+                        if (result.getStatus() != 200)
+                        {
+                            doTrain();
+                            addSystemLog(result.getMsg());
+                            return;
+                        }
+                        addSystemLog(result.getMsg());
+                        break;
+                    case "sleep":
+                        label40.Text = "休息结束";
+                        result = await http.apiPost("home/sleep/finish", dic);
+                        if (result.getStatus() != 200)
+                        {
+                            doTrain();
+                            addSystemLog(result.getMsg());
+                            return;
+                        }
+                        addSystemLog(result.getMsg());
+                        break;
+                    case "mining":
+                        label41.Text = "挖矿结束";
+                        result = await http.apiPost("home/mining/finish", dic);
+                        if (result.getStatus() != 200)
+                        {
+                            doTrain();
+                            addSystemLog(result.getMsg());
+                            return;
+                        }
+                        addSystemLog(result.getMsg());
+                        break;
+                    default:
+                        doTrain();
+                        return;
+                }
+                doTrain(train_type);
+            }
+            else
+            {
+                switch (train_type)
+                {
+                    case "train":
+                        label39.Text = "剩余 " + train_time.ToString() + " 秒";
+                        break;
+                    case "sleep":
+                        label40.Text = "剩余 " + train_time.ToString() + " 秒";
+                        break;
+                    case "mining":
+                        label41.Text = "剩余 " + train_time.ToString() + " 秒";
+                        break;
+                    default:
+                        doTrain();
+                        break;
+                }
+                train_time--;
+            }
         }
 
-        private async void doTrain(string type)
+        private async void button21_Click(object sender, EventArgs e)
         {
-
+            ResultEntity result = await http.apiPost("market/sign/create");
+            addSystemLog(result.getMsg());
         }
     }
 }

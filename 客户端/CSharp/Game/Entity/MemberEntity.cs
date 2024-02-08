@@ -232,6 +232,12 @@ namespace Game.Entity
         public int WorldOnlineTime { get; set; } = 0;
 
         /// <summary>
+        /// 属性点
+        /// </summary>
+        [JsonProperty("data_dot")]
+        public int DataDot { get; set; } = 0;
+
+        /// <summary>
         /// 注册时间
         /// </summary>
         [JsonProperty("create_time")]

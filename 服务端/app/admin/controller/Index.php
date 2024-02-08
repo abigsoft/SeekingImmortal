@@ -13,13 +13,7 @@ class Index extends Base
 {
     public function index()
     {
-        $user = [
-            'id'  => 'abcdefg',
-            'name'  => 'test',
-            'client' => JwtToken::TOKEN_CLIENT_MOBILE
-        ];
-        $token = JwtToken::generateToken($user);
-        d($token);
+        //d($token);
         $data = AdminAuthRuleModel::order('sort asc,id desc')
             ->where('is_show',1)
             ->where('status',1)
@@ -28,7 +22,6 @@ class Index extends Base
         if ($this->admin_info['is_admin'] != 1) {
             foreach ($data as $k => $v) {
                 //检查权限是否存在
-
                 if (!in_array($v['name'],$this->admin_rule)) {
                     unset($data[$k]);
                 } else {

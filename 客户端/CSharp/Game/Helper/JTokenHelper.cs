@@ -9,7 +9,7 @@ namespace Game.Helper
 {
     public class JTokenHelper
     {
-        public static int ToInt(JToken obj, int def = 0)
+        public static int ToInt(JToken? obj, int def = 0)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace Game.Helper
                     return Convert.ToInt32(obj.ToString());
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return 0;
             }
@@ -30,7 +30,7 @@ namespace Game.Helper
 
         }
 
-        public static string ToStr(JToken obj, string def = "")
+        public static string ToStr(JToken? obj, string def = "")
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Game.Helper
                     return obj.ToString();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "";
             }
@@ -69,14 +69,14 @@ namespace Game.Helper
                 }
                 return obj.ToString();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return def;
             }
 
         }
 
-        public static JToken ToJToken(JToken? obj, string path, JToken def = null)
+        public static JToken ToJToken(JToken? obj, string path, JToken? def = null)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace Game.Helper
                 }
                 return obj;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return def;
             }

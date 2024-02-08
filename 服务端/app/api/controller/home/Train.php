@@ -9,6 +9,7 @@ use app\common\model\MemberModel;
 use app\common\model\TrainModel;
 use support\Redis;
 use think\facade\Db;
+use Webman\Event\Event;
 
 class Train extends Base
 {
@@ -63,21 +64,22 @@ class Train extends Base
             ->dec('data_physical');
         //$update[] = ['data_physical'=>Db::raw('data_physical')];
         //属性点
-        if (rate(80)) {//金币
+        if (rate(60)) {//金币
             $rand_gold = random_int(1, 10);
             $model->inc('data_gold_coin', $rand_gold);
             $result .= $rand_gold . " 枚金币、";
         }
 
-        if (rate(80)) {//金币
+        if (rate(30)) {//金币
             $rand_dot = random_int(1, 3);
-            $model->inc('data_gold_coin', $rand_dot);
+            $model->inc('data_dot', $rand_dot);
             $result .= $rand_dot . " 点属性、";
         }
 
         //经验、血量
         $rand_exp = random_int(2, 14);
-        $model->inc('data_exp', $rand_exp)->inc('world_blood', $rand_exp)
+        $model->inc('data_exp', $rand_exp)
+            ->inc('world_blood', $rand_exp)
             ->inc('world_blood_max', $rand_exp)->update();
         $result .= $rand_exp . " 点经验。";
         //随机捡到物品

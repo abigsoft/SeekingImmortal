@@ -17,13 +17,13 @@ class Sign extends Base
             return $this->error('今日已祈福');
         }
         $result = "祈福成功,获得 ";
-        Redis::set("SIGN:" . $this->uid, date('Y-m-d'),null,86400);
-        if(rate(10)){
+        Redis::setEx("SIGN:" . $this->uid, 86400, date('Y-m-d'));
+        if (rate(10)) {
             $reset_physical = $this->user['data_physical_max'];
             $model = MemberModel::where('uid', $this->uid)
-                ->inc('data_physical',$reset_physical);
+                ->inc('data_physical', $reset_physical);
             $result .= $reset_physical . " 点体力。";
-        }else{
+        } else {
             MemberModel::where('uid', $this->uid)->update([
                 'data_physical' => Db::raw('data_physical_max')
             ]);

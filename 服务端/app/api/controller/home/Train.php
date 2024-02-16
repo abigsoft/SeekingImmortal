@@ -16,12 +16,12 @@ class Train extends Base
     function create()
     {
         $uuid = get_uuid();
-        Redis::set('TRAIN:' . $this->uid, json_encode([
+        Redis::set('TRAIN:' . $this->uid, 10 * 60, json_encode([
             'id' => $uuid,
             'type' => 'train',
             'create_time' => formatDate(),
             'time' => time(),
-        ]), null, 10 * 60);
+        ]));
         return $this->success('SUCCESS', [
             'type' => 'train',
             'key' => $uuid,

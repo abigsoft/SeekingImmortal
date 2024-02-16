@@ -17,7 +17,7 @@ class Refresh
                             world_blood_max,world_attack_physics,world_attack_magic,
                             world_defense_physics,world_defense_magic,world_speed,
                             world_critical_rate,world_critical_data,world_sure,world_evade,
-                            world_online_time')->find();
+                            world_online_time,data_dot')->find();
         \support\Redis::set('user_info_' . $uid, json_encode($user_info));
         \support\Redis::hSet('task:member_list',$uid,json_encode($user_info));
     }

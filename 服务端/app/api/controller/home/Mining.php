@@ -14,12 +14,12 @@ class Mining extends Base
     function create()
     {
         $uuid = get_uuid();
-        Redis::set('TRAIN:' . $this->uid, json_encode([
+        Redis::setEx('TRAIN:' . $this->uid, 10 * 60, json_encode([
             'id' => $uuid,
             'type' => 'mining',
             'create_time' => formatDate(),
             'time' => time(),
-        ]), null, 10 * 60);
+        ]));
         return $this->success('SUCCESS', [
             'type' => 'mining',
             'key' => $uuid,

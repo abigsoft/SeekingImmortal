@@ -153,6 +153,7 @@
             linkLabel14.TabIndex = 56;
             linkLabel14.TabStop = true;
             linkLabel14.Text = "+ 100";
+            linkLabel14.LinkClicked += linkLabel14_LinkClicked;
             // 
             // linkLabel15
             // 
@@ -163,6 +164,7 @@
             linkLabel15.TabIndex = 55;
             linkLabel15.TabStop = true;
             linkLabel15.Text = "+ 10";
+            linkLabel15.LinkClicked += linkLabel15_LinkClicked;
             // 
             // linkLabel16
             // 
@@ -173,6 +175,7 @@
             linkLabel16.TabIndex = 54;
             linkLabel16.TabStop = true;
             linkLabel16.Text = "+ 1";
+            linkLabel16.LinkClicked += linkLabel16_LinkClicked;
             // 
             // linkLabel11
             // 
@@ -183,6 +186,7 @@
             linkLabel11.TabIndex = 53;
             linkLabel11.TabStop = true;
             linkLabel11.Text = "+ 100";
+            linkLabel11.LinkClicked += linkLabel11_LinkClicked;
             // 
             // linkLabel12
             // 
@@ -193,6 +197,7 @@
             linkLabel12.TabIndex = 52;
             linkLabel12.TabStop = true;
             linkLabel12.Text = "+ 10";
+            linkLabel12.LinkClicked += linkLabel12_LinkClicked;
             // 
             // linkLabel13
             // 
@@ -203,6 +208,7 @@
             linkLabel13.TabIndex = 51;
             linkLabel13.TabStop = true;
             linkLabel13.Text = "+ 1";
+            linkLabel13.LinkClicked += linkLabel13_LinkClicked;
             // 
             // linkLabel8
             // 
@@ -213,6 +219,7 @@
             linkLabel8.TabIndex = 50;
             linkLabel8.TabStop = true;
             linkLabel8.Text = "+ 100";
+            linkLabel8.LinkClicked += linkLabel8_LinkClicked;
             // 
             // linkLabel9
             // 
@@ -223,6 +230,7 @@
             linkLabel9.TabIndex = 49;
             linkLabel9.TabStop = true;
             linkLabel9.Text = "+ 10";
+            linkLabel9.LinkClicked += linkLabel9_LinkClicked;
             // 
             // linkLabel10
             // 
@@ -233,6 +241,7 @@
             linkLabel10.TabIndex = 48;
             linkLabel10.TabStop = true;
             linkLabel10.Text = "+ 1";
+            linkLabel10.LinkClicked += linkLabel10_LinkClicked;
             // 
             // linkLabel5
             // 
@@ -243,6 +252,7 @@
             linkLabel5.TabIndex = 47;
             linkLabel5.TabStop = true;
             linkLabel5.Text = "+ 100";
+            linkLabel5.LinkClicked += linkLabel5_LinkClicked;
             // 
             // linkLabel6
             // 
@@ -253,6 +263,7 @@
             linkLabel6.TabIndex = 46;
             linkLabel6.TabStop = true;
             linkLabel6.Text = "+ 10";
+            linkLabel6.LinkClicked += linkLabel6_LinkClicked;
             // 
             // linkLabel7
             // 
@@ -263,6 +274,7 @@
             linkLabel7.TabIndex = 45;
             linkLabel7.TabStop = true;
             linkLabel7.Text = "+ 1";
+            linkLabel7.LinkClicked += linkLabel7_LinkClicked;
             // 
             // linkLabel4
             // 
@@ -273,6 +285,7 @@
             linkLabel4.TabIndex = 44;
             linkLabel4.TabStop = true;
             linkLabel4.Text = "+ 100";
+            linkLabel4.LinkClicked += linkLabel4_LinkClicked;
             // 
             // linkLabel3
             // 
@@ -283,6 +296,7 @@
             linkLabel3.TabIndex = 43;
             linkLabel3.TabStop = true;
             linkLabel3.Text = "+ 10";
+            linkLabel3.LinkClicked += linkLabel3_LinkClicked;
             // 
             // linkLabel2
             // 
@@ -293,6 +307,7 @@
             linkLabel2.TabIndex = 42;
             linkLabel2.TabStop = true;
             linkLabel2.Text = "+ 1";
+            linkLabel2.LinkClicked += linkLabel2_LinkClicked;
             // 
             // label14
             // 
@@ -453,6 +468,7 @@
             linkLabel1.TabStop = true;
             linkLabel1.Text = "洗练重置";
             toolTip1.SetToolTip(linkLabel1, "仅退还属性点");
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
             // label3
             // 
@@ -587,6 +603,7 @@
             // 
             // button11
             // 
+            button11.Enabled = false;
             button11.Location = new Point(550, 254);
             button11.Name = "button11";
             button11.Size = new Size(63, 57);
@@ -594,9 +611,11 @@
             button11.Text = "再升级";
             toolTip1.SetToolTip(button11, "消耗灵石：100 颗");
             button11.UseVisualStyleBackColor = true;
+            button11.Click += button11_Click;
             // 
             // button12
             // 
+            button12.Enabled = false;
             button12.Location = new Point(550, 149);
             button12.Name = "button12";
             button12.Size = new Size(63, 57);
@@ -604,9 +623,11 @@
             button12.Text = "再升级";
             toolTip1.SetToolTip(button12, "消耗灵石：100 颗");
             button12.UseVisualStyleBackColor = true;
+            button12.Click += button12_Click;
             // 
             // button13
             // 
+            button13.Enabled = false;
             button13.Location = new Point(550, 45);
             button13.Name = "button13";
             button13.Size = new Size(63, 57);
@@ -614,99 +635,119 @@
             button13.Text = "再升级";
             toolTip1.SetToolTip(button13, "消耗灵石：100 颗");
             button13.UseVisualStyleBackColor = true;
+            button13.Click += button13_Click;
             // 
             // button8
             // 
+            button8.Enabled = false;
             button8.Location = new Point(401, 254);
             button8.Name = "button8";
             button8.Size = new Size(63, 57);
             button8.TabIndex = 9;
             button8.Text = "辅助3";
-            toolTip1.SetToolTip(button8, "消耗属性：60 点");
+            toolTip1.SetToolTip(button8, "消耗属性：160 点");
             button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
             // 
             // button9
             // 
+            button9.Enabled = false;
             button9.Location = new Point(401, 149);
             button9.Name = "button9";
             button9.Size = new Size(63, 57);
             button9.TabIndex = 8;
             button9.Text = "战士3";
-            toolTip1.SetToolTip(button9, "消耗属性：60 点");
+            toolTip1.SetToolTip(button9, "消耗属性：160 点");
             button9.UseVisualStyleBackColor = true;
+            button9.Click += button9_Click;
             // 
             // button10
             // 
+            button10.Enabled = false;
             button10.Location = new Point(401, 45);
             button10.Name = "button10";
             button10.Size = new Size(63, 57);
             button10.TabIndex = 7;
             button10.Text = "刺客3";
-            toolTip1.SetToolTip(button10, "消耗属性：60 点");
+            toolTip1.SetToolTip(button10, "消耗属性：160 点");
             button10.UseVisualStyleBackColor = true;
+            button10.Click += button10_Click;
             // 
             // button7
             // 
+            button7.Enabled = false;
             button7.Location = new Point(282, 254);
             button7.Name = "button7";
             button7.Size = new Size(63, 57);
             button7.TabIndex = 6;
             button7.Text = "辅助2";
-            toolTip1.SetToolTip(button7, "消耗属性：30 点");
+            toolTip1.SetToolTip(button7, "消耗属性：80 点");
             button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
             // 
             // button6
             // 
+            button6.Enabled = false;
             button6.Location = new Point(282, 149);
             button6.Name = "button6";
             button6.Size = new Size(63, 57);
             button6.TabIndex = 5;
             button6.Text = "战士2";
-            toolTip1.SetToolTip(button6, "消耗属性：30 点");
+            toolTip1.SetToolTip(button6, "消耗属性：80 点");
             button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
             // 
             // button5
             // 
+            button5.Enabled = false;
             button5.Location = new Point(282, 45);
             button5.Name = "button5";
             button5.Size = new Size(63, 57);
             button5.TabIndex = 4;
             button5.Text = "刺客2";
-            toolTip1.SetToolTip(button5, "消耗属性：30 点");
+            toolTip1.SetToolTip(button5, "消耗属性：80 点");
             button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
             // 
             // button4
             // 
+            button4.Enabled = false;
             button4.Location = new Point(162, 254);
             button4.Name = "button4";
             button4.Size = new Size(63, 57);
             button4.TabIndex = 3;
             button4.Text = "辅助1";
-            toolTip1.SetToolTip(button4, "消耗属性：15 点");
+            toolTip1.SetToolTip(button4, "消耗属性：40 点");
             button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // button3
             // 
+            button3.Enabled = false;
             button3.Location = new Point(162, 149);
             button3.Name = "button3";
             button3.Size = new Size(63, 57);
             button3.TabIndex = 2;
             button3.Text = "战士1";
-            toolTip1.SetToolTip(button3, "消耗属性：15 点");
+            toolTip1.SetToolTip(button3, "消耗属性：40 点");
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button2
             // 
+            button2.Enabled = false;
             button2.Location = new Point(162, 45);
             button2.Name = "button2";
             button2.Size = new Size(63, 57);
             button2.TabIndex = 1;
             button2.Text = "刺客1";
-            toolTip1.SetToolTip(button2, "消耗属性：15 点");
+            toolTip1.SetToolTip(button2, "消耗属性：40 点");
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // button1
             // 
+            button1.Enabled = false;
             button1.Location = new Point(32, 149);
             button1.Name = "button1";
             button1.Size = new Size(63, 57);
@@ -714,6 +755,7 @@
             button1.Text = "入门";
             toolTip1.SetToolTip(button1, "消耗属性：20 点\r\n物理攻击+1\r\n法术攻击+1\r\n物理防御+1\r\n法术防御+1");
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // FrmMemberAttribute
             // 

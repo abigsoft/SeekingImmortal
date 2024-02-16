@@ -671,6 +671,7 @@
             button16.TabIndex = 7;
             button16.Text = "背包";
             button16.UseVisualStyleBackColor = true;
+            button16.Click += button16_Click;
             // 
             // button11
             // 
@@ -1378,7 +1379,7 @@
             button31.Name = "button31";
             button31.Size = new Size(90, 31);
             button31.TabIndex = 2;
-            button31.Text = "龙穴";
+            button31.Text = "神殿";
             button31.UseVisualStyleBackColor = true;
             // 
             // button32
@@ -1420,7 +1421,7 @@
             button28.Name = "button28";
             button28.Size = new Size(90, 31);
             button28.TabIndex = 2;
-            button28.Text = "毒窟";
+            button28.Text = "大泽";
             button28.UseVisualStyleBackColor = true;
             // 
             // button29
@@ -1472,7 +1473,7 @@
             button26.Name = "button26";
             button26.Size = new Size(90, 31);
             button26.TabIndex = 1;
-            button26.Text = "金陵";
+            button26.Text = "蓬莱";
             button26.UseVisualStyleBackColor = true;
             // 
             // button25

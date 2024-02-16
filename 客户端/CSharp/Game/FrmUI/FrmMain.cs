@@ -950,5 +950,10 @@ namespace Game.FrmUI
             ResultEntity result = await http.apiPost("market/sign/create");
             addSystemLog(result.getMsg());
         }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            WinformHelper.Open<FrmMemberPackage>(http);
+        }
     }
 }

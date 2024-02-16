@@ -16,6 +16,9 @@
     <Compile Update="FrmUI\FrmMemberAttribute.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FrmUI\FrmMemberPackage.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrmUI\FrmSetting.cs">
       <SubType>Form</SubType>
     </Compile>
